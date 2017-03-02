@@ -2,6 +2,7 @@
 
 namespace Local\System;
 use Local\Main\Event;
+use Local\Main\UserTypeScheme;
 
 /**
  * Class Handlers Обработчики событий
@@ -27,7 +28,9 @@ class Handlers
 			AddEventHandler('iblock', 'OnIBlockDelete',
 				array(__NAMESPACE__ . '\Handlers', 'afterIBlockUpdate'));
 			AddEventHandler('iblock', 'OnIBlockPropertyBuildList',
-				array(__NAMESPACE__ . '\Handlers', 'iBlockPropertyBuildList'));
+				array(__NAMESPACE__ . '\Handlers', 'addYesNo'));
+			AddEventHandler('iblock', 'OnIBlockPropertyBuildList',
+				array(__NAMESPACE__ . '\Handlers', 'addScheme'));
 			AddEventHandler('main', 'OnProlog',
 				array(__NAMESPACE__ . '\Handlers', 'prolog'));
 			AddEventHandler('search', 'BeforeIndex',
@@ -39,8 +42,11 @@ class Handlers
 	 * Добавление пользовательских свойств
 	 * @return array
 	 */
-	public static function iBlockPropertyBuildList() {
+	public static function addYesNo() {
 		return UserTypeNYesNo::GetUserTypeDescription();
+	}
+	public static function addScheme() {
+		return UserTypeScheme::GetUserTypeDescription();
 	}
 
 	/**

@@ -5,7 +5,7 @@ namespace Local\System;
 /**
  * Юзертайп "Да/Нет" - (базовый тип - N)
  * Class UserTypeNYesNo
- * @package Local
+ * @package Local\System
  */
 class UserTypeNYesNo
 {

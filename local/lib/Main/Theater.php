@@ -43,6 +43,7 @@ class Theater
 				'IBLOCK_ID' => self::IBLOCK_ID,
 			), false, false, array(
 				'ID', 'NAME', 'CODE',
+			    'PROPERTY_SCHEME',
 			));
 			while ($item = $rsItems->Fetch())
 			{
@@ -52,6 +53,7 @@ class Theater
 					'NAME' => $item['NAME'],
 				    'CODE' => $item['CODE'],
 				    'DETAIL_PAGE_URL' => self::DIR . ($item['CODE'] ? $item['CODE'] : $item['ID']) . '/',
+				    'SCHEME' => $item['PROPERTY_SCHEME_VALUE'],
 				);
 				if ($item['CODE'])
 					$return['BY_CODE'][$item['CODE']] = $id;
@@ -83,5 +85,12 @@ class Theater
 		else
 			return self::getByCode($code, $refreshCache);
 	}
+
+	public static function updateScheme($ID, $scheme)
+	{
+		$iblockElement = new \CIBlockElement();
+		$iblockElement->SetPropertyValuesEx($ID, self::IBLOCK_ID, array('SCHEME' => $scheme));
+	}
+
 
 }
