@@ -1,0 +1,46 @@
+<?
+$aMenuLinks = Array(
+	Array(
+		"Главная", 
+		"/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"концерты", 
+		"/concerts/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Спектакли", 
+		"/performances/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Фестивали", 
+		"/festivals/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Опера", 
+		"/opera/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Детям", 
+		"/for_kids/", 
+		Array(), 
+		Array(), 
+		"" 
+	)
+);
+?>

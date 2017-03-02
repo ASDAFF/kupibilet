@@ -73,20 +73,19 @@ require_once ROOT_DIR . "/Funcs.php";
     */?>
 
     <?
-    $APPLICATION->SetAdditionalCSS("/js/owl/owl.carousel.min.css");
-    $APPLICATION->SetAdditionalCSS("/js/owl/owl.theme.default.min.css");
-    $APPLICATION->SetAdditionalCSS("/js/jquery-ui/jquery-ui.css");
-    $APPLICATION->SetAdditionalCSS("/js/fancybox/jquery.fancybox.css");
+    $assets->addCss('/js/owl/owl.carousel.min.css');
+    $assets->addCss('/js/owl/owl.theme.default.min.css');
+    $assets->addCss('/js/jquery-ui/jquery-ui.css');
+    $assets->addCss('/js/fancybox/jquery.fancybox.css');
 
     CJSCore::Init();
-    $APPLICATION->AddHeadScript("/js/jquery.js");
-    $APPLICATION->AddHeadScript("http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js");
-    $APPLICATION->AddHeadScript("/js/jquery-ui/jquery-ui.js");
-    $APPLICATION->AddHeadScript("/js/owl/owl.carousel.js");
-    $APPLICATION->AddHeadScript("/js/owl/owl.carousel.min.js");
-    $APPLICATION->AddHeadScript("/js/fancybox/jquery.fancybox.js");
-    $APPLICATION->AddHeadScript("https://unpkg.com/masonry-layout@4.1/dist/masonry.pkgd.js");
-    $APPLICATION->AddHeadScript("https://unpkg.com/masonry-layout@4.1/dist/masonry.pkgd.min.js");
+    $assets->addJs('http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js');
+    $assets->addJs('/js/jquery-ui/jquery-ui.js');
+    $assets->addJs('/js/owl/owl.carousel.js');
+    $assets->addJs('/js/owl/owl.carousel.min.js');
+    $assets->addJs('/js/fancybox/jquery.fancybox.js');
+    $assets->addJs('https://unpkg.com/masonry-layout@4.1/dist/masonry.pkgd.js');
+    $assets->addJs('https://unpkg.com/masonry-layout@4.1/dist/masonry.pkgd.min.js');
     ?>
 
 
@@ -401,8 +400,8 @@ $uri = explode('/', $url);
                     </form>*/?>
                 </div>
                 <div class="elHeader-btn engBox-4 engPl cssText-center">
-                    <a href="">10 Концертных залов</a>|
-                    <a href="">80 мероприятий</a>
+                    <a href="/halls/">10 Концертных залов</a>|
+                    <a href="/events/">80 мероприятий</a>
                 </div>
             </div>
         </div>
