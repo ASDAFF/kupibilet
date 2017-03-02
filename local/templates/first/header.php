@@ -55,24 +55,24 @@ require_once ROOT_DIR . "/Funcs.php";
     $assets->addJs('/js/jquery.js');
     $assets->addJs('/js/events.js');
     $APPLICATION->ShowHead();
+?>
 
-    /*
 	<link href="js/owl/owl.carousel.min.css" rel="stylesheet">
     <link href="js/owl/owl.theme.default.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="./js/jquery-ui/jquery-ui.css">
+    <link rel="stylesheet" href="/js/jquery-ui/jquery-ui.css">
     <link href="js/fancybox/jquery.fancybox.css" rel="stylesheet">
 
     <script src="js/jquery.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-    <script src="./js/jquery-ui/jquery-ui.js"></script>
+    <script src="/js/jquery-ui/jquery-ui.js"></script>
     <script src="js/owl/owl.carousel.js"></script>
     <script src="js/owl/owl.carousel.min.js"></script>
     <script src="js/fancybox/jquery.fancybox.js"></script>
     <script src="https://unpkg.com/masonry-layout@4.1/dist/masonry.pkgd.js"></script>
     <script src="https://unpkg.com/masonry-layout@4.1/dist/masonry.pkgd.min.js"></script>
-    */?>
 
-    <?
+
+    <?/*
     $assets->addCss('/js/owl/owl.carousel.min.css');
     $assets->addCss('/js/owl/owl.theme.default.min.css');
     $assets->addCss('/js/jquery-ui/jquery-ui.css');
@@ -85,7 +85,7 @@ require_once ROOT_DIR . "/Funcs.php";
     $assets->addJs('/js/owl/owl.carousel.min.js');
     $assets->addJs('/js/fancybox/jquery.fancybox.js');
     $assets->addJs('https://unpkg.com/masonry-layout@4.1/dist/masonry.pkgd.js');
-    $assets->addJs('https://unpkg.com/masonry-layout@4.1/dist/masonry.pkgd.min.js');
+    $assets->addJs('https://unpkg.com/masonry-layout@4.1/dist/masonry.pkgd.min.js');*/
     ?>
 
 

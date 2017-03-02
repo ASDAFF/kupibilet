@@ -24,16 +24,26 @@ $first = ""; ?>
     $this->AddEditAction($arItem['ID'], $arItem['EDIT_LINK'], CIBlock::GetArrayByID($arItem["IBLOCK_ID"], "ELEMENT_EDIT"));
     $this->AddDeleteAction($arItem['ID'], $arItem['DELETE_LINK'], CIBlock::GetArrayByID($arItem["IBLOCK_ID"], "ELEMENT_DELETE"), array("CONFIRM" => GetMessage('CT_BNL_ELEMENT_DELETE_CONFIRM')));
     ?>
-    <? $i++;
+    <?
+    $letter = mb_substr($arItem['NAME'], 0, 1);
+    $i++;
     if ($i == 1): ?>
         <div class="col-4">
     <?endif;?>
-
+    <?
+    if ($first == "" || $first != $letter):
+        $first = $letter; ?>
     <div class="hall-it">
-        <div class="letter">A</div>
-        <div class="hall-it-name">AZIMUT HOTEL SOCHI</div>
+        <div class="letter"><?=$first?></div>
+    <?
+    $first = "";
+    endif;?>
+        <div class="hall-it-name"><?=$arItem['NAME']?></div>
+        <?
+        if ($first == "" || $first != $letter):
+        $first = $letter; ?>
     </div>
-
+    <?endif;?>
     <?if ($i == $for_columns || $i == $for_columns * 2): ?>
         </div>
         <div class="col-4">
