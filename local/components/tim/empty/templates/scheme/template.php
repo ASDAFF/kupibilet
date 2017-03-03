@@ -1,18 +1,18 @@
 <?
 if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 
-$theater = \Local\Main\Hall::getById($_REQUEST['ID'], true);
-if (!$theater)
+$hall = \Local\Main\Hall::getById($_REQUEST['ID'], true);
+if (!$hall)
 	return;
 
-$scheme = $theater['SCHEME'] ? $theater['SCHEME'] : '{}';
-$href = '/bitrix/admin/iblock_element_edit.php?IBLOCK_ID=1&type=main&ID=' . $theater['ID'] .
+$scheme = $hall['SCHEME'] ? $hall['SCHEME'] : '{}';
+$href = '/bitrix/admin/iblock_element_edit.php?IBLOCK_ID=2&type=main&ID=' . $hall['ID'] .
 	'&lang=ru&find_section_section=0&WF=Y';
 
 ?>
 <div id="options-panel">
 	<div class="theater-info">
-		<h3>Схема мест театра: <?= $theater['NAME'] ?></h3>
+		<h3>Схема мест театра: <?= $hall['NAME'] ?></h3>
 		<a href="<?= $href ?>">Вернуться к форме редактирования элемента</a>
 	</div>
 	<div>
@@ -56,7 +56,7 @@ $href = '/bitrix/admin/iblock_element_edit.php?IBLOCK_ID=1&type=main&ID=' . $the
 <div id="options-panel-margin">
 </div>
 <div class="engBox">
-	<div class="elZal" id="elZal" data-id="<?= $theater['ID'] ?>">
+	<div class="elZal" id="elZal" data-id="<?= $hall['ID'] ?>">
 		<div class="elZal-box" id="elZal-box">
 
 		</div>

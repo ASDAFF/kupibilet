@@ -1,99 +1,37 @@
 <!DOCTYPE html>
-<?/*<html>
-<head><?
+<html lang="ru"><?
 
-	/** @var CMain $APPLICATION */
-	/** @var CUser $USER */
-
-	?>
-	<?/*<title><?$APPLICATION->ShowTitle();?></title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<?
-
-	$assets = \Bitrix\Main\Page\Asset::getInstance();
-
-	$assets->addJs('/js/jquery.js');
-	$assets->addJs('/js/events.js');
-
-	$APPLICATION->ShowHead();
-	?>
-</head>
-<body><?
-
-$APPLICATION->ShowPanel();
-
+/** @var CMain $APPLICATION */
+/** @var CUser $USER */
 ?>
-<div class="navbar">
-	<hr />
-	header
-	<a href="/">Главная</a>
-	<a href="/bitrix/admin">(Админка)</a>
-	<hr />
-</div>
-<div><?
-
-	$APPLICATION->IncludeComponent('bitrix:breadcrumb', '', Array());
-
-	?>
-	<h1 id="h1"><? $APPLICATION->ShowTitle(false, false); ?></h1>
-	<div id="content">*/
-
-?>
-
-<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <? $APPLICATION->ShowHead(); ?>
-    <title><? $APPLICATION->ShowTitle() ?></title>
-    <?
+    <title><? $APPLICATION->ShowTitle() ?></title><?
+
     $assets = \Bitrix\Main\Page\Asset::getInstance();
-    $assets->addJs('/js/jquery.js');
-    $assets->addJs('/js/events.js');
+
+	$assets->addCss('/js/fancybox/jquery.fancybox.css');
+	$assets->addCss('/js/jquery-ui/jquery-ui.css');
+	$assets->addCss('/css/style.css');
+
+	$assets->addJs('/js/jquery-2.1.4.min.js');
+	$assets->addJs('/js/jquery-ui/jquery-ui.js');
+	$assets->addJs('/js/fancybox/jquery.fancybox.js');
+	$assets->addJs('/js/masonry.pkgd.min.js');
+	$assets->addJs('/js/events.js');
+	$assets->addJs('/js/scripts.js');
+
     $APPLICATION->ShowHead();
-?>
 
-	<link href="/js/owl/owl.carousel.min.css" rel="stylesheet">
-    <link href="/js/owl/owl.theme.default.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/js/jquery-ui/jquery-ui.css">
-    <link href="/js/fancybox/jquery.fancybox.css" rel="stylesheet">
-
-    <script src="/js/jquery.js"></script>
-    <script src="/js/scripts.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-    <script src="/js/jquery-ui/jquery-ui.js"></script>
-    <script src="/js/owl/owl.carousel.js"></script>
-    <script src="/js/owl/owl.carousel.min.js"></script>
-    <script src="/js/fancybox/jquery.fancybox.js"></script>
-    <script src="https://unpkg.com/masonry-layout@4.1/dist/masonry.pkgd.js"></script>
-    <script src="https://unpkg.com/masonry-layout@4.1/dist/masonry.pkgd.min.js"></script>
-
-
-    <?/*
-    $assets->addCss('/js/owl/owl.carousel.min.css');
-    $assets->addCss('/js/owl/owl.theme.default.min.css');
-    $assets->addCss('/js/jquery-ui/jquery-ui.css');
-    $assets->addCss('/js/fancybox/jquery.fancybox.css');
-
-    CJSCore::Init();
-    $assets->addJs('/js/scripts.js');
-    $assets->addJs('http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js');
-    $assets->addJs('/js/jquery-ui/jquery-ui.js');
-    $assets->addJs('/js/owl/owl.carousel.js');
-    $assets->addJs('/js/owl/owl.carousel.min.js');
-    $assets->addJs('/js/fancybox/jquery.fancybox.js');
-    $assets->addJs('https://unpkg.com/masonry-layout@4.1/dist/masonry.pkgd.js');
-    $assets->addJs('https://unpkg.com/masonry-layout@4.1/dist/masonry.pkgd.min.js');*/
     ?>
-
-
-
-    <link href="/css/style.css" rel="stylesheet">
-
 </head>
-<body>
-	<? $APPLICATION->ShowPanel(); ?>
+<body><?
+
+	$APPLICATION->ShowPanel();
+
+?>
 <header class="elHeader">
     <div class="engBox">
         <div class="engBox-3 engPl-6 engPl-cssText-center engMb ">
@@ -142,17 +80,9 @@ $APPLICATION->ShowPanel();
         </div>
     </div>
     <div class="elHeader-menu-full cssBg-red">
-        <nav class="elHeader-menu engBox" id="engNav">
-            <?/*<ul style="padding-left:0">
-                <li><a href="">Главная</a></li>
-                <li><a href="">Концерты</a></li>
-                <li><a href="">Спектакли</a></li>
-                <li><a href="">Фестивали</a></li>
-                <li><a href="">Опера</a></li>
-                <li><a href="">Детям</a></li>
-            </ul>*/?>
+        <nav class="elHeader-menu engBox" id="engNav"><?
 
-            <?$APPLICATION->IncludeComponent("bitrix:menu", "main", Array(
+	        $APPLICATION->IncludeComponent("bitrix:menu", "main", Array(
 				"ALLOW_MULTI_SELECT" => "N",	// Разрешить несколько активных пунктов одновременно
 					"CHILD_MENU_TYPE" => "left",	// Тип меню для остальных уровней
 					"DELAY" => "N",	// Откладывать выполнение шаблона меню
@@ -166,8 +96,9 @@ $APPLICATION->ShowPanel();
 					"COMPONENT_TEMPLATE" => ".default"
 				),
 				false
-			);?>
-			
+			);
+
+	        ?>
             <a id="engNav-btn">Меню</a>
         </nav>
     </div>
@@ -269,18 +200,6 @@ $APPLICATION->ShowPanel();
 	),
 	false
 );?>
-            <?/*<div class="elSlider-item">
-                <img src="images/slider1.jpg">
-                <div class="it-inf">
-                    <div class="it-title">depeche mode</div>
-                    <div class="it-data"><i class="engIcon setIcon-date-white"></i>20.02.2016</div>
-                    <div class="it-map"><i class="engIcon setIcon-map-white"></i>КЗ им. Ф.И. Шаляпина</div>
-                    <div class="it-money"><i class="engIcon setIcon-price-white"></i>3500 - 5000 руб.</div>
-                    <div class="it-btn">
-                        <a href="" class="cssBorderRadius">Купить билет</a>
-                    </div>
-                </div>
-            </div>*/?>
         </div>
     </div>
 
