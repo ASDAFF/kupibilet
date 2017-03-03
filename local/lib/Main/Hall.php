@@ -39,11 +39,11 @@ class Hall
 			$extCache->startDataCache();
 
 			$iblockElement = new \CIBlockElement();
-			$rsItems = $iblockElement->GetList(array(), array(
+			$rsItems = $iblockElement->GetList(array("NAME" => "ASC"), array(
 				'IBLOCK_ID' => self::IBLOCK_ID,
 			), false, false, array(
-				'ID', 'NAME', 'CODE',
-			    'PROPERTY_SCHEME',
+				'ID', 'NAME', 'CODE', 'DETAIL_TEXT', 'DETAIL_PICTURE',
+                'PROPERTY_SCHEME', 'PROPERTY_ADDRESS',
 			));
 			while ($item = $rsItems->Fetch())
 			{
@@ -52,8 +52,11 @@ class Hall
 					'ID' => $id,
 					'NAME' => $item['NAME'],
 				    'CODE' => $item['CODE'],
+                    'DETAIL_TEXT' => $item['DETAIL_TEXT'],
+                    'PICTURE' => $item['DETAIL_PICTURE'],
 				    'DETAIL_PAGE_URL' => self::DIR . ($item['CODE'] ? $item['CODE'] : $item['ID']) . '/',
 				    'SCHEME' => $item['PROPERTY_SCHEME_VALUE'],
+                    'ADDRESS' => $item['PROPERTY_ADDRESS_VALUE'],
 				);
 				if ($item['CODE'])
 					$return['BY_CODE'][$item['CODE']] = $id;

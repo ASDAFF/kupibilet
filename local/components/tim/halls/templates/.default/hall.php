@@ -16,6 +16,8 @@ debugmessage($hall);
 foreach ($events as $event)
 {
 	?>
+	<?
+	print_r($hall);?>
 	<p><a href="<?= $event['DETAIL_PAGE_URL'] ?>"><?= $event['NAME'] ?></a></p><?
 }
 
