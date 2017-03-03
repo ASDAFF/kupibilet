@@ -7,10 +7,10 @@ $arUrlRewrite = array(
 		"PATH" => "/bitrix/services/ymarket/index.php",
 	),
 	array(
-		"CONDITION" => "#^/theater/#",
+		"CONDITION" => "#^/halls/#",
 		"RULE" => "",
 		"ID" => "",
-		"PATH" => "/theater/index.php",
+		"PATH" => "/halls/index.php",
 	),
 	array(
 		"CONDITION" => "#^/event/#",

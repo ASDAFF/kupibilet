@@ -51,7 +51,7 @@ class Event
 			$select = array(
 				'ID',
 				'NAME',
-				'PROPERTY_THEATER',
+				'PROPERTY_HALL',
 				'PROPERTY_PRICE',
 				'PROPERTY_GENRE',
 			);
@@ -72,7 +72,7 @@ class Event
 				$product = array(
 					'ID' => $id,
 					'NAME' => $item['NAME'],
-					'THEATER' => intval($item['PROPERTY_THEATER_VALUE']),
+					'HALL' => intval($item['PROPERTY_HALL_VALUE']),
 					'GENRE' => intval($genre['ID']),
 					'PRICE' => intval($item['PROPERTY_PRICE_VALUE']),
 				    'RUNS' => $runs[$id],
@@ -141,7 +141,7 @@ class Event
 							break;
 						}
 					}
-					elseif ($key == 'THEATER')
+					elseif ($key == 'HALL')
 					{
 						if ($product[$key] != $value)
 						{
@@ -428,10 +428,10 @@ class Event
 		return $return;
 	}
 
-	public static function getByTheater($theaterId)
+	public static function getByHall($hallId)
 	{
 		$filter = array(
-			'THEATER' => $theaterId,
+			'HALL' => $hallId,
 		);
 		$data = self::getDataByFilter($filter);
 		$events = Event::getByFilter(array(), $data['IDS'], false);
@@ -513,8 +513,8 @@ class Event
 	 */
 	public static function getDetailUrl($item)
 	{
-		$theater = Theater::getById($item['THEATER']);
-		return $theater['DETAIL_PAGE_URL'] . ($item['CODE'] ? $item['CODE'] : $item['ID']) . '/';
+		$hall = Hall::getById($item['HALL']);
+		return $hall['DETAIL_PAGE_URL'] . ($item['CODE'] ? $item['CODE'] : $item['ID']) . '/';
 	}
 
 	/**

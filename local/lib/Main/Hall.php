@@ -4,7 +4,7 @@ namespace Local\Main;
 use Local\System\ExtCache;
 
 /**
- * Class Halls Тет
+ * Class Hall Концертный зал
  * @package Local\Main
  */
 class Hall
@@ -12,14 +12,14 @@ class Hall
 	/**
 	 * Путь для кеширования
 	 */
-	const CACHE_PATH = 'Local/Main/Halls/';
+	const CACHE_PATH = 'Local/Main/Hall/';
 
 	/**
 	 * ID инфоблока
 	 */
-	const IBLOCK_ID = 1;
+	const IBLOCK_ID = 2;
 
-	const DIR = '/theater/';
+	const DIR = '/halls/';
 
 	public static function getAll($refreshCache = false)
 	{

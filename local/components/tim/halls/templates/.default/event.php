@@ -3,9 +3,9 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)
 	die();
 
 /** @global CMain $APPLICATION */
-/** @var Local\Main\TimTheaters $component */
+/** @var Local\Main\TimHalls $component */
 
-$theater = $component->theater;
+$hall = $component->hall;
 $event = $component->event;
 
 debugmessage($event);

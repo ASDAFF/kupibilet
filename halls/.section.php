@@ -1,6 +1,6 @@
 <?
-$sSectionName = "Театры H1";
+$sSectionName = "Концертные залы";
 $arDirProperties = Array(
-   "title" => "Театры"
+   "title" => "Концертные залы"
 );
 ?>

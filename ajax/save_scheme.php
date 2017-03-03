@@ -4,7 +4,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.ph
 $ID = $_REQUEST['ID'];
 $scheme = file_get_contents("php://input");
 
-\Local\Main\Theater::updateScheme($ID, $scheme);
+\Local\Main\Hall::updateScheme($ID, $scheme);
 
 echo '{}';
 

@@ -1,5 +1,12 @@
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-$APPLICATION->SetTitle("Залы");
+
+/** @global CMain $APPLICATION */
+$APPLICATION->SetTitle("Концертные залы");
+
+$APPLICATION->IncludeComponent('tim:halls', '');
+
+require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");
+die();
 ?>
 
 <div class="engBox engContent">

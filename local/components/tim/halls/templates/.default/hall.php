@@ -5,11 +5,12 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)
 /** @global CMain $APPLICATION */
 /** @var Local\Main\TimHalls $component */
 
-$theater = $component->theater;
+$hall = $component->hall;
 
-$events = \Local\Main\Event::getByTheater($theater['ID']);
+$events = \Local\Main\Event::getByHall($hall['ID']);
 
-debugmessage($theater);
+
+debugmessage($hall);
 
 
 foreach ($events as $event)

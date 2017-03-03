@@ -1,7 +1,7 @@
 <?
 if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 
-$theater = \Local\Main\Theater::getById($_REQUEST['ID'], true);
+$theater = \Local\Main\Hall::getById($_REQUEST['ID'], true);
 if (!$theater)
 	return;
 
