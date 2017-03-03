@@ -1,23 +1,3 @@
-<?/*	</div>
-</div>
-<footer>
-	<hr />
-	footer
-	<hr />
-</footer>
-
-</body>
-</html>*/?>
-
-<script>
-    $('.elList').masonry({
-        // options...
-        itemSelector: '.it-item',
-        columnWidth: 395
-    });
-
-</script>
-
 <footer class=" cssBg-red">
     <div class="elFooter">
         <div class="engBox">
@@ -155,3 +135,5 @@
         </div>
     </div>
 </footer>
+</body>
+</html>
