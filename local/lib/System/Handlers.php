@@ -1,6 +1,4 @@
-<<<<<<< Temporary merge branch 1
 <?
-
 namespace Local\System;
 use Local\Main\Event;
 use Local\Main\UserTypeScheme;
