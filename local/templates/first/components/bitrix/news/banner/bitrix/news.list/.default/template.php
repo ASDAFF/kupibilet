@@ -36,7 +36,7 @@ $this->setFrameMode(true);
 	            <div class="it-map"><i class="engIcon setIcon-map-white"></i><?=$arItem["PROPERTIES"]["LOCATION"]["VALUE"]?></div>
 	            <div class="it-money"><i class="engIcon setIcon-price-white"></i><?=$arItem["PROPERTIES"]["PRICE"]["VALUE"]?><?= !empty($arItem["PROPERTIES"]["PRICE_TO"]["VALUE"]) ? " - ".$arItem["PROPERTIES"]["PRICE_TO"]["VALUE"] : "" ?> руб.</div>
 	            <div class="it-btn">
-	                <a href="<?=$arItem['DETAIL_PAGE_URL']?>" class="cssBorderRadius">Купить билет</a>
+	                <a href="<?/*=$arItem['DETAIL_PAGE_URL']*/?>" class="cssBorderRadius">Купить билет</a>
 	            </div>
 	        </div>
 	    </div>
