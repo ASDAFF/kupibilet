@@ -12,7 +12,71 @@
 /** @var CBitrixComponent $component */
 $this->setFrameMode(true);
 ?>
-<div class="news-detail">
+
+	<div class='hallpage-detail'>
+		<div class='hallpage-img'><img src="<?=$arResult["DETAIL_PICTURE"]["SRC"]?>"
+									   alt="<?=$arResult["DETAIL_PICTURE"]["ALT"]?>"
+									   title="<?=$arResult["DETAIL_PICTURE"]["TITLE"]?>"></div>
+		<div class='hallpage-descr'>
+			<div class='hallpage-ttl'><?=$arResult["NAME"]?></div>
+			<div class='hallpage-place'><?=$arResult["PROPERTIES"]["ADDRESS"]["VALUE"]?></div>
+			<div class='hallpage-txt'>
+				<?=$arResult["DETAIL_TEXT"]?>
+			</div>
+		</div>
+	</div>
+	<div class='up-events'>
+		<div class='up-events-ttl'>Предстоящие мероприятия</div>
+		<div class='up-events-list'>
+			<div class='up-events-item'>
+				<div class='up-img' style='background:url(/images/up.jpg);'></div>
+				<div class='up-info'>
+					<div class='up-title'>Суп из Канарейки.<br> И. Скляр и Т. Васильева</div>
+					<div class='up-date'>20.02.2016</div>
+					<div class='up-place'>КЗ им. Ф.И. Шаляпина</div>
+					<div class='up-price'>3500-5000 руб.</div>
+				</div>
+			</div>
+			<div class='up-events-item'>
+				<div class='up-img' style='background:url(/images/up.jpg);'></div>
+				<div class='up-info'>
+					<div class='up-title'>Суп из Канарейки.<br> И. Скляр и Т. Васильева</div>
+					<div class='up-date'>20.02.2016</div>
+					<div class='up-place'>КЗ им. Ф.И. Шаляпина</div>
+					<div class='up-price'>3500-5000 руб.</div>
+				</div>
+			</div>
+			<div class='up-events-item'>
+				<div class='up-img' style='background:url(/images/up.jpg);'></div>
+				<div class='up-info'>
+					<div class='up-title'>Суп из Канарейки.<br> И. Скляр и Т. Васильева</div>
+					<div class='up-date'>20.02.2016</div>
+					<div class='up-place'>КЗ им. Ф.И. Шаляпина</div>
+					<div class='up-price'>3500-5000 руб.</div>
+				</div>
+			</div>
+			<div class='up-events-item'>
+				<div class='up-img' style='background:url(/images/up.jpg);'></div>
+				<div class='up-info'>
+					<div class='up-title'>Суп из Канарейки.<br> И. Скляр и Т. Васильева</div>
+					<div class='up-date'>20.02.2016</div>
+					<div class='up-place'>КЗ им. Ф.И. Шаляпина</div>
+					<div class='up-price'>3500-5000 руб.</div>
+				</div>
+			</div>
+			<div class='up-events-item'>
+				<div class='up-img' style='background:url(/images/up.jpg);'></div>
+				<div class='up-info'>
+					<div class='up-title'>Суп из Канарейки.<br> И. Скляр и Т. Васильева</div>
+					<div class='up-date'>20.02.2016</div>
+					<div class='up-place'>КЗ им. Ф.И. Шаляпина</div>
+					<div class='up-price'>3500-5000 руб.</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<?/*<div class="news-detail">
 	<?if($arParams["DISPLAY_PICTURE"]!="N" && is_array($arResult["DETAIL_PICTURE"])):?>
 		<img
 			class="detail_picture"
@@ -92,4 +156,4 @@ $this->setFrameMode(true);
 		<?
 	}
 	?>
-</div>
+</div>*/?>

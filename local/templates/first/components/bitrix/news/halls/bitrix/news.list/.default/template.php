@@ -19,6 +19,15 @@ $this->setFrameMode(true);
 <? $for_columns = ceil(count($arResult["ITEMS"]) / 3);
 $i = 0;
 $first = ""; ?>
+<form class="city-select">
+    <div class="city-select-ttl">Концертные залы</div>
+    <select>
+        <option value="Выберите город">Выберите город</option>
+        <option value="Пятигорск">Пятигорск</option>
+        <option value="Есентуки">Есентуки</option>
+    </select>
+</form>
+<div class="hall-list">
 <? foreach ($arResult["ITEMS"] as $arItem): ?>
     <?
     $this->AddEditAction($arItem['ID'], $arItem['EDIT_LINK'], CIBlock::GetArrayByID($arItem["IBLOCK_ID"], "ELEMENT_EDIT"));
@@ -38,7 +47,7 @@ $first = ""; ?>
     <?
     $first = "";
     endif;?>
-        <div class="hall-it-name"><?=$arItem['NAME']?></div>
+        <div class="hall-it-name"><a style="color: #525252;" href="<?=$arItem["DETAIL_PAGE_URL"]?>"><?=$arItem['NAME']?></a></div>
         <?
         if ($first == "" || $first != $letter):
         $first = $letter; ?>
@@ -115,6 +124,7 @@ $first = ""; ?>
 		<?endforeach;?>
 	</p>*/ ?>
 <? endforeach; ?>
+</div>
 <? /*<?if($arParams["DISPLAY_BOTTOM_PAGER"]):?>
 	<br /><?=$arResult["NAV_STRING"]?>
 <?endif;?>

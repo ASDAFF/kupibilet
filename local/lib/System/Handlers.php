@@ -1,3 +1,4 @@
+<<<<<<< Temporary merge branch 1
 <?
 
 namespace Local\System;
@@ -99,5 +100,6 @@ class Handlers
 
 		return $arFields;
 	}
+
 
 }
