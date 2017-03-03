@@ -1,6 +1,6 @@
 <?
 $arTemplate = array (
-  'NAME' => 'Основной шаблон',
+  'NAME' => 'Служенбный шаблон',
   'DESCRIPTION' => '',
   'SORT' => '',
   'TYPE' => '',

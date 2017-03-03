@@ -1,0 +1,69 @@
+#options-panel {
+    height: 100px;
+    position: fixed;
+    z-index: 10;
+    padding: 0 10px;
+    background: #901921;
+    box-shadow: 0 0 10px 1px #000;
+    width: 100%;
+}
+#options-panel-margin {
+    height: 100px;
+}
+#options-panel > div {
+    display: inline-block;
+    margin: 0 10px;
+}
+#options-panel p {
+    margin: 4px 0 0 4px;
+    color: #fff;
+}
+#options-panel input {
+    width: 70px;
+}
+#options-panel .btn {
+    border-radius: 5px;
+    width: 120px;
+    background: #3f3c43;
+    color: #fff;
+    cursor: pointer;
+}
+#options-panel .btn:hover {
+    background: #7E8475;
+}
+#options-panel .disabled {
+    background: #3f3c43 !important;
+    color: #999;
+    border-color: #999;
+    cursor: default;
+}
+
+#elZal {
+    border: 1px dotted #000000;
+}
+#elZal-box {
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
+    max-height: 1000px;
+    height: 600px;
+}
+.elZal-point {
+    cursor: pointer;
+}
+.current .elZal-point
+{
+    box-shadow: 0 0 8px #ff5f5f;
+}
+#options-panel .theater-info {
+    display: block;
+    color: #fff;
+}
+#options-panel .theater-info h3 {
+    display: inline-block;
+    margin: 3px;
+}
+#options-panel .theater-info a {
+    color: #fff;
+    text-decoration: underline;
+}

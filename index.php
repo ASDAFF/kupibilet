@@ -1,5 +1,7 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
+
+/** @global CMain $APPLICATION */
 $APPLICATION->SetTitle("Главная");
 ?>
 

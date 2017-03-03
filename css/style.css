@@ -63,6 +63,9 @@ h1, .h1 {display:block; margin:0; font-size:15px; font-weight:600;}
 
 
 @media only screen and (max-width: 1200px) {
+    .engBox-content {width: 100%;}
+    .engBox-right {width: 100%; margin-left: auto;}
+
     .engBox {width: 100%;}
     .engPl {width: 100%;}
 
@@ -126,8 +129,16 @@ h1, .h1 {display:block; margin:0; font-size:15px; font-weight:600;}
 /*Отдельные элементы */
 .engContent {margin: 10px auto;}
 
+.engText {}
+@media only screen and (max-width: 1200px) {
+    .engText {padding: 0 20px;}
+}
+
 .engIsland {background: #ffffff;}
 .engBg {background: #fff; border: 1px solid rgba(0,0,0,.06);}
+
+.engTitle {margin: 20px 0;}
+.engTitle h1 {text-transform: uppercase; font-size: 15px; }
 
 .engCircle  {position: absolute; right: 0; top: 0; width: 14px; height: 15px; padding: 2px 3px;
     font-size: 11px; font-style: normal; font-weight: bold; text-align: center!important; line-height: 14px;
@@ -168,7 +179,7 @@ button.engInputYa {height: 36px;}
 .engSvg.set-40 {width: 40px; height: 40px;}
 .engSvg.set-45 {width: 45px; height: 45px;}
 
-.engIconMaterial { font-family: 'Material Icons'!important; font-weight: normal; font-style: normal;
+.engIconMaterial {font-family: 'Material Icons'!important; font-weight: normal; font-style: normal;
     font-size: 24px;  /* Preferred icon size */
     display: inline-block; line-height: 1;
     text-transform: none; letter-spacing: normal; word-wrap: normal; white-space: nowrap; direction: ltr;
@@ -529,6 +540,22 @@ button.engInputYa {height: 36px;}
 }
 
 
+.elSearchList {}
+.elSearchList .it-item {position: relative; padding-left: 20px; margin: 10px 0;}
+
+.elSearchList .it-number {position: absolute; left: 0;
+    color: #901921; font-weight: bold; font-size: 15px; }
+.elSearchList .it-title a { margin-bottom: 5px; color: #2b2b2b;
+    font-weight: 600; font-size: 15px; }
+.elSearchList .it-text {}
+
+.elSearchList .it-inf {padding: 10px 0;}
+.elSearchList .it-inf div {position: relative; padding: 2px 0; margin-right: 10px; padding-left: 25px; display: inline-block; ;
+    font-weight: bold; color: #3f3c43;}
+.elSearchList .it-inf i {position: absolute; left: 0;}
+.elSearchList .it-inf .it-title {padding: 0 0 5px 0;}
+
+
 .elZal-top>div {padding: 20px 0;}
 .elZal-top .it-title {padding-bottom: 10px;
     font-size: 30px; line-height: 50px;}
@@ -644,13 +671,15 @@ button.engInputYa {height: 36px;}
     border-bottom: 10px solid #000000;
 }
 
-.elZal-number:nth-child(1n+30) .elZal-inf {left: -140px;}
-.elZal-number:nth-child(1n+30) .elZal-inf:before {left: auto; right: 5px;}
+.elZal-number:nth-child(1n+10) .elZal-inf {left: -140px;}
+.elZal-number:nth-child(1n+10) .elZal-inf:before {left: auto; right: 5px;}
 
 .elZal-set:nth-child(1n+8) .elZal-number .elZal-inf {top: auto; bottom: 25px; }
 .elZal-set:nth-child(1n+8) .elZal-number .elZal-inf:before {bottom: -10px; top: auto;
     border-top: 10px solid #000000;
     border-bottom: none;}
+
+
 
 @media only screen and (max-width: 400px) {
     .elZal-number:nth-child(1n+6) .elZal-inf {left: -140px;}
