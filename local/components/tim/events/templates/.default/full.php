@@ -14,22 +14,7 @@ $products = $component->products['ITEMS'];
 ?>
     <div id="catalog-wrap">
 
-        <div id="filters-panel" class="it-item setColor-white">
-            <div class="it-filter">
-                <div class="engRow">
-                    <div class="engBox-6">
-                        <div class="it-filter-title">Фильтр</div>
-                    </div>
-                    <div class="engBox-6">
-                        <a href="" class="it-filter-btn">
-                            <span>Очистить все</span>
-                            <i class="engIcon setIcon-filter-delete"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-
+        <div id="filters-panel">
             <input type="hidden" name="q" value="<?= $component->searchQuery ?>">
             <input type="hidden" name="catalog_path" value="<?= $filter['CATALOG_PATH'] ?>">
             <input type="hidden" name="separator" value="<?= $filter['SEPARATOR'] ?>"><?
@@ -52,34 +37,12 @@ $products = $component->products['ITEMS'];
                     $to = $group['TO'] ? $group['TO'] : $group['MAX'];
                     ?>
 
-                    <div class="it-filter-price">
-                        <div class="it-filter-price-title">Стоимость</div>
-                        <div class="engRow">
-                            <div class="engBox-6">
-                                <div class="it-filter-price-pole">
-                                    <div class="it-filter-price-pole-title inputs">От:</div>
-                                    <div class="it-filter-price-pole-input l">
-                                        <input type="text" class="cssBorderRadius from" value="<?= $from ?>">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="engBox-6">
-                                <div class="it-filter-price-pole">
-                                    <div class="it-filter-price-pole-title inputs">До:</div>
-                                    <div class="it-filter-price-pole-input r">
-                                        <input type="text" class="cssBorderRadius to" value="<?= $to ?>">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <?/*<div class="price-group"<?= $style ?> data-min="<?= $group['MIN'] ?>" data-max="<?= $group['MAX'] ?>">
+                    <div class="price-group"<?= $style ?> data-min="<?= $group['MIN'] ?>" data-max="<?= $group['MAX'] ?>">
                         <div class="inputs">
                             <div class="l">от <input type="text" class="from" value="<?= $from ?>"/></div>
                             <div class="r">до <input type="text" class="to" value="<?= $to ?>"/></div>
                         </div>
-                    </div>*/?>
+                    </div>
                 <?} elseif ($group['TYPE'] == 'date') {
                     $min = ConvertTimeStamp($group['MIN']);
                     $max = ConvertTimeStamp($group['MAX']);
@@ -127,22 +90,18 @@ $products = $component->products['ITEMS'];
                 $i++;
             }
             ?>
-        </div><?
+        </div>
 
-        ?>
-        <div id="catalog-list" class="engBox engContent"><?
-
+        <div id="catalog-list">
+            <?
             //=========================================================
             include('products.php');
             //=========================================================
-
             ?>
         </div>
-
     </div>
 
 <?
-
 foreach ($filter['BC'] as $i => $item)
     $APPLICATION->AddChainItem($item['NAME'], $item['HREF']);
 
@@ -155,3 +114,4 @@ if ($component->seo['TITLE'])
     $APPLICATION->SetPageProperty('title', $component->seo['TITLE']);
 if ($component->seo['DESCRIPTION'])
     $APPLICATION->SetPageProperty('description', $component->seo['DESCRIPTION']);
+?>

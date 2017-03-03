@@ -8,47 +8,56 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)
 /** @global CMain $APPLICATION */
 /** @var Local\Main\TimEvents $component */
 
-if ($filter['CUR_FILTERS']) {
-    ?>
-    <div id="current-filters"><?
+if ($filter['CUR_FILTERS']) { ?>
+    <div id="current-filters">
+        <? foreach ($filter['CUR_FILTERS'] as $item) {
+            ?><span><a href="<?= $item['HREF'] ?>">x</a><?= $item['NAME'] ?></span><?
+        } ?>
+    </div>
+<? } ?>
 
-    foreach ($filter['CUR_FILTERS'] as $item) {
-        ?><span><a href="<?= $item['HREF'] ?>">x</a><?= $item['NAME'] ?></span><?
-    }
+<div id="events">
+    <? if (count($products) <= 0) { ?>
+        <p class="empty">Не найдено ни одного подходящего мероприятия. Попробуйте отключить какой-нибудь фильтр</p>
+    <? } ?>
 
-    ?>
-    </div><?
-}
-
-?>
-
-    <div id="events" class="elList">
-        <? if (count($products) <= 0) { ?>
-            <p class="empty">Не найдено ни одного подходящего мероприятия. Попробуйте отключить какой-нибудь фильтр</p>
-        <? } ?>
-
-        <div class="grid-sizer"></div>
-        <? foreach ($products as $id => $item) { ?>
-            <div class="item">
+    <div class="engBox engContent">
+        <div class="elList">
+            <div class="grid-sizer"></div>
+            <? $i = 0; ?>
+            <? foreach ($products as $id => $item) { ?>
+                <? $i++; ?>
                 <? //debugmessage($item);?>
-                <div class="it-item">
+                <div class="it-item <? if ($i % 3 == 0) { echo 'set-2'; } ?>">
                     <div class="it-img">
                         <a href="<?= $item['DETAIL_PAGE_URL'] ?>">
                             <img src="<?= $item['PREVIEW_PICTURE'] ?>">
                         </a>
                     </div>
                     <div class="it-inf">
-                        <?= var_dump($item['RUNS']); ?>
                         <div class="it-title"><?= $item['NAME'] ?></div>
-                        <div class="it-date"><i class="engIcon setIcon-date-black"></i>20.02.2016</div>
-                        <div class="it-map"><i class="engIcon setIcon-map-black"></i>КЗ им. Ф.И. Шаляпина</div>
-                        <div class="it-money"><i class="engIcon setIcon-price-black"></i><?=$item['PRICE']?> руб.</div>
+                        <div class="it-date"><i class="engIcon setIcon-date-black"></i><?= $item['DATE_SHOW'][0] ?>
+                        </div>
+                        <div class="it-map"><i class="engIcon setIcon-map-black"></i><?= $item['HALL_NAME'] ?></div>
+                        <div class="it-money"><i class="engIcon setIcon-price-black"></i><?= $item['PRICE'] ?>
+                            -<?= $item['PRICE_TO'] ?> руб.
+                        </div>
                     </div>
                 </div>
-            </div>
-        <? } ?>
-    </div><?
+            <? } ?>
+        </div>
+    </div>
+</div>
+<script>
+    $('.elList').masonry({
+        // options...
+        itemSelector: '.it-item',
+        columnWidth: 395
+    });
+</script>
 
+
+<?
 //
 // Постраничка
 //
@@ -153,12 +162,11 @@ if ($iEnd > 1) {
     </ul><?
 
 }
+?>
 
-?>
-    <div class="seo-text"><?
-// Описание выводим только на первой странице.
-if ($component->navParams['iNumPage'] == 1) {
-    echo $component->seo['TEXT'];
-}
-?>
-    </div><?
+<div class="seo-text"><?
+    // Описание выводим только на первой странице.
+    if ($component->navParams['iNumPage'] == 1) {
+        echo $component->seo['TEXT'];
+    } ?>
+</div>

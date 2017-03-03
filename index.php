@@ -8,12 +8,11 @@ $APPLICATION->SetTitle("Главная");
 <?/*<p><a href="/theater/">Театры</a></p>
 <p><a href="/event/">События</a></p>*/?>
 
-    
-<div class="engBox engContent">
 
-        <?$APPLICATION->IncludeComponent(
-	"bitrix:news", 
-	"developments", 
+<div class="engBox engContent">
+<?$APPLICATION->IncludeComponent(
+	"bitrix:news",
+	"developments",
 	array(
 		"ADD_ELEMENT_CHAIN" => "N",
 		"ADD_SECTIONS_CHAIN" => "Y",
@@ -127,23 +126,6 @@ $APPLICATION->SetTitle("Главная");
 	),
 	false
 );?>
-
-        <?/*<div class="it-item">
-            <div class="it-img">
-                <a href="">
-                    <img src="images/mat1.jpg">
-                </a>
-            </div>
-            <div class="it-inf">
-                <div class="it-title">Николай Носков. Юбилейный тур 6:0 </div>
-                <div class="it-date"><i class="engIcon setIcon-date-black"></i>20.02.2016</div>
-                <div class="it-map"><i class="engIcon setIcon-map-black"></i>КЗ им. Ф.И. Шаляпина</div>
-                <div class="it-money"><i class="engIcon setIcon-price-black"></i>3500 - 5000 руб.</div>
-            </div>
-        </div>*/?>
-
-        
-
 </div>
 
 

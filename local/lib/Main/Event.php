@@ -54,6 +54,9 @@ class Event
 				'PROPERTY_HALL',
 				'PROPERTY_PRICE',
 				'PROPERTY_GENRE',
+                //марат
+                'PROPERTY_PRICE_TO',
+                'PROPERTY_DATE',
 			);
 			$flagsSelect = Flags::getForSelect();
 			$select = array_merge($select, $flagsSelect);
@@ -69,6 +72,11 @@ class Event
 				$id = intval($item['ID']);
 				$gid = intval($item['PROPERTY_GENRE_VALUE']);
 				$genre = Genre::getById($gid);
+
+                //марат
+                $hid = intval($item['PROPERTY_HALL_VALUE']);
+                $hall = Hall::getById($hid);
+
 				$product = array(
 					'ID' => $id,
 					'NAME' => $item['NAME'],
@@ -76,6 +84,10 @@ class Event
 					'GENRE' => intval($genre['ID']),
 					'PRICE' => intval($item['PROPERTY_PRICE_VALUE']),
 				    'RUNS' => $runs[$id],
+                    //марат
+                    'PRICE_TO' => $item['PROPERTY_PRICE_TO_VALUE'],
+                    'HALL_NAME' => $hall['NAME'],
+                    'DATE_SHOW' => $item['PROPERTY_DATE_VALUE'],
 				);
 
 				foreach ($codes as $code)

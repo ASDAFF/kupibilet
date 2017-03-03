@@ -14,6 +14,12 @@ else
 
 $APPLICATION->IncludeComponent('tim:events', '', array(
 	'AJAX' => $isAjax,
+    "SEF_MODE" => "Y",
+    "SEF_URL_TEMPLATES" => array(
+        "news" => "",
+        "section" => "#SECTION_CODE_PATH#/",
+        "detail" => "#SECTION_CODE_PATH#/#ELEMENT_CODE#/",
+    )
 ));
 
 if (!$isAjax)
