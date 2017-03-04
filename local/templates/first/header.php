@@ -73,8 +73,12 @@
 			</span>
             </div>
             <div class="elHeader-user cssText-right engPl-cssText-center">
-                <a href="/login/" class="cssBorderRadius">Вход</a>
-                <a href="/login/?register=yes" class="cssBorderRadius">Регистрация</a>
+                <? if (!$USER->IsAuthorized()):?>
+                    <a href="/login/" class="cssBorderRadius">Вход</a>
+                    <a href="/login/?register=yes" class="cssBorderRadius">Регистрация</a>
+                <?else:?>
+                    тут выводим кнопки для авторизованного пользователя
+                <?endif;?>
             </div>
         </div>
     </div>

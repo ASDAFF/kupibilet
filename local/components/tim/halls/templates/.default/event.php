@@ -8,7 +8,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)
 $hall = $component->hall;
 $event = $component->event;
 
-debugmessage($event);
+//debugmessage($event);
 ?>
 
 
@@ -20,16 +20,16 @@ debugmessage($event);
                     <div class='eventpage-ttl'><?=$event['NAME']?></div>
                     <form class='ep-form'>
                         <select>
-                            <option disabled>25 января вт 20:00</option>
-                            <option value="25 января вт 20:00">27 января вт 20:00</option>
-                            <option value="25 января вт 20:00">28 января вт 20:00</option>
+                            <? foreach ($event['RUNS'] as $run) { ?>
+                                <option value="<?=$run['ID']?>"><?=$run['DATE']?></option>
+                            <?}?>
                         </select>
-                        <div class='eventpage-place'>кз. им. Ф.И. Шаляпина</div>
-                        <div class='eventpage-price'>3500 - 5000 руб.</div>
+                        <div class='eventpage-place'><?=$hall['NAME']?></div>
+                        <div class='eventpage-price'>! руб.</div>
                         <input class='btn' type="submit" value="Купить билет">
                     </form>
-                    <div class="age-rule">12+</div>
-                    <div class="hall-type">E</div>
+                    <div class="age-rule">!12+</div>
+                    <div class="hall-type">!E</div>
                 </div>
                 <div class='eventpage-txt'>
                     <?=$event['DETAIL_TEXT']?>
