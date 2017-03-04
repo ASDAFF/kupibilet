@@ -73,8 +73,8 @@
 			</span>
             </div>
             <div class="elHeader-user cssText-right engPl-cssText-center">
-                <a href="" class="cssBorderRadius">Вход</a>
-                <a href="" class="cssBorderRadius">Регистрация</a>
+                <a href="/login/" class="cssBorderRadius">Вход</a>
+                <a href="/login/?register=yes" class="cssBorderRadius">Регистрация</a>
             </div>
         </div>
     </div>
@@ -216,7 +216,7 @@
                 </div>
                 <div class="elHeader-btn engBox-4 engPl cssText-center">
                     <a href="/halls/">10 Концертных залов</a>|
-                    <a href="/events/">80 мероприятий</a>
+                    <a href="/event/">80 мероприятий</a>
                 </div>
             </div>
         </div>
