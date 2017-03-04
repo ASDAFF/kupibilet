@@ -3,6 +3,10 @@
  */
 var Scheme = {
 	init: function() {
+		if (typeof(ZalArray) == 'undefined')
+			return;
+
+		this.ZalArray = ZalArray;
 		this.Zal = $("#elZal");
 		this.ZalBox = $("#elZal-box");
 		this.pHidden = $('#popup-hidden');
@@ -32,17 +36,18 @@ var Scheme = {
 		this.elementId = this.Zal.data('id');
 		this.body = $('body');
 		this.backLink = $('.theater-info a');
+		this.headDiv = $('#options-panel');
+		this.marginDiv = $('#options-panel-margin');
 
-		if (typeof(ZalArray) == 'undefined')
-			ZalArray = {};
-		for (var i in ZalArray) {
+		for (var i in this.ZalArray) {
 			this.lastId = i;
-			if (ZalArray.hasOwnProperty(i)) {
-				var zalItem = ZalArray[i];
+			if (this.ZalArray.hasOwnProperty(i)) {
+				var zalItem = this.ZalArray[i];
 				this.addItem(zalItem, i);
 			}
 		}
 		this.clearCurrent();
+		this.correctMargin();
 
 		this.ZalBox.on('mouseenter', '.elZal-item', this.hover);
 		this.ZalBox.on('mousedown', '.elZal-point', this.mouseDown);
@@ -61,11 +66,14 @@ var Scheme = {
 		this.popupCb.on('click', this.popupCbClick);
 		this.backLink.on('click', this.backClick);
 	},
+	correctMargin: function() {
+		this.marginDiv.height(this.headDiv.height() + 10);
+	},
 	hover: function() {
 		if (Scheme.showPopup) {
 			var item = $(this);
 			var id = item.attr('id');
-			var zalItem = ZalArray[id];
+			var zalItem = Scheme.ZalArray[id];
 			Scheme.infTitle.text(zalItem[3]);
 			Scheme.infRow.text(zalItem[4]);
 			Scheme.infNum.text(zalItem[5]);
@@ -108,7 +116,7 @@ var Scheme = {
 		if (Scheme.saveTimerId)
 			clearTimeout(Scheme.saveTimerId);
 
-		var data = JSON.stringify(ZalArray);
+		var data = JSON.stringify(Scheme.ZalArray);
 		$.ajax({
 			type: 'POST',
 			url: '/ajax/save_scheme.php?ID=' + Scheme.elementId,
@@ -123,7 +131,7 @@ var Scheme = {
 	mouseDown: function(e) {
 		var item = $(this).parent();
 		var id = item.attr('id');
-		var zalItem = ZalArray[id];
+		var zalItem = Scheme.ZalArray[id];
 		Scheme.optTitle.val(zalItem[3]);
 		Scheme.optRow.val(zalItem[4]);
 		Scheme.optNum.val(zalItem[5]);
@@ -156,9 +164,9 @@ var Scheme = {
 
 			if (left < 0 || top < 0)
 			{
-				for (var i in ZalArray) {
-					if (ZalArray.hasOwnProperty(i)) {
-						var zalItem = ZalArray[i];
+				for (var i in Scheme.ZalArray) {
+					if (Scheme.ZalArray.hasOwnProperty(i)) {
+						var zalItem = Scheme.ZalArray[i];
 						if (left < 0)
 							zalItem[0] = zalItem[0] - left;
 						if (top < 0)
@@ -187,7 +195,7 @@ var Scheme = {
 		if (target.getAttribute('unselectable') == 'on')
 			target.ownerDocument.defaultView.getSelection().removeAllRanges();
 
-		var zalItem = ZalArray[Scheme.dragId];
+		var zalItem = Scheme.ZalArray[Scheme.dragId];
 		if (Scheme.dragRegime == 1) {
 			var left = e.pageX - Scheme.dX;
 			var top = e.pageY - Scheme.dY;
@@ -234,7 +242,7 @@ var Scheme = {
 		if (!Scheme.currentId)
 			return false;
 
-		var zalItem = ZalArray[Scheme.currentId];
+		var zalItem = Scheme.ZalArray[Scheme.currentId];
 		zalItem[3] = $(this).val();
 		Scheme.save();
 	},
@@ -242,7 +250,7 @@ var Scheme = {
 		if (!Scheme.currentId)
 			return false;
 
-		var zalItem = ZalArray[Scheme.currentId];
+		var zalItem = Scheme.ZalArray[Scheme.currentId];
 		zalItem[4] = $(this).val();
 		Scheme.save();
 	},
@@ -250,10 +258,10 @@ var Scheme = {
 		if (!Scheme.currentId)
 			return false;
 
-		var zalItem = ZalArray[Scheme.currentId];
+		var zalItem = Scheme.ZalArray[Scheme.currentId];
 		zalItem[5] = $(this).val();
 		var div = $('.elZal-item#' + Scheme.currentId + ' .elZal-point');
-		div.text(zalItem[6]);
+		div.text(zalItem[5]);
 
 		Scheme.save();
 	},
@@ -261,7 +269,7 @@ var Scheme = {
 		if (!Scheme.currentId)
 			return false;
 
-		var zalItem = ZalArray[Scheme.currentId];
+		var zalItem = Scheme.ZalArray[Scheme.currentId];
 		zalItem[0] = parseInt($(this).val());
 		var div = $('.elZal-item#' + Scheme.currentId);
 		div.css({
@@ -273,7 +281,7 @@ var Scheme = {
 		if (!Scheme.currentId)
 			return false;
 
-		var zalItem = ZalArray[Scheme.currentId];
+		var zalItem = Scheme.ZalArray[Scheme.currentId];
 		zalItem[1] = parseInt($(this).val());
 		var div = $('.elZal-item#' + Scheme.currentId);
 		div.css({
@@ -285,7 +293,7 @@ var Scheme = {
 		if (!Scheme.currentId)
 			return false;
 
-		var zalItem = ZalArray[Scheme.currentId];
+		var zalItem = Scheme.ZalArray[Scheme.currentId];
 		zalItem[2] = parseInt($(this).val());
 		var div = $('.elZal-item#' + Scheme.currentId);
 		var val = 'rotate(' + zalItem[2] + 'deg)';
@@ -302,7 +310,7 @@ var Scheme = {
 		Scheme.lastId++;
 		var zalItem = [];
 		if (Scheme.currentId) {
-			var zI = ZalArray[Scheme.currentId];
+			var zI = Scheme.ZalArray[Scheme.currentId];
 			zalItem = [zI[0]+25,zI[1],zI[2],zI[3],zI[4],parseInt(zI[5])+1];
 		}
 		else {
@@ -313,7 +321,7 @@ var Scheme = {
 		Scheme.ZalBox.find('.current').removeClass('current');
 		item.addClass('current');
 
-		ZalArray[Scheme.lastId] = zalItem;
+		Scheme.ZalArray[Scheme.lastId] = zalItem;
 		Scheme.optTitle.val(zalItem[3]);
 		Scheme.optRow.val(zalItem[4]);
 		Scheme.optNum.val(zalItem[5]);
@@ -327,7 +335,7 @@ var Scheme = {
 		if (!Scheme.currentId)
 			return false;
 
-		delete ZalArray[Scheme.currentId];
+		delete Scheme.ZalArray[Scheme.currentId];
 		var div = $('.elZal-item#' + Scheme.currentId);
 		div.remove();
 

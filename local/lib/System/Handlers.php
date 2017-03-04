@@ -1,6 +1,7 @@
 <?
 namespace Local\System;
 use Local\Main\Event;
+use Local\Main\UserTypeQuotas;
 use Local\Main\UserTypeScheme;
 
 /**
@@ -30,6 +31,8 @@ class Handlers
 				array(__NAMESPACE__ . '\Handlers', 'addYesNo'));
 			AddEventHandler('iblock', 'OnIBlockPropertyBuildList',
 				array(__NAMESPACE__ . '\Handlers', 'addScheme'));
+			AddEventHandler('iblock', 'OnIBlockPropertyBuildList',
+				array(__NAMESPACE__ . '\Handlers', 'addQuotas'));
 			AddEventHandler('main', 'OnProlog',
 				array(__NAMESPACE__ . '\Handlers', 'prolog'));
 			AddEventHandler('search', 'BeforeIndex',
@@ -46,6 +49,9 @@ class Handlers
 	}
 	public static function addScheme() {
 		return UserTypeScheme::GetUserTypeDescription();
+	}
+	public static function addQuotas() {
+		return UserTypeQuotas::GetUserTypeDescription();
 	}
 
 	/**

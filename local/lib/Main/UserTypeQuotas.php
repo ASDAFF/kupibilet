@@ -3,18 +3,18 @@
 namespace Local\Main;
 
 /**
- * Юзертайп "Схема зала" - (базовый тип - S)
- * Class UserTypeScheme
+ * Юзертайп "Квоты" - (базовый тип - S)
+ * Class UserTypeQuotas
  * @package Local\Main
  */
-class UserTypeScheme
+class UserTypeQuotas
 {
 	public static function GetUserTypeDescription()
 	{
 		return array(
 			'PROPERTY_TYPE' => 'S',
-			'USER_TYPE' => 'Scheme',
-			'DESCRIPTION' => 'Схема зала',
+			'USER_TYPE' => 'Quotas',
+			'DESCRIPTION' => 'Квоты',
 			'GetAdminListViewHTML' => array(
 				__CLASS__,
 				'GetAdminListViewHTML'
@@ -28,16 +28,16 @@ class UserTypeScheme
 
 	public static function GetAdminListViewHTML($arProperty, $arValue, $strHTMLControlName)
 	{
-		return '(Схема)';
+		return '(Квоты)';
 	}
 
 	public static function GetPropertyFieldHtml($arProperty, $arValue, $arHTMLControlName)
 	{
 		$sReturn = '';
 		if ($_REQUEST['ID'])
-			$sReturn .= '<a href="/admin/scheme.php?ID=' . $_REQUEST['ID'] . '">Редактировать в конструкторе</a><br />';
+			$sReturn .= '<a href="/admin/quotas.php?ID=' . $_REQUEST['ID'] . '">Редактировать в конструкторе</a><br />';
 		else
-			$sReturn .= 'Для редактирования схемы создайте элемент (кнопка "Применить")';
+			$sReturn .= 'Для редактирования квот создайте элемент (кнопка "Применить")';
 		$sReturn .= '<textarea style="width:95%;height:150px;margin-top:5px;" readonly>' . $arValue['VALUE'] . '</textarea>';
 		$sReturn .= '<input type="hidden" name="' . $arHTMLControlName['VALUE'] . '" value=\'' . $arValue['VALUE'] .
 			'\' />';

@@ -22,6 +22,7 @@ if (!$console)
 	echo '<pre>';
 
 include ('admin_template.php');
+include ('add_quotas.php');
 
 if (!$console)
 	echo '</pre>';
