@@ -3,11 +3,10 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 
 /** @global CMain $APPLICATION */
 $APPLICATION->SetTitle("Главная");
-?>
 
-<?/*<p><a href="/theater/">Театры</a></p>
-<p><a href="/event/">События</a></p>*/?>
+$APPLICATION->IncludeComponent('tim:empty', 'main_events');
 
+<<<<<<< HEAD
 
 <div class="engBox engContent">
 <?$APPLICATION->IncludeComponent(
@@ -130,3 +129,6 @@ $APPLICATION->SetTitle("Главная");
 
 
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
+=======
+require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");
+>>>>>>> kukormin

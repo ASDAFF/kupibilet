@@ -373,7 +373,7 @@ class Event
 		} else {
 			$extCache->startDataCache();
 
-			if ($productIds)
+			if ($productIds || $nav['nTopCount'])
 			{
 				$return['NAV'] = array(
 					'COUNT' => count($productIds),
@@ -392,12 +392,16 @@ class Event
 				if (!isset($sort['ID']))
 					$sort['ID'] = 'DESC';
 
+				$filter = array(
+					'IBLOCK_ID' => self::IBLOCK_ID,
+				    'ACTIVE' => 'Y',
+				);
+				if ($productIds)
+					$filter['=ID'] = $productIds;
+
 				// Товары
 				$iblockElement = new \CIBlockElement();
-				$rsItems = $iblockElement->GetList($sort, array(
-					'=ID' => $productIds,
-				    'IBLOCK_ID' => self::IBLOCK_ID,
-				), false, $nav, array(
+				$rsItems = $iblockElement->GetList($sort, $filter, false, $nav, array(
 					'ID', 'NAME', 'CODE',
 					'PREVIEW_PICTURE',
 				));

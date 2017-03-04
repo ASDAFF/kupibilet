@@ -94,12 +94,13 @@ class Run
 			$extCache->startDataCache();
 
 			$iblockElement = new \CIBlockElement();
-			$rsItems = $iblockElement->GetList(array(), array(
+			$rsItems = $iblockElement->GetList(array('PROPERTY_DATE' => 'ASC'), array(
 				'IBLOCK_ID' => self::IBLOCK_ID,
 				'PROPERTY_EVENT' => $eventId,
 			), false, false, array(
 				'ID',
 				'PROPERTY_DATE',
+				'PROPERTY_QUOTAS',
 			));
 			while ($item = $rsItems->Fetch())
 			{
@@ -116,10 +117,58 @@ class Run
 		return $return;
 	}
 
-	public static function getById($id, $eventId, $refreshCache = false)
+	public static function getById($id, $refreshCache = false)
 	{
-		$items = self::getByEvent($eventId, $refreshCache);
-		return $items[$id];
+		$return = array();
+		$id = intval($id);
+		if (!$id)
+			return $return;
+
+		$extCache = new ExtCache(
+			array(
+				__FUNCTION__,
+				$id,
+			),
+			static::CACHE_PATH . __FUNCTION__ . '/',
+			8640000
+		);
+		if (!$refreshCache && $extCache->initCache())
+			$return = $extCache->getVars();
+		else
+		{
+			$extCache->startDataCache();
+
+			$iblockElement = new \CIBlockElement();
+			$rsItems = $iblockElement->GetList(array(), array(
+				'IBLOCK_ID' => self::IBLOCK_ID,
+				'ID' => $id,
+			), false, false, array(
+				'ID',
+				'PROPERTY_EVENT',
+				'PROPERTY_DATE',
+			    'PROPERTY_QUOTAS',
+			));
+			while ($item = $rsItems->Fetch())
+			{
+				$id = intval($item['ID']);
+				$return = array(
+					'ID' => $id,
+					'EVENT' => $item['PROPERTY_EVENT_VALUE'],
+					'DATE' => $item['PROPERTY_DATE_VALUE'],
+				    'QUOTAS' => $item['PROPERTY_QUOTAS_VALUE'],
+				);
+			}
+
+			$extCache->endDataCache($return);
+		}
+
+		return $return;
+	}
+
+	public static function updateQuotas($ID, $quotas)
+	{
+		$iblockElement = new \CIBlockElement();
+		$iblockElement->SetPropertyValuesEx($ID, self::IBLOCK_ID, array('QUOTAS' => $quotas));
 	}
 
 }

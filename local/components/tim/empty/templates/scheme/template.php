@@ -5,6 +5,10 @@ $hall = \Local\Main\Hall::getById($_REQUEST['ID'], true);
 if (!$hall)
 	return;
 
+$assets = \Bitrix\Main\Page\Asset::getInstance();
+$assets->addCss('/css/scheme.css');
+$assets->addJs('/js/scheme.js');
+
 $scheme = $hall['SCHEME'] ? $hall['SCHEME'] : '{}';
 $href = '/bitrix/admin/iblock_element_edit.php?IBLOCK_ID=2&type=main&ID=' . $hall['ID'] .
 	'&lang=ru&find_section_section=0&WF=Y';

@@ -12,10 +12,8 @@
 
 	$assets = \Bitrix\Main\Page\Asset::getInstance();
 
-	$assets->addJs('/js/jquery.js');
-	$assets->addJs('/js/scheme.js');
+	$assets->addJs('/js/jquery-2.1.4.min.js');
 	$assets->addCss('/css/style.css');
-	$assets->addCss('/css/scheme.css');
 
 	$APPLICATION->ShowHead();
 
