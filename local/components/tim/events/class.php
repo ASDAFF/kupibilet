@@ -231,7 +231,7 @@ class TimEvents extends \CBitrixComponent
 				'QUERY' => $this->searchQuery,
 				'SITE_ID' => 's1',
 				'MODULE_ID' => 'iblock',
-				'PARAM1' => 'aspro_resort_catalog',
+				'PARAM1' => 'main',
 				'PARAM2' => array(
 					Event::IBLOCK_ID,
 				),
