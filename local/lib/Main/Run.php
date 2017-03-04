@@ -101,6 +101,8 @@ class Run
 				'ID',
 				'PROPERTY_DATE',
 				'PROPERTY_QUOTAS',
+				'PROPERTY_MIN_PRICE',
+				'PROPERTY_MAX_PRICE',
 			));
 			while ($item = $rsItems->Fetch())
 			{
@@ -108,6 +110,9 @@ class Run
 				$return[$id] = array(
 					'ID' => $id,
 					'DATE' => $item['PROPERTY_DATE_VALUE'],
+					'TS' => MakeTimeStamp($item['PROPERTY_DATE_VALUE']),
+					'MIN_PRICE' => intval($item['PROPERTY_MIN_PRICE_VALUE']),
+					'MAX_PRICE' => intval($item['PROPERTY_MAX_PRICE_VALUE']),
 				);
 			}
 
@@ -163,6 +168,23 @@ class Run
 		}
 
 		return $return;
+	}
+
+	/**
+	 * Возвращает ближайший показ из списка
+	 * @param $runs
+	 * @return array
+	 */
+	public static function getClosest($runs)
+	{
+		$now = time();
+		foreach ($runs as $item)
+		{
+			if ($item['TS'] > $now)
+				return $item;
+		}
+
+		return array();
 	}
 
 	public static function updateQuotas($ID, $quotas)

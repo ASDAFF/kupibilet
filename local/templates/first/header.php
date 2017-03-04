@@ -203,24 +203,21 @@
 <?endif;?>
 
 
-<div class="engRow">
-    <div class="elHeader-2 cssBg-red">
-        <div class="engBox ">
-            <div class="elHeader-search engBox-8 engPl">
-                <?$APPLICATION->IncludeComponent(
-                    "bitrix:search.form",
-                    "search_line",
-                    array(
-                        "USE_SUGGEST" => "N",
-                        "PAGE" => "#SITE_DIR#search/index.php",
-                        "COMPONENT_TEMPLATE" => "search_line"
-                    ),
-                    false
-                );?>
-            </div>
-            <div class="elHeader-btn engBox-4 engPl cssText-center">
-                <a href="/halls/">10 Концертных залов</a>|
-                <a href="/event/">80 мероприятий</a>
+    <div class="engRow">
+        <div class="elHeader-2 cssBg-red">
+            <div class="engBox ">
+                <div class="elHeader-search engBox-8 engPl">
+                    <form id="elSearch" action="/event/">
+                        <input id="elSearch-pole" class="cssBorderRadius-left cssLeft" type="text" name="q"
+                               placeholder="Поиск концертов, мероприятий ..." autocomplete="off"
+                               value="<?= $_REQUEST['q'] ?>" />
+                        <button id="elSearch-btn" class="cssBorderRadius-right engBtn cssLeft">Найти</button>
+                    </form>
+                </div>
+                <div class="elHeader-btn engBox-4 engPl cssText-center">
+                    <a href="/halls/">10 Концертных залов</a>|
+                    <a href="/events/">80 мероприятий</a>
+                </div>
             </div>
         </div>
     </div>
