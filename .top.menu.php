@@ -9,35 +9,35 @@ $aMenuLinks = Array(
 	),
 	Array(
 		"концерты", 
-		"/concerts/", 
+		"/event/concert/",
 		Array(), 
 		Array(), 
 		"" 
 	),
 	Array(
 		"Спектакли", 
-		"/performances/", 
+		"/event/spectacle/",
 		Array(), 
 		Array(), 
 		"" 
 	),
 	Array(
 		"Фестивали", 
-		"/festivals/", 
+		"/event/festival/",
 		Array(), 
 		Array(), 
 		"" 
 	),
 	Array(
 		"Опера", 
-		"/opera/", 
+		"/event/opera/",
 		Array(), 
 		Array(), 
 		"" 
 	),
 	Array(
 		"Детям", 
-		"/for_kids/", 
+		"/event/children/",
 		Array(), 
 		Array(), 
 		"" 
