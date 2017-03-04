@@ -410,6 +410,9 @@ class Event
 					$product['DETAIL_PAGE_URL'] = $detail;
 					$product['PREVIEW_PICTURE'] = \CFile::GetPath($item['PREVIEW_PICTURE']);
 
+					$runs = Run::getByEvent($item['ID']);
+					$product['RUNS'] = $runs;
+
 					$return['ITEMS'][$item['ID']] = $product;
 				}
 
