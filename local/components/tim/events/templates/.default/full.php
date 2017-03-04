@@ -12,9 +12,10 @@ $filter = $component->filter;
 $products = $component->products['ITEMS'];
 
 ?>
+
     <div id="catalog-wrap">
 
-        <div id="filters-panel">
+         <div id="filters-panel">
             <input type="hidden" name="q" value="<?= $component->searchQuery ?>">
             <input type="hidden" name="catalog_path" value="<?= $filter['CATALOG_PATH'] ?>">
             <input type="hidden" name="separator" value="<?= $filter['SEPARATOR'] ?>"><?
@@ -28,10 +29,9 @@ $products = $component->products['ITEMS'];
                 ?>
 
             <div class="filter-group<?= $class ?>">
-                <?/*<h3><?= $group['NAME'] ?><s></s></h3>*/ ?>
-                <div class="it-filter-price-title"><?= $group['NAME'] ?></div>
+                <h3><?= $group['NAME'] ?><s></s></h3>
 
-                <? if ($group['TYPE'] == 'price') {?>
+                <? if ($group['TYPE'] == 'price'):?>
                     <?
                     $from = $group['FROM'] ? $group['FROM'] : $group['MIN'];
                     $to = $group['TO'] ? $group['TO'] : $group['MAX'];
@@ -43,7 +43,7 @@ $products = $component->products['ITEMS'];
                             <div class="r">до <input type="text" class="to" value="<?= $to ?>"/></div>
                         </div>
                     </div>
-                <?} elseif ($group['TYPE'] == 'date') {
+                <? elseif ($group['TYPE'] == 'date'):
                     $min = ConvertTimeStamp($group['MIN']);
                     $max = ConvertTimeStamp($group['MAX']);
                     $from = $group['FROM'] ? $group['FROM'] : $min;
@@ -55,7 +55,7 @@ $products = $component->products['ITEMS'];
                         <div class="r">до <input type="text" class="to" value="<?= $to ?>"/></div>
                     </div>
                     </div><?
-                } else {
+                 else:
                     ?>
                 <div<?= $style ?>>
                     <ul><?
@@ -82,14 +82,11 @@ $products = $component->products['ITEMS'];
 
                         ?>
                     </ul>
-                    </div><?
-                }
-                ?>
-                </div><?
+                    </div>
+                     <? endif; ?>
+                </div>
 
-                $i++;
-            }
-            ?>
+                <? $i++; } ?>
         </div>
 
         <div id="catalog-list">
