@@ -1,3 +1,6 @@
+#popup-hidden {
+    display: none;
+}
 #options-panel {
     position: fixed;
     z-index: 10;
@@ -17,7 +20,7 @@
     margin: 4px 0 0 4px;
     color: #fff;
 }
-#options-panel input {
+#options-panel input[type=text] {
     width: 70px;
 }
 #options-panel .btn {
@@ -69,4 +72,23 @@
 .q-groups {
     float: right;
     padding-right: 20px;
+}
+.q-groups th {
+    color: #fff;
+    padding: 4px;
+}
+.q-groups .current {
+    margin: 0 10px;
+}
+#options-panel .q-groups input[type=text] {
+    padding: 0 4px;
+    height: 28px;
+    width: 120px;
+    margin: 0 4px;
+}
+#options-panel .q-groups .no-delete .del {
+    background: #3f3c43 !important;
+    color: #999;
+    border-color: #999;
+    cursor: default;
 }
