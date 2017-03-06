@@ -23,14 +23,14 @@
 #options-panel input[type=text] {
     width: 70px;
 }
-#options-panel .btn {
+#options-panel .bttn {
     border-radius: 5px;
     width: 120px;
     background: #3f3c43;
     color: #fff;
     cursor: pointer;
 }
-#options-panel .btn:hover {
+#options-panel .bttn:hover {
     background: #7E8475;
 }
 #options-panel .disabled {
@@ -50,6 +50,7 @@
     max-height: 1000px;
     height: 600px;
 }
+
 .elZal-point {
     cursor: pointer;
 }
