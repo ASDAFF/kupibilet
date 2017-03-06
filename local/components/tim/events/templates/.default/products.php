@@ -26,9 +26,14 @@ if ($filter['CUR_FILTERS']) { ?>
         <div class="elList">
             <div class="grid-sizer"></div>
             <? $i = 0; ?>
-            <? foreach ($products as $id => $item) { ?>
-                <? $i++; ?>
-                <? //debugmessage($item);?>
+            <? foreach ($products as $id => $item) {
+                $i++;
+	            $hall = \Local\Main\Hall::getById($item['PRODUCT']['HALL']);
+	            $run = \Local\Main\Run::getClosest($item['RUNS']);
+	            $price = $item['PRICE'];
+	            if ($item['PRICE'] != $item['PRICE_TO'])
+		            $price .= ' - ' . $item['PRICE_TO'];
+	            ?>
                 <div class="it-item <? if ($i % 3 == 0) echo 'set-2'; ?>">
                     <div class="it-img">
                         <a href="<?= $item['DETAIL_PAGE_URL'] ?>">
@@ -36,13 +41,20 @@ if ($filter['CUR_FILTERS']) { ?>
                         </a>
                     </div>
                     <div class="it-inf">
-                        <div class="it-title"><?= $item['NAME'] ?></div>
-                        <div class="it-date"><i class="engIcon setIcon-date-black"></i><?= $item['DATE_SHOW'][0] ?>
-                        </div>
-                        <div class="it-map"><i class="engIcon setIcon-map-black"></i><?= $item['HALL_NAME'] ?></div>
+	                    <div class="it-title"><?= $item['NAME'] ?></div><?
+
+	                    if ($run)
+	                    {
+		                    ?>
+		                    <div class="it-date"><i class="engIcon setIcon-date-black"></i><?= $run['DATE'] ?>
+		                    </div><?
+	                    }
+
+	                    ?>
+                        <div class="it-map"><i class="engIcon setIcon-map-black"></i><?= $hall['NAME'] ?></div>
                         <div class="it-money">
                             <i class="engIcon setIcon-price-black"></i>
-                            <?= $item['PRICE'] ?>-<?= $item['PRICE_TO'] ?> руб.
+                            <?= $price ?> руб.
                         </div>
                     </div>
                 </div>
