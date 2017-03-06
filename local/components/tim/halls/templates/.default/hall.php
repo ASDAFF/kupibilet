@@ -22,16 +22,29 @@ $events = \Local\Main\Event::getByHall($hall['ID']);
         <div class='up-events'>
             <div class='up-events-ttl'>Предстоящие мероприятия</div>
             <div class='up-events-list'>
-                <? foreach ($events as $event): ?>
-                    <? //debugmessage($event); ?>
+                <? foreach ($events as $event):
+
+	                $run = \Local\Main\Run::getClosest($event['RUNS']);
+	                $price = $item['PRICE'];
+	                if ($item['PRICE'] != $item['PRICE_TO'])
+		                $price .= ' - ' . $item['PRICE_TO'];
+
+                    //debugmessage($event); ?>
                     <? /*<p><a href="<?= $event['DETAIL_PAGE_URL'] ?>"><?= $event['NAME'] ?></a></p>*/ ?>
                     <div class='up-events-item'>
                         <div class='up-img' style='background:url(<?=CFile::GetPath($event["PREVIEW_PICTURE"])?>);'></div>
                         <div class='up-info'>
-                            <div class='up-title'><?= $event['NAME'] ?></div>
-                            <div class='up-date'><?= $event['DATE_SHOW'][0] ?></div>
-                            <div class='up-place'><?= $event['HALL_NAME'] ?></div>
-                            <div class='up-price'><?= $event['PRICE'] ?>-<?= $event['PRICE_TO'] ?> руб.</div>
+	                        <div class='up-title'><?= $event['NAME'] ?></div><?
+
+	                        if ($run)
+	                        {
+		                        ?>
+		                        <div class='up-date'><?= $run['DATE'] ?></div><?
+	                        }
+
+	                        ?>
+                            <div class='up-place'><?= $hall['NAME'] ?></div>
+                            <div class='up-price'><?= $price ?> руб.</div>
                         </div>
                     </div>
                 <? endforeach; ?>

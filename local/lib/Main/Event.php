@@ -53,9 +53,8 @@ class Event
 				'NAME',
 				'PROPERTY_HALL',
 				'PROPERTY_PRICE',
+				'PROPERTY_PRICE_TO',
 				'PROPERTY_GENRE',
-                //марат
-                'PROPERTY_PRICE_TO',
                 'PROPERTY_DATE',
 			);
 			$flagsSelect = Flags::getForSelect();
@@ -73,21 +72,14 @@ class Event
 				$gid = intval($item['PROPERTY_GENRE_VALUE']);
 				$genre = Genre::getById($gid);
 
-                //марат
-                $hid = intval($item['PROPERTY_HALL_VALUE']);
-                $hall = Hall::getById($hid);
-
 				$product = array(
 					'ID' => $id,
 					'NAME' => $item['NAME'],
 					'HALL' => intval($item['PROPERTY_HALL_VALUE']),
 					'GENRE' => intval($genre['ID']),
 					'PRICE' => intval($item['PROPERTY_PRICE_VALUE']),
-				    'RUNS' => $runs[$id],
-                    //марат
-                    'PRICE_TO' => $item['PROPERTY_PRICE_TO_VALUE'],
-                    'HALL_NAME' => $hall['NAME'],
-                    'DATE_SHOW' => $item['PROPERTY_DATE_VALUE'],
+					'PRICE_TO' => $item['PROPERTY_PRICE_TO_VALUE'],
+					'RUNS' => $runs[$id],
 				);
 
 				foreach ($codes as $code)
@@ -163,7 +155,7 @@ class Event
 					}
 					elseif ($key == 'PRICE')
 					{
-						if (isset($value['FROM']) && $product['PRICE'] < $value['FROM'] ||
+						if (isset($value['FROM']) && $product['PRICE_TO'] < $value['FROM'] ||
 							isset($value['TO']) && $product['PRICE'] > $value['TO'])
 						{
 							$ok = false;
@@ -217,8 +209,8 @@ class Event
 
 					if (!isset($return['PRICE']['MIN']) || $return['PRICE']['MIN'] > $product['PRICE'])
 						$return['PRICE']['MIN'] = $product['PRICE'];
-					if (!isset($return['PRICE']['MAX']) || $return['PRICE']['MAX'] < $product['PRICE'])
-						$return['PRICE']['MAX'] = $product['PRICE'];
+					if (!isset($return['PRICE']['MAX']) || $return['PRICE']['MAX'] < $product['PRICE_TO'])
+						$return['PRICE_TO']['MAX'] = $product['PRICE'];
 
 					foreach ($product['RUNS'] as $ts)
 					{

@@ -18,12 +18,9 @@ $now = time();
 			$hall = \Local\Main\Hall::getById($item['HALL']);
 			$run = \Local\Main\Run::getClosest($item['RUNS']);
 
-			if ($run)
-			{
-				$price = $run['MIN_PRICE'];
-				if ($run['MIN_PRICE'] != $run['MIN_PRICE'])
-					$price .= ' - ' . $run['MAX_PRICE'];
-			}
+			$price = $item['PRICE'];
+			if ($item['PRICE'] != $item['PRICE_TO'])
+				$price .= ' - ' . $item['PRICE_TO'];
 
 			?>
 			<div class="it-item">
