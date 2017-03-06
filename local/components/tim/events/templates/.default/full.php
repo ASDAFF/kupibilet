@@ -127,7 +127,7 @@ $products = $component->products['ITEMS'];
                             $from = $group['FROM'] ? $group['FROM'] : $min;
                             $to = $group['TO'] ? $group['TO'] : $max;
                             ?>
-                            <div class="date-group"<?= $style ?> data-min="<?= $min ?>" data-max="<?= $max ?>">
+                            <div style="display:none;" class="date-group"<?= $style ?> data-min="<?= $min ?>" data-max="<?= $max ?>">
                                 <div class="inputs ">
                                     <div class="l">от <input name="startDate" type="text" class="from" value="<?= $from ?>"/></div>
                                     <div class="r">до <input name="endDate" type="text" class="to" value="<?= $to ?>"/></div>
