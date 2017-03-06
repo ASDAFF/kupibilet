@@ -14,9 +14,18 @@ $products = $component->products['ITEMS'];
 ?>
 
 <div id="catalog-wrap">
-
     <div class="engBox engContent">
-        <div class="elList">
+        <div class="engBox">
+            <div id="catalog-list">
+                <?
+                //=========================================================
+                include('products.php');
+                //=========================================================
+                ?>
+            </div>
+        </div>
+        <div class="engBox-right">
+            <div class="elList">
             <div id="filters-panel" class="it-item setColor-white">
 
                 <input type="hidden" name="q" value="<?= $component->searchQuery ?>">
@@ -37,10 +46,24 @@ $products = $component->products['ITEMS'];
                     </div>
                 </div>
 
+                <div class="it-date-form">
+                    <div id="engDate-picter"></div>
+                </div>
                 <?
                 $closed = array();
                 $i = 0;
                 ?>
+                <div class="engCheck">
+                <li>
+                    <input type="checkbox" class="radio" id="checkbox" />
+                    <label for="checkbox">Я переключаю чекбокс</label>
+                </li>
+                    <li>
+                        <input type="checkbox" class="radio" id="checkbox2" />
+                        <label for="checkbox2">Я переключаю чекбокс</label>
+                    </li>
+                </div>
+
 
                 <? foreach ($filter['GROUPS'] as $group) {
                     $style = $closed[$i] ? ' style="display:none;"' : '';
@@ -59,9 +82,9 @@ $products = $component->products['ITEMS'];
                             <div class="price-group it-filter-price"<?= $style ?> data-min="<?= $group['MIN'] ?>"
                                  data-max="<?= $group['MAX'] ?>">
                                 <div class="it-filter-price-title">Стоимость</div>
-                                <div class="inputs">
-                                    <div class="l">от <input type="text" class="from" value="<?= $from ?>"/></div>
-                                    <div class="r">до <input type="text" class="to" value="<?= $to ?>"/></div>
+                                <div class="it-filter-price-pole-input">
+                                    <div class="engBox-6">от <input id="it-filter-price-pole-from" type="text" class="from" value="<?= $from ?>"/></div>
+                                    <div class="engBox-6">до <input id="it-filter-price-pole-to" type="text" class="to" value="<?= $to ?>"/></div>
                                 </div>
                             </div>
                             <div class="it-filter-money">
@@ -76,9 +99,15 @@ $products = $component->products['ITEMS'];
                                             values: [ <?= $from ?>, <?= $to ?>],
                                             slide: function (event, ui) {
                                                 $("#slider-range-value1 b").text(ui.values[0]);
-                                                $("#slider-range-value1").css("left", ((ui.values[0] * 100)) / max + '%');
+                                                //$("#slider-range-value1").css("left", ((ui.values[0] * 100)) / max + '%');
+
                                                 $("#slider-range-value2 b").text(ui.values[1]);
-                                                $("#slider-range-value2").css("left", (ui.values[1] * 100) / max + '%');
+                                                //$("#slider-range-value2").css("left", ((ui.values[1] * 100) / max) + '%');
+                                                $("#slider-range-value1").css("left", $(".it-filter-money #slider-range span:first").css("left"));
+                                                $("#slider-range-value2").css("left", $(".it-filter-money #slider-range span:last").css("left"));
+
+                                                $("#it-filter-price-pole-from").val(ui.values[0]);
+                                                $("#it-filter-price-pole-to").val(ui.values[1]);
                                             }
                                         });
                                     });
@@ -99,9 +128,9 @@ $products = $component->products['ITEMS'];
                             $to = $group['TO'] ? $group['TO'] : $max;
                             ?>
                             <div class="date-group"<?= $style ?> data-min="<?= $min ?>" data-max="<?= $max ?>">
-                                <div class="inputs">
-                                    <div class="l">от <input type="text" class="from" value="<?= $from ?>"/></div>
-                                    <div class="r">до <input type="text" class="to" value="<?= $to ?>"/></div>
+                                <div class="inputs ">
+                                    <div class="l">от <input name="startDate" type="text" class="from" value="<?= $from ?>"/></div>
+                                    <div class="r">до <input name="endDate" type="text" class="to" value="<?= $to ?>"/></div>
                                 </div>
                             </div>
                         <? } else { ?>
@@ -136,16 +165,11 @@ $products = $component->products['ITEMS'];
 
                     <? $i++; ?>
                 <? } ?>
+
+            </div>
             </div>
         </div>
-    </div>
 
-    <div id="catalog-list">
-        <?
-        //=========================================================
-        include('products.php');
-        //=========================================================
-        ?>
     </div>
 </div>
 

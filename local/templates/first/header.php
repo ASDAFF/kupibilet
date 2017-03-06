@@ -21,6 +21,7 @@
 
 	$assets->addJs('/js/jquery-2.1.4.min.js');
 	$assets->addJs('/js/jquery-ui/jquery-ui.js');
+    $assets->addJs('/js/jquery-ui/jquery.datepicker.extension.range.min.js');
 	$assets->addJs('/js/fancybox/jquery.fancybox.js');
 	$assets->addJs('/js/masonry.pkgd.min.js');
 	$assets->addJs('/js/events.js');
