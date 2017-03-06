@@ -6,7 +6,7 @@ if (!$hall)
 	return;
 
 $assets = \Bitrix\Main\Page\Asset::getInstance();
-$assets->addCss('/css/scheme.css');
+$assets->addCss('/css/scheme.css', true);
 $assets->addJs('/js/scheme.js');
 
 $scheme = $hall['SCHEME'] ? $hall['SCHEME'] : '{}';
