@@ -38,7 +38,9 @@ class UserTypeScheme
 			$sReturn .= '<a href="/admin/scheme.php?ID=' . $_REQUEST['ID'] . '">Редактировать в конструкторе</a><br />';
 		else
 			$sReturn .= 'Для редактирования схемы создайте элемент (кнопка "Применить")';
-		$sReturn .= '<textarea style="width:95%;height:150px;margin-top:5px;" readonly>' . $arValue['VALUE'] . '</textarea>';
+		$sReturn .= '<textarea name="' . $arHTMLControlName['VALUE'] . '" style="width:95%;height:150px;margin-top:5px;">' . $arValue['VALUE'] .
+			'</textarea>';
+		return $sReturn;
 		$sReturn .= '<input type="hidden" name="' . $arHTMLControlName['VALUE'] . '" value=\'' . $arValue['VALUE'] .
 			'\' />';
 		return $sReturn;
