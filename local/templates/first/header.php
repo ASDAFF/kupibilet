@@ -110,7 +110,9 @@
 <?if(!Funcs::$uri[0]):?>
     <div class="engBox">
         <div class="elSlider">
-            <?$APPLICATION->IncludeComponent(
+            <?$APPLICATION->IncludeComponent('tim:empty', 'banner');?>
+
+            <?/*$APPLICATION->IncludeComponent(
                 "bitrix:news",
                 "banner",
                 array(
@@ -202,7 +204,7 @@
                     )
                 ),
                 false
-            );?>
+            );*/?>
         </div>
     </div>
 <?endif;?>
