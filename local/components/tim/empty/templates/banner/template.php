@@ -16,17 +16,23 @@ foreach ($banners as $item) {
     if ($events['PRODUCT']['PRICE'] != $events['PRODUCT']['PRICE_TO'])
         $price .= ' - ' . $events['PRODUCT']['PRICE_TO'];
     ?>
-
+<?$href = $events['DETAIL_PAGE_URL'] . $run['FURL'];?>
         <div class="elSlider-item">
             <img src="<?= $item['PREVIEW_PICTURE'] ?>"/>
             <div class="it-inf">
                 <div class="it-title"><?= $item['NAME'] ?></div>
-                <div class="it-data"><i class="engIcon setIcon-date-white"></i><?= $run['DATE'] ?></div>
+                <?if(!empty($events)){?>
+                <?if(!empty($run)){?>
+                    <div class="it-data"><i class="engIcon setIcon-date-white"></i><?= $run['DATE'] ?></div>
+                <?}?>
                 <div class="it-map"><i class="engIcon setIcon-map-white"></i><?= $hall['NAME'] ?></div>
-                <div class="it-money"><i class="engIcon setIcon-price-white"></i><?= $price ?> руб.</div>
-                <div class="it-btn">
-                    <a href="<?= $events['DETAIL_PAGE_URL'] ?>" class="cssBorderRadius">Купить билет</a>
-                </div>
+                <?if(!empty($run)){?>
+                    <div class="it-money"><i class="engIcon setIcon-price-white"></i><?= $price ?> руб.</div>
+                    <div class="it-btn">
+                        <a href="<?= $href ?>" class="cssBorderRadius">Купить билет</a>
+                    </div>
+                <?}?>
+                <?}?>
             </div>
         </div>
     <?
