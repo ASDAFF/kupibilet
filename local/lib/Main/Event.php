@@ -57,6 +57,8 @@ class Event
 				'PROPERTY_PRICE_TO',
 				'PROPERTY_GENRE',
                 'PROPERTY_DATE',
+                'PROPERTY_E_TICKET',
+                'PROPERTY_AGE',
 			);
 			$flagsSelect = Flags::getForSelect();
 			$select = array_merge($select, $flagsSelect);
@@ -80,7 +82,9 @@ class Event
 					'HALL' => intval($item['PROPERTY_HALL_VALUE']),
 					'GENRE' => intval($genre['ID']),
 					'PRICE' => intval($item['PROPERTY_PRICE_VALUE']),
-					'PRICE_TO' => $item['PROPERTY_PRICE_TO_VALUE'],
+                    'PRICE_TO' => $item['PROPERTY_PRICE_TO_VALUE'],
+                    'E_TICKET' => $item['PROPERTY_E_TICKET_VALUE'],
+                    'AGE' => $item['PROPERTY_AGE_VALUE'],
 					'RUNS' => $runs[$id],
 				);
 
