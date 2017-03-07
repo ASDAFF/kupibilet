@@ -57,6 +57,7 @@ $events = \Local\Main\Event::getByHall($hall['ID']);
             itemSelector: '.it-item',
             columnWidth: 395
         });
-    </script>
+    </script><?
 
-<? $APPLICATION->SetTitle($item['NAME']); ?>
+$APPLICATION->SetTitle($item['NAME']);
+$APPLICATION->SetPageProperty('title', $item['NAME']);

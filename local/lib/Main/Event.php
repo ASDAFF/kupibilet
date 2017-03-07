@@ -51,6 +51,7 @@ class Event
 			$select = array(
 				'ID',
 				'NAME',
+				'CODE',
 				'PROPERTY_HALL',
 				'PROPERTY_PRICE',
 				'PROPERTY_PRICE_TO',
@@ -75,6 +76,7 @@ class Event
 				$product = array(
 					'ID' => $id,
 					'NAME' => $item['NAME'],
+					'CODE' => $item['CODE'],
 					'HALL' => intval($item['PROPERTY_HALL_VALUE']),
 					'GENRE' => intval($genre['ID']),
 					'PRICE' => intval($item['PROPERTY_PRICE_VALUE']),
@@ -170,7 +172,7 @@ class Event
 							foreach ($product['RUNS'] as $ts)
 							{
 								if (!(isset($value['FROM']) && $ts < $value['FROM'] ||
-									isset($value['TO']) && $ts > $value['TO']))
+									isset($value['TO']) && $ts >= $value['TO'] + 86400))
 								{
 									$ex = true;
 									break;

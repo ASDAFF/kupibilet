@@ -43,23 +43,25 @@ $( function() {
 } );
 
 $(function() {
-    $.datepicker.setDefaults($.datepicker.regional['ru']);
-    $('#engDate-picter').datepicker({
-        range: 'period', // режим - выбор периода
-        numberOfMonths: 1,
-        onSelect: function(dateText, inst, extensionRange) {
-            // extensionRange - объект расширения
-            $('[name=startDate]').val(extensionRange.startDateText);
-            $('[name=endDate]').val(extensionRange.endDateText);
-        }
-    });
+	if ($('#engDate-picter').length) {
+		$.datepicker.setDefaults($.datepicker.regional['ru']);
+		$('#engDate-picter').datepicker({
+			range: 'period', // режим - выбор периода
+			numberOfMonths: 1,
+			onSelect: function (dateText, inst, extensionRange) {
+				// extensionRange - объект расширения
+				$('[name=startDate]').val(extensionRange.startDateText);
+				$('[name=endDate]').val(extensionRange.endDateText);
+			}
+		});
 
-    $('#engDate-picter').datepicker('setDate', ['+4d', '+8d']);
+		$('#engDate-picter').datepicker('setDate', ['+4d', '+8d']);
 
-    // объект расширения (хранит состояние календаря)
-    var extensionRange = $('#engDate-picter').datepicker('widget').data('datepickerExtensionRange');
-    if(extensionRange.startDateText) $('[name=startDate]').val(extensionRange.startDateText);
-    if(extensionRange.endDateText) $('[name=endDate]').val(extensionRange.endDateText);
+		// объект расширения (хранит состояние календаря)
+		var extensionRange = $('#engDate-picter').datepicker('widget').data('datepickerExtensionRange');
+		if (extensionRange.startDateText) $('[name=startDate]').val(extensionRange.startDateText);
+		if (extensionRange.endDateText) $('[name=endDate]').val(extensionRange.endDateText);
+	}
 });
 
 

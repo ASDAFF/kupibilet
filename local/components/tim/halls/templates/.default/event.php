@@ -8,7 +8,11 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)
 $hall = $component->hall;
 $event = $component->event;
 
-//debugmessage($event);
+$item = $event['PRODUCT'];
+$price = $item['PRICE'];
+if ($item['PRICE'] != $item['PRICE_TO'])
+	$price .= ' - ' . $item['PRICE_TO'];
+
 ?>
 
 
@@ -25,7 +29,7 @@ $event = $component->event;
                             <?}?>
                         </select>
                         <div class='eventpage-place'><?=$hall['NAME']?></div>
-                        <div class='eventpage-price'>! руб.</div>
+                        <div class='eventpage-price'><?= $price ?> руб.</div>
                         <input class='btn' type="submit" value="Купить билет">
                     </form>
                     <div class="age-rule">!12+</div>
@@ -51,4 +55,5 @@ $event = $component->event;
 <?
 \Local\Main\Event::viewedCounters($event['ID']);
 $APPLICATION->SetTitle($event['NAME']);
+$APPLICATION->SetPageProperty('title', $event['NAME']);
 ?>

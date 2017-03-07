@@ -34,8 +34,10 @@ $now = time();
 
 					if ($run)
 					{
+						$href = $item['DETAIL_PAGE_URL'] . $run['FURL'];
 						?>
-						<div class="it-date"><i class="engIcon setIcon-date-black"></i><?= $run['DATE'] ?></div>
+						<div class="it-date"><i class="engIcon setIcon-date-black"></i><?= $run['DATE'] ?>
+							<a href="<?= $href ?>">Купить билет</a></div>
 						<div class="it-map"><i class="engIcon setIcon-map-black"></i><?= $hall['NAME'] ?></div>
 						<div class="it-money"><i class="engIcon setIcon-price-black"></i><?= $price ?> руб.</div><?
 					}
@@ -58,7 +60,6 @@ $now = time();
 
 		if (!$calendar)
 		{
-			$calendar = true;
 			?>
 			<div class="it-item">
 				<div class="it-date-form">
