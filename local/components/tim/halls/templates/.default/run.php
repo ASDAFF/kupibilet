@@ -33,6 +33,7 @@ foreach ($Zal as $itemId => $item)
 $max += 10;
 
 $cartSummary = \Local\Sale\Cart::getSummary();
+$sits = \Local\Sale\Cart::getSitsByRun($run['ID']);
 
 ?>
 	<div class="engBox">
@@ -95,7 +96,15 @@ $cartSummary = \Local\Sale\Cart::getSummary();
 				</div>
 			</div>
 		</div>
-	</div>
+	</div><?
+
+	// TODO:: убрать, когда верстальщик сделает
+	?>
+	<style>
+		.elZal-point.on.cart {
+			box-shadow: 0 0 5px #f00;
+		}
+	</style>
 
 	<div class="engBox">
 		<div class="elZal" id="elZal" data-event="<?= $event['ID'] ?>" data-run="<?= $run['ID'] ?>">
@@ -120,6 +129,8 @@ $cartSummary = \Local\Sale\Cart::getSummary();
 						$qItem = $Quotas[$item[6]];
 						$pointStyle .= 'background-color:' . $qItem[1] . ';';
 						$pointClass .= ' on';
+						if ($sits[$itemId])
+							$pointClass .= ' cart';
 					}
 					else
 					{

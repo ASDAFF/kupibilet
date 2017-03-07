@@ -18,7 +18,8 @@ var Run = {
 		this.priceRow = this.ZalInf.find('.priceRow');
 		this.eventId = this.Zal.data('event');
 		this.runId = this.Zal.data('run');
-
+		this.cartCount = $('#current_cart_count');
+		this.cartPrice = $('#current_cart_price');
 
 
 		this.ZalBox.on('mouseenter', '.elZal-item', this.hover);
@@ -43,14 +44,28 @@ var Run = {
 		Run.ZalInf.appendTo($(this));
 	},
 	click: function() {
-		var item = $(this).parent();
+		var point = $(this);
+		var item = point.parent();
 		var id = item.attr('id');
+		var action = point.hasClass('cart') ? 'remove' : 'add';
 		$.ajax({
 			type: 'POST',
-			url: '/ajax/add_to_cart.php',
-			data: 'eid=' + Run.eventId + '&rid=' + Run.runId + '&id=' + id,
-			success: function () {
-
+			url: '/ajax/cart.php',
+			data: 'action=' + action + '&eid=' + Run.eventId + '&rid=' + Run.runId + '&id=' + id,
+			success: function (data) {
+				console.log(data);
+				if (action == 'add') {
+					if (data.ID)
+						point.addClass('cart');
+				}
+				else if (action == 'remove') {
+					if (data.SUCCESS)
+						point.removeClass('cart');
+				}
+				if (typeof(data.CART) != 'undefined') {
+					Run.cartCount.text(data.CART.COUNT);
+					Run.cartPrice.text(data.CART.PRICE);
+				}
 			}
 		});
 	}

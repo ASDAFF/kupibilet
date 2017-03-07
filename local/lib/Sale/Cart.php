@@ -65,6 +65,33 @@ class Cart
 	}
 
 	/**
+	 * Для текущего показа возвращает места, которые уже есть в корзине
+	 * @param $runId
+	 * @return array
+	 * @throws \Bitrix\Main\LoaderException
+	 */
+	public static function getSitsByRun($runId)
+	{
+		$return = array();
+		Loader::IncludeModule('sale');
+
+		$basket = new \CSaleBasket();
+		$basket->Init();
+		$rsCart = $basket->GetList(array(), array(
+			'ORDER_ID' => 'NULL',
+			'FUSER_ID' => $basket->GetBasketUserID(),
+			'PRODUCT_ID' => $runId,
+		));
+		while ($item = $rsCart->Fetch())
+		{
+			$id = intval($item['CATALOG_XML_ID']);
+			$return[$id] = $item['ID'];
+		}
+
+		return $return;
+	}
+
+	/**
 	 * Добавление товара (выбранное место) в корзину
 	 * @param $id
 	 * @param $eventId
@@ -98,16 +125,23 @@ class Cart
 			return false;
 
 		Loader::IncludeModule('sale');
+
+		$sits = self::getSitsByRun($runId);
+		if ($sits[$id])
+			return false;
 		
-		//$props = array();
-		$xmlId = $eventId . '|' . $runId . '|' . $id;
+		$props = array();
+		$props[] = array(
+			'NAME' => 'Место',
+			'CODE' => 'SIT',
+			'VALUE' => $id,
+		);
 		$name = $event['NAME'] . ' ' . $run['DATE_S'] .  ' ' . $sit[3] . ', ряд: ' . $sit[4] . ', место: ' . $sit[5];
 
 		$fields = array(
-			'PRODUCT_ID' => $xmlId,
+			'PRODUCT_ID' => $runId,
 			'PRICE' => $price,
-			'PRICE_ID' => $id,
-			'CATALOG_XML_ID' => $runId,
+			'CATALOG_XML_ID' => $id,
 			'PRODUCT_XML_ID' => $eventId,
 			'CURRENCY' => 'RUB',
 			'QUANTITY' => 1,
@@ -117,10 +151,8 @@ class Cart
 			'NAME' => $name,
 			'MODULE' => 'main',
 			'DETAIL_PAGE_URL' => $event['DETAIL_PAGE_URL'] . $run['FURL'],
-		    //'PROPS' => $props,
+		    'PROPS' => $props,
 		);
-
-		debugmessage($fields);
 
 		$basket = new \CSaleBasket();
 		$basket->Init();
@@ -133,9 +165,50 @@ class Cart
 
 		$ID = $basketItem->getId();
 
-		self::updateSessionCartSummary();
+		if ($ID)
+			self::updateSessionCartSummary();
 
 		return $ID;
+	}
+
+	/**
+	 * Добавление товара (выбранное место) в корзину
+	 * @param $id
+	 * @param $eventId
+	 * @param $runId
+	 * @return bool|int
+	 */
+	public static function remove($id, $eventId, $runId)
+	{
+
+		$id = intval($id);
+		if ($id <= 0)
+			return false;
+
+		$event = Event::getById($eventId);
+		if (!$event)
+			return false;
+
+		$run = Run::getById($runId);
+		if (!$run)
+			return false;
+
+		Loader::IncludeModule('sale');
+
+		$sits = self::getSitsByRun($runId);
+		$cartId = $sits[$id];
+		if (!$cartId)
+			return false;
+
+		$basket = new \CSaleBasket();
+		$basket->Init();
+		$res = BasketCompatibility::delete($cartId);
+		$return = $res->isSuccess();
+
+		if ($return)
+			self::updateSessionCartSummary();
+
+		return $return;
 	}
 
 
