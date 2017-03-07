@@ -694,26 +694,35 @@ footer {clear: both; margin-top: 20px;}
 
 }
 
-.elPages {text-align: center; margin: 20px;}
-.elPages span, .elPages a {
+.pagination {text-align: center; margin: 20px; padding: 0; clear: both;}
+.pagination li {display: inline-block;}
+.pagination li>i {padding: 5px 10px;}
+.pagination span, .pagination a {
     display: inline-block; padding: 5px 10px;
-    font-weight: 600; color: #464545;
-}
-.elPages a {}
-.elPages span {background: #901921; color: #fff;}
+    font-weight: 600; color: #464545;}
+.pagination a {}
+.pagination span {background: #901921; color: #fff;}
 
 /* Доп*/
+
+.seo-text {margin: 10px 0;}
 
 #engDate-picter {}
 #engDate-picter>div {width: 100%;}
 
 /* jq.ui*/
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active {
+    cursor: default!important;
+}
 .ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover {
-    background: rgba(144, 25, 33, 0.28); color: #000; }
+    /*background: rgba(144, 25, 33, 0.28); color: #000;*/
+    background: #fff; color: #000; border-color: #fff ;
+    }
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active{
     text-align: center; padding: 10px;
     border: 1px solid #efefef;
 }
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {background: #fff; color: #000;}
 
 .ui-datepicker th {background: #e3e3e3;}
 .ui-datepicker td {padding: 0; }
@@ -726,6 +735,11 @@ footer {clear: both; margin-top: 20px;}
 }
 .ui-icon-circle-triangle-w {background-image: url(../images/eng/ui-left.png)!important; background-position: 0; left: -5px;}
 .ui-icon-circle-triangle-e {background-image: url(../images/eng/ui-right.png)!important; background-position: 0;}
+
+.yellow a.ui-state-default {color:black;
+    background: rgba(144, 25, 33, 0.58);  cursor: pointer!important;
+    color: #fff;}
+
 
 #current-filters {padding: 20px 0 10px;
     border-bottom: 1px solid #f3f3f3;}
@@ -802,6 +816,8 @@ footer {clear: both; margin-top: 20px;}
 .elFormAuth form a {color: #901921; margin-bottom: 10px; display: inline-block;
     text-decoration: underline;}
 .elFormAuth form p {margin: 0}
+
+
 
     /************HALLPAGE*******************/
 .wight-bg{

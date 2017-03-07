@@ -78,7 +78,8 @@
                     <a href="/login/" class="cssBorderRadius">Вход</a>
                     <a href="/login/?register=yes" class="cssBorderRadius">Регистрация</a>
                 <?else:?>
-                    тут выводим кнопки для авторизованного пользователя
+                    <a href="/personal/" class="cssBorderRadius">Личный кабинет</a>
+                    <a href="/?logout=yes" class="cssBorderRadius">Выход</a>
                 <?endif;?>
             </div>
         </div>
@@ -110,7 +111,9 @@
 <?if(!Funcs::$uri[0]):?>
     <div class="engBox">
         <div class="elSlider">
-            <?$APPLICATION->IncludeComponent(
+            <?$APPLICATION->IncludeComponent('tim:empty', 'banner');?>
+
+            <?/*$APPLICATION->IncludeComponent(
                 "bitrix:news",
                 "banner",
                 array(
@@ -202,7 +205,7 @@
                     )
                 ),
                 false
-            );?>
+            );*/?>
         </div>
     </div>
 <?endif;?>

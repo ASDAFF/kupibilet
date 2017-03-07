@@ -34,35 +34,39 @@ $(function() {
         }
     });
 });
+
+
 $( function() {
+    $('#engDate-picter').datepicker({
+        beforeShowDay: severalDates,
+        defaultDate: "+4d",
+        onSelect: function (selectedDate) {
+            location.href = "/event/?d-from=" + selectedDate; // Переход
+        }
+    });
 
-
-    // $('#engDate-picter').datepicker({
-    //     defaultDate: "+5y"
-    // });
 } );
 
-$(function() {
-	if ($('#engDate-picter').length) {
-		$.datepicker.setDefaults($.datepicker.regional['ru']);
-		$('#engDate-picter').datepicker({
-			range: 'period', // режим - выбор периода
-			numberOfMonths: 1,
-			onSelect: function (dateText, inst, extensionRange) {
-				// extensionRange - объект расширения
-				$('[name=startDate]').val(extensionRange.startDateText);
-				$('[name=endDate]').val(extensionRange.endDateText);
-			}
-		});
-
-		$('#engDate-picter').datepicker('setDate', ['+4d', '+8d']);
-
-		// объект расширения (хранит состояние календаря)
-		var extensionRange = $('#engDate-picter').datepicker('widget').data('datepickerExtensionRange');
-		if (extensionRange.startDateText) $('[name=startDate]').val(extensionRange.startDateText);
-		if (extensionRange.endDateText) $('[name=endDate]').val(extensionRange.endDateText);
-	}
-});
+// $(function() {
+//     $.datepicker.setDefaults($.datepicker.regional['ru']);
+//     $('#engDate-picter').datepicker({
+//         beforeShowDay: severalDates,
+//         range: 'period', // режим - выбор периода
+//         numberOfMonths: 1,
+//         onSelect: function(dateText, inst, extensionRange) {
+//             // extensionRange - объект расширения
+//             $('[name=startDate]').val(extensionRange.startDateText);
+//             $('[name=endDate]').val(extensionRange.endDateText);
+//         }
+//     });
+//
+//     $('#engDate-picter').datepicker('setDate', ['+4d', '+8d']);
+//
+//     // объект расширения (хранит состояние календаря)
+//     var extensionRange = $('#engDate-picter').datepicker('widget').data('datepickerExtensionRange');
+//     if(extensionRange.startDateText) $('[name=startDate]').val(extensionRange.startDateText);
+//     if(extensionRange.endDateText) $('[name=endDate]').val(extensionRange.endDateText);
+// });
 
 
 

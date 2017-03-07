@@ -49,6 +49,21 @@ $products = $component->products['ITEMS'];
                 <div class="it-date-form">
                     <div id="engDate-picter"></div>
                 </div>
+                <script>
+                    function severalDates(date){
+
+                        var dates = new Array("11.03.2017", "12.03.2017");
+
+
+                        var dat = $.datepicker.formatDate("dd.mm.yy", date);
+                        var r = [true, ""];
+                        for (var i=0, c=dates.length; i<c; i++)
+                            if (dat == dates[i])
+                                r = [true, "yellow"];
+                        $(this).css("ss");
+                        return r;
+                    }
+                </script>
                 <?
                 $closed = array();
                 $i = 0;

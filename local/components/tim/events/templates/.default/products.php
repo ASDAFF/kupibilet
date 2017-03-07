@@ -66,7 +66,7 @@ if ($filter['CUR_FILTERS']) { ?>
                 </div>
             <? } ?>
         </div>
-    </div>
+
     <script>
         $('.elList').masonry({
             // options...
@@ -112,12 +112,14 @@ if ($filter['CUR_FILTERS']) { ?>
                 $href = $urlPage . ($iCur - 1);
             ?>
             <li class="prev">
-            <a href="<?= $href ?>" data-page="<?= ($iCur - 1) ?>"></a>
+            <a href="<?= $href ?>" data-page="<?= ($iCur - 1) ?>">
+                <i class="engIcon setIcon-left-red"></i>
+            </a>
             </li><?
         } else {
             ?>
             <li class="prev">
-                <span></span>
+               <i class="engIcon setIcon-left"></i>
             </li><?
         }
         if ($iStart > 1) {
@@ -168,12 +170,14 @@ if ($filter['CUR_FILTERS']) { ?>
             $href = $urlPage . ($iCur + 1);
             ?>
             <li class="next">
-            <a href="<?= $href ?>" data-page="<?= ($iCur + 1) ?>"></a>
+            <a href="<?= $href ?>" data-page="<?= ($iCur + 1) ?>">
+                <i class="engIcon setIcon-right-red"></i>
+            </a>
             </li><?
         } else {
             ?>
             <li class="next">
-                <span></span>
+                <i class="engIcon setIcon-right"></i>
             </li><?
         }
 
@@ -188,4 +192,5 @@ if ($filter['CUR_FILTERS']) { ?>
         if ($component->navParams['iNumPage'] == 1) {
             echo $component->seo['TEXT'];
         } ?>
+    </div>
     </div>
