@@ -30,7 +30,8 @@ class TimHalls extends \CBitrixComponent
 
 		$hallCode = trim($urlDirs[2]);
 		$eventCode = trim($urlDirs[3]);
-		$runCode = trim($urlDirs[4]);
+		$runCodeDate = trim($urlDirs[4]);
+		$runCodeTime = trim($urlDirs[5]);
 
 		$template = 'halls';
 		if ($hallCode)
@@ -47,13 +48,14 @@ class TimHalls extends \CBitrixComponent
 					{
 						$template = 'event';
 						$APPLICATION->AddChainItem($this->event['NAME'], $this->event['DETAIL_PAGE_URL']);
-						if ($runCode)
+						if ($runCodeDate)
 						{
-							/*$this->run = Run::get($eventCode);
+							$template = 'run';
+							$this->run = Run::getByUrlCodes($this->event['RUNS'], $runCodeDate, $runCodeTime);
 							if ($this->run)
 							{
 								$template = 'run';
-							}*/
+							}
 						}
 					}
 				}

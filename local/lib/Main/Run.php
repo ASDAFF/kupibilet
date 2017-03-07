@@ -19,6 +19,16 @@ class Run
 	 */
 	const IBLOCK_ID = 4;
 
+	/**
+	 * Формат показа в урле
+	 */
+	const URL_FORMAT = 'DD-MM-YYYY/HH-MI/';
+
+	/**
+	 * Формат показа в урле
+	 */
+	const S_FORMAT = 'DD.MM.YYYY HH:MI';
+
 	public static function getAll($refreshCache = false)
 	{
 		$return = array();
@@ -100,9 +110,6 @@ class Run
 			), false, false, array(
 				'ID',
 				'PROPERTY_DATE',
-				'PROPERTY_QUOTAS',
-				'PROPERTY_MIN_PRICE',
-				'PROPERTY_MAX_PRICE',
 			));
 			while ($item = $rsItems->Fetch())
 			{
@@ -111,8 +118,7 @@ class Run
 					'ID' => $id,
 					'DATE' => $item['PROPERTY_DATE_VALUE'],
 					'TS' => MakeTimeStamp($item['PROPERTY_DATE_VALUE']),
-					'MIN_PRICE' => intval($item['PROPERTY_MIN_PRICE_VALUE']),
-					'MAX_PRICE' => intval($item['PROPERTY_MAX_PRICE_VALUE']),
+				    'FURL' => ConvertDateTime($item['PROPERTY_DATE_VALUE'], self::URL_FORMAT),
 				);
 			}
 
@@ -156,11 +162,23 @@ class Run
 			while ($item = $rsItems->Fetch())
 			{
 				$id = intval($item['ID']);
+				$quotasEncoded = $item['PROPERTY_QUOTAS_VALUE'];
+				$quotas = json_decode($quotasEncoded, true);
+				$sits = array();
+				foreach ($quotas as $quota)
+				{
+					foreach ($quota[2] as $sit)
+						$sits[$sit] = $quota[0];
+				}
 				$return = array(
 					'ID' => $id,
 					'EVENT' => $item['PROPERTY_EVENT_VALUE'],
 					'DATE' => $item['PROPERTY_DATE_VALUE'],
-				    'QUOTAS' => $item['PROPERTY_QUOTAS_VALUE'],
+					'TS' => MakeTimeStamp($item['PROPERTY_DATE_VALUE']),
+					'FURL' => ConvertDateTime($item['PROPERTY_DATE_VALUE'], self::URL_FORMAT),
+					'DATE_S' => ConvertDateTime($item['PROPERTY_DATE_VALUE'], self::S_FORMAT),
+					'QUOTAS' => $quotasEncoded,
+				    'PRICES' => $sits,
 				);
 			}
 
@@ -182,6 +200,25 @@ class Run
 		{
 			if ($item['TS'] > $now)
 				return $item;
+		}
+
+		return array();
+	}
+
+	/**
+	 * Возвращает показ по урлу
+	 * @param $runs
+	 * @param $date
+	 * @param $time
+	 * @return array|mixed
+	 */
+	public static function getByUrlCodes($runs, $date, $time)
+	{
+		$q = $date . '/' . $time . '/';
+		foreach ($runs as $run)
+		{
+			if ($run['FURL'] == $q)
+				return self::getById($run['ID']);
 		}
 
 		return array();

@@ -8,11 +8,13 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)
 $hall = $component->hall;
 $event = $component->event;
 
-//debugmessage($event);
 
-$price = $event['PRODUCT']['PRICE'];
-if ($event['PRODUCT']['PRICE'] != $event['PRODUCT']['PRICE_TO'])
-    $price .= ' - ' . $event['PRODUCT']['PRICE_TO'];
+$item = $event['PRODUCT'];
+$price = $item['PRICE'];
+if ($item['PRICE'] != $item['PRICE_TO'])
+	$price .= ' - ' . $item['PRICE_TO'];
+
+
 ?>
 
 
@@ -61,4 +63,5 @@ if ($event['PRODUCT']['PRICE'] != $event['PRODUCT']['PRICE_TO'])
 <?
 \Local\Main\Event::viewedCounters($event['ID']);
 $APPLICATION->SetTitle($event['NAME']);
+$APPLICATION->SetPageProperty('title', $event['NAME']);
 ?>
