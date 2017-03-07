@@ -9,6 +9,7 @@ $now = time();
 
 ?>
 <div class="engBox engContent">
+    <div class="engBox-content">
 	<div class="elList">
 		<div class="grid-sizer"></div>
 		<?
@@ -43,30 +44,54 @@ $now = time();
 					?>
 				</div>
 			</div><?
-
-			if (!$calendar)
-			{
-				$calendar = true;
-				?>
-				<div class="it-item">
-					<div class="it-date-form">
-						<div id="engDate-picter"></div>
-					</div>
-				</div><?
-			}
+            // ВНИМАНИЕ Перенес калед. в правый блок
+//			if (!$calendar)
+//			{
+//				$calendar = true;
+//				?>
+<!--				<div class="it-item">-->
+<!--					<div class="it-date-form">-->
+<!--						<div id="engDate-picter"></div>-->
+<!--					</div>-->
+<!--				</div>--><?//
+//			}
 		}
 
-		if (!$calendar)
-		{
-			$calendar = true;
-			?>
-			<div class="it-item">
-				<div class="it-date-form">
-					<div id="engDate-picter"></div>
-				</div>
-			</div><?
-		}
+//		if (!$calendar)
+//		{
+//			$calendar = true;
+//			?>
+<!--			<div class="it-item">-->
+<!--				<div class="it-date-form">-->
+<!--					<div id="engDate-picter"></div>-->
+<!--				</div>-->
+<!--			</div>--><?//
+//		}
 
 		?>
 	</div>
+    </div>
+    <div class="engBox-right">
+        <div class="elList">
+            <div class="it-item">
+                <div class="it-date-form">
+                    <div id="engDate-picter"></div>
+                    <script>
+                        function severalDates(date){
+
+                            var dates = new Array("11.03.2017", "12.03.2017");
+
+
+                            var dat = $.datepicker.formatDate("dd.mm.yy", date);
+                            var r = [true, ""];
+                            for (var i=0, c=dates.length; i<c; i++)
+                                if (dat == dates[i])
+                                    r = [true, "yellow"];
+                            return r;
+                        }
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
 </div><?

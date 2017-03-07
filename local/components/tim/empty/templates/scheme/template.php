@@ -6,7 +6,7 @@ if (!$hall)
 	return;
 
 $assets = \Bitrix\Main\Page\Asset::getInstance();
-$assets->addCss('/css/scheme.css', true);
+$assets->addCss('/css/scheme.css');
 $assets->addJs('/js/scheme.js');
 
 $scheme = $hall['SCHEME'] ? $hall['SCHEME'] : '{}';
@@ -44,17 +44,17 @@ $href = '/bitrix/admin/iblock_element_edit.php?IBLOCK_ID=2&type=main&ID=' . $hal
 		<input type="text" name="rotate" value="" />
 	</div>
 	<div>
-		<input class="bttn new" type="button" value="Добавить" />
+		<input class="btn new" type="button" value="Добавить" />
 	</div>
 	<div>
-		<input class="bttn del disabled" type="button" value="Удалить" />
+		<input class="btn del disabled" type="button" value="Удалить" />
 	</div>
 	<div>
 		<p>Включить попап</p>
 		<input type="checkbox" name="popup" />
 	</div>
 	<div>
-		<input class="bttn save disabled" type="button" value="Сохранить" />
+		<input class="btn save disabled" type="button" value="Сохранить" />
 	</div>
 </div>
 <div id="options-panel-margin">
