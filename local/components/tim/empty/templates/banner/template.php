@@ -3,16 +3,15 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 
 // TODO: Пока оставим 15 первых попавшихся событий, дальше добавим какую-то нужную сортировку и фильтр
 $banners = \Local\Main\Banner::getAll(array(), array(), array('nTopCount' => 15));
-print_r($banners);
+
 
 ?>
 		<?
 
 		foreach ($banners as $item)
 		{
-			//$banner = \Local\Main\Banner::getById($item['BANNER']);
+			debugmessage($item);
 			$events = \Local\Main\Event::getById($item['EVENT']);
-			$img = CFile::GetPath($item['PREVIEW_PICTURE']);
 
 			$hall = \Local\Main\Hall::getById($events['HALL']);
 			$run = \Local\Main\Run::getClosest($events['RUNS']);
@@ -24,7 +23,7 @@ print_r($banners);
 			?>
 			<div class="elSlider">
 				<div class="elSlider-item">
-					<img src="<?= $img ?>" />
+					<img src="<?= $item['PREVIEW_PICTURE'] ?>" />
 					<div class="it-inf">
 						<div class="it-title"><?=$item['NAME']?></div>
 						<div class="it-data"><i class="engIcon setIcon-date-white"></i><?= $run['DATE'] ?></div>
