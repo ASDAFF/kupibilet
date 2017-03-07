@@ -78,7 +78,8 @@
                     <a href="/login/" class="cssBorderRadius">Вход</a>
                     <a href="/login/?register=yes" class="cssBorderRadius">Регистрация</a>
                 <?else:?>
-                    тут выводим кнопки для авторизованного пользователя
+                    <a href="/personal/" class="cssBorderRadius">Личный кабинет</a>
+                    <a href="/?logout=yes" class="cssBorderRadius">Выход</a>
                 <?endif;?>
             </div>
         </div>

@@ -33,8 +33,8 @@ class Banner
             $extCache->startDataCache();
 
             $iblockElement = new \CIBlockElement();
-            $rsItems = $iblockElement->GetList(array("NAME" => "ASC"), array(
-                'IBLOCK_ID' => self::IBLOCK_ID,
+            $rsItems = $iblockElement->GetList(array("SORT" => "ASC", "NAME" => "ASC"), array(
+                'IBLOCK_ID' => self::IBLOCK_ID, "ACTIVE"=>"Y"
             ), false, false, array(
                 'ID', 'NAME', 'PREVIEW_PICTURE',
                 'PROPERTY_EVENT',
@@ -50,8 +50,7 @@ class Banner
                     'PREVIEW_PICTURE' => \CFile::GetPath($item['PREVIEW_PICTURE']),
                     'EVENT' => $item['PROPERTY_EVENT_VALUE'],
                 );
-                if ($item['CODE'])
-                    $return['BY_CODE'][$item['CODE']] = $id;
+
             }
 
             $extCache->endDataCache($return);
