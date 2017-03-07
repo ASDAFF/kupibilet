@@ -8,7 +8,11 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)
 $hall = $component->hall;
 $event = $component->event;
 
-debugmessage($event);
+//debugmessage($event);
+
+$price = $event['PRODUCT']['PRICE'];
+if ($event['PRODUCT']['PRICE'] != $event['PRODUCT']['PRICE_TO'])
+    $price .= ' - ' . $event['PRODUCT']['PRICE_TO'];
 ?>
 
 
@@ -25,11 +29,17 @@ debugmessage($event);
                             <?}?>
                         </select>
                         <div class='eventpage-place'><?=$hall['NAME']?></div>
-                        <div class='eventpage-price'>! руб.</div>
-                        <input class='btn' type="submit" value="Купить билет">
+                        <div class='eventpage-price'><?=$price?> руб.</div>
+                        <?if($event['PRODUCT']['E_TICKET'] != 0){?>
+                            <input class='btn' type="submit" value="Купить билет">
+                        <?}?>
                     </form>
-                    <div class="age-rule">!12+</div>
-                    <div class="hall-type">!E</div>
+                    <?if(!empty($event['PRODUCT']['AGE'])){?>
+                        <div class="age-rule"><?=$event['PRODUCT']['AGE']?></div>
+                    <?}?>
+                    <?if($event['PRODUCT']['E_TICKET'] != 0){?>
+                    <div class="hall-type">E</div>
+                    <?}?>
                 </div>
                 <div class='eventpage-txt'>
                     <?=$event['DETAIL_TEXT']?>
