@@ -37,13 +37,15 @@ $(function() {
 
 
 $( function() {
-    $('#engDate-picter').datepicker({
-        beforeShowDay: severalDates,
-        defaultDate: "+4d",
-        onSelect: function (selectedDate) {
-            location.href = "/event/?d-from=" + selectedDate; // Переход
-        }
-    });
+	if ($('#engDate-picter').length) {
+		$('#engDate-picter').datepicker({
+			beforeShowDay: severalDates,
+			defaultDate: "+4d",
+			onSelect: function (selectedDate) {
+				location.href = "/event/?d-from=" + selectedDate; // Переход
+			}
+		});
+	}
 
 } );
 
