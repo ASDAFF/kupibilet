@@ -44,7 +44,7 @@ class Banner
 
 
                 $id = intval($item['ID']);
-                $return['ITEMS'][$id] = array(
+                $return[$id] = array(
                     'ID' => $id,
                     'NAME' => $item['NAME'],
                     'PREVIEW_PICTURE' => \CFile::GetPath($item['PREVIEW_PICTURE']),

@@ -8,7 +8,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)
 $hall = $component->hall;
 $event = $component->event;
 
-//debugmessage($event);
+debugmessage($event);
 ?>
 
 
