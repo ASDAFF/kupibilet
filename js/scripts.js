@@ -10,11 +10,7 @@ $(document).ready(function() {
         closeClick	: false
     });
 
-	$('.elList').masonry({
-		// options...
-		itemSelector: '.it-item',
-		columnWidth: 395
-	});
+	
 });
 
 $(function() {
@@ -106,3 +102,22 @@ $( function() {
     return datepicker.regional.ru;
 
 } ) );
+
+
+
+$(document).ready(function() {
+    $('.elSlider').owlCarousel({
+        navigation : true, // показывать кнопки next и prev
+        nav:true,
+        navText: ["<img src='images/slider/left.png'>","<img src='images/slider/right.png'>"],
+
+        slideSpeed : 300,
+        paginationSpeed : 400,
+
+        items : 1,
+        itemsDesktop : false,
+        itemsDesktopSmall : false,
+        itemsTablet: false,
+        itemsMobile : false
+    });
+});

@@ -38,7 +38,7 @@ $products = $component->products['ITEMS'];
                             <div class="it-filter-title">Фильтр</div>
                         </div>
                         <div class="engBox-6">
-                            <a href="" class="it-filter-btn">
+                            <a href="" class="it-filter-btn filter-clear">
                                 <span>Очистить все</span>
                                 <i class="engIcon setIcon-filter-delete"></i>
                             </a>
@@ -180,7 +180,7 @@ $products = $component->products['ITEMS'];
 
                     <? $i++; ?>
                 <? } ?>
-
+            <div class="filter-add">Применить</div>
             </div>
             </div>
         </div>

@@ -404,6 +404,8 @@ footer {clear: both; margin-top: 20px;}
 .elSlider img {display: block; width: 100%;
     -webkit-transform-style: preserve-3d;}
 
+.elSlider .owl-stage-outer {overflow: hidden;}
+.elSlider .owl-item {float: left;}
 .elSlider .owl-nav {cursor: pointer;}
 .elSlider .owl-prev {position: absolute; left: -120px; top: 45%;
     background: none;}
@@ -460,7 +462,7 @@ footer {clear: both; margin-top: 20px;}
 
 /* Матер */
 .elList {}
-.elList .it-item {display: inline-block; width: 375px; margin: 10px;
+.elList .it-item {display: inline-block; width: 375px; margin: 10px; float: left;
     background: #e4e3e5;}
 
 .elList .it-item.set-2 {width: 770px;}
@@ -613,11 +615,13 @@ footer {clear: both; margin-top: 20px;}
 .elZal-item:hover .elZal-inf {display: block;}
 .elZal-point {width: 20px; height: 20px;
     font-size: 9px; text-align: center; color: #000; line-height: 15px;
-    background-image: url("../images/point.gif");}
+    background-image: url("../images/point.png");}
 .elZal-point.on {cursor: pointer;}
 .elZal-point.on:hover {box-shadow: 0 0 8px #ff5f5f;}
 .elZal-point.off {
-    background-image: url("../images/point-off.gif"); }
+    background-position-x: -20px; }
+.elZal-point.order {
+    background-position-x: -40px; color: #FFFFFF;}
 
 .elZal-point.rotate-right-25 {
     -moz-transform: rotate(25deg); /* Для Firefox */

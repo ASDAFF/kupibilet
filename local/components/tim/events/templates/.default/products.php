@@ -67,13 +67,7 @@ if ($filter['CUR_FILTERS']) { ?>
             <? } ?>
         </div>
 
-    <script>
-        $('.elList').masonry({
-            // options...
-            itemSelector: '.it-item',
-            columnWidth: 395
-        });
-    </script>
+
 
 
     <?
