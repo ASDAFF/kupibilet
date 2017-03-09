@@ -19,6 +19,12 @@ $arUrlRewrite = array(
 		"PATH" => "/event/index.php",
 	),
 	array(
+		"CONDITION" => "#^/personal/order/payment/success/(.*)/(.*)#",
+		"RULE" => "id=\$1",
+		"ID" => "",
+		"PATH" => "/personal/order/payment/success/index.php",
+	),
+	array(
 		"CONDITION" => "#^#",
 		"RULE" => "",
 		"ID" => "bitrix:news",

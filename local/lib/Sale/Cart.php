@@ -19,11 +19,12 @@ class Cart
 	const CACHE_PATH = 'Local/Sale/Cart/';
 
 	/**
-	 * Возвращает корзину текущего пользователя
+	 * Возвращает корзину текущего пользователя или товары заказа
+	 * @param string $orderId
 	 * @return array
 	 * @throws \Bitrix\Main\LoaderException
 	 */
-	public static function getCart()
+	public static function getCart($orderId = 'NULL')
 	{
 		$return = array(
 			'COUNT' => 0,
@@ -36,7 +37,7 @@ class Cart
 		$basket = new \CSaleBasket();
 		$basket->Init();
 		$rsCart = $basket->GetList(array(), array(
-			'ORDER_ID' => 'NULL',
+			'ORDER_ID' => $orderId,
 			'FUSER_ID' => $basket->GetBasketUserID(),
 		));
 		$ids = array();
@@ -73,6 +74,11 @@ class Cart
 		}
 
 		return $return;
+	}
+
+	public static function getOrderItems($orderId)
+	{
+		return self::getCart($orderId);
 	}
 
 	/**
@@ -193,7 +199,7 @@ class Cart
 			'CODE' => 'NUM',
 			'VALUE' => $sit[5],
 		);
-		$name = $event['NAME'] . ' ' . $run['DATE_S'] .  ' ' . $sit[3] . ', ряд: ' . $sit[4] . ', место: ' . $sit[5];
+		$name = $event['NAME'] . ' ' . $run['DATE_S'];
 
 		$fields = array(
 			'PRODUCT_ID' => $runId,
@@ -292,6 +298,7 @@ class Cart
 			'CANCELED' => 'N',
 			'STATUS_ID' => 'N',
 			'PRICE' => $cart['PRICE'] + $cart['SERV_PRICE'],
+			//'PRICE_DELIVERY' => $cart['SERV_PRICE'],
 			'CURRENCY' => 'RUB',
 			'USER_ID' => $userId,
 			'PAY_SYSTEM_ID' => 1,
@@ -309,19 +316,19 @@ class Cart
 				$basket->Update($item['ID'], array(
 					'ORDER_ID' => $orderId,
 				));
-				$basket->Add(array(
-					'ORDER_ID' => $orderId,
-					'PRODUCT_ID' => 1,
-					'PRICE' => $cart['SERV_PRICE'],
-					'CURRENCY' => 'RUB',
-					'QUANTITY' => 1,
-					'LID' => SITE_ID,
-					'DELAY' => 'N',
-					'CAN_BUY' => 'Y',
-					'NAME' => 'Сервисный сбор',
-					'MODULE' => 'main',
-				));
 			}
+			$basket->Add(array(
+				'ORDER_ID' => $orderId,
+				'PRODUCT_ID' => 1,
+				'PRICE' => $cart['SERV_PRICE'],
+				'CURRENCY' => 'RUB',
+				'QUANTITY' => 1,
+				'LID' => SITE_ID,
+				'DELAY' => 'N',
+				'CAN_BUY' => 'Y',
+				'NAME' => 'Сервисный сбор',
+				'MODULE' => 'main',
+			));
 
 			self::updateSessionCartSummary();
 		}
@@ -344,5 +351,26 @@ class Cart
 		$order = $rsOrder->Fetch();
 
 		return $order;
+	}
+
+	public static function setOrderPayed($id, $price)
+	{
+		Loader::IncludeModule('sale');
+
+		$order = new \CSaleOrder();
+		$order->Update($id, array(
+			'STATUS_ID' => 'F',
+		    'COMMENTS' => rand(100, 999) . '-' . rand(100, 999),
+		));
+	}
+
+	public static function setSbOrderId($id, $sbOrderId)
+	{
+		Loader::IncludeModule('sale');
+
+		$order = new \CSaleOrder();
+		$order->Update($id, array(
+			'XML_ID' => $sbOrderId,
+		));
 	}
 }

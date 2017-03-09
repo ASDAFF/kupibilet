@@ -5,7 +5,7 @@ $run = \Local\Main\Run::getById($_REQUEST['ID'], true);
 if (!$run)
 	return;
 
-$event = \Local\Main\Event::getById($run['EVENT']);
+$event = \Local\Main\Event::getById($run['EVENT'], true);
 if (!$event)
 	return;
 
@@ -28,23 +28,23 @@ $href = '/bitrix/admin/iblock_element_edit.php?IBLOCK_ID=4&type=main&ID=' . $run
 	<div class="q-groups">
 		<table>
 			<thead>
-				<tr>
-					<th>Цена</th>
-					<th>Цвет</th>
-					<th>ID мест</th>
-					<th></th>
-				</tr>
+			<tr>
+				<th></th>
+				<th>Цена</th>
+				<th>Цвет</th>
+				<th></th>
+			</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td><input type="text" /></td>
-					<td><input type="text" /></td>
-					<td><input type="text" readonly /></td>
-					<td><input class="btn del" type="button" value="удалить" /></td>
-				</tr>
+			<tr id="r1">
+				<td><input class="current" type="radio" name="current" checked /></td>
+				<td><input class="price" type="text"/></td>
+				<td><input class="color" type="text"/></td>
+				<td><input class="bttn del" type="button" value="удалить"/></td>
+			</tr>
 			</tbody>
 		</table>
-		<input class="btn new" type="button" value="Добавить" />
+		<input class="bttn new" type="button" value="Добавить" />
 	</div>
 	<div class="theater-info">
 		<h3>Квоты: <?= $run['NAME'] ?></h3>
@@ -55,7 +55,7 @@ $href = '/bitrix/admin/iblock_element_edit.php?IBLOCK_ID=4&type=main&ID=' . $run
 		<input type="checkbox" name="popup" />
 	</div>
 	<div>
-		<input class="btn save disabled" type="button" value="Сохранить" />
+		<input class="bttn save disabled" type="button" value="Сохранить" />
 	</div>
 </div>
 <div id="options-panel-margin">
@@ -80,6 +80,10 @@ $href = '/bitrix/admin/iblock_element_edit.php?IBLOCK_ID=4&type=main&ID=' . $run
 		<div class="engRow">
 			<div class="engBox-6">Место</div>
 			<div class="engBox-6 cssText-right elZal-inf-number"></div>
+		</div>
+		<div class="engRow">
+			<div class="engBox-12 cssText-center">Стоимость</div>
+			<div class="engBox-12 cssText-center elZal-inf-money"></div>
 		</div>
 	</div>
 </div>

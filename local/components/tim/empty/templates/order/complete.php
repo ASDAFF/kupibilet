@@ -1,6 +1,10 @@
 <?
 /** @var array $order */
-if ($order['PAYED'] == 'Y')
+
+?>
+<p>Заказ <?= $order['ID'] ?> создан</p><?
+
+if ($order['STATUS_ID'] == 'F')
 {
 	?>
 	<p>Заказ уже оплачен</p><?

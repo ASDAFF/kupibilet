@@ -1,53 +1,8 @@
 <?
-if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
-
-$assets = \Bitrix\Main\Page\Asset::getInstance();
-$assets->addJs('/js/cart.js');
-
-$id = $_REQUEST['id'];
-$order = \Local\Sale\Cart::getOrderById($id);
-if (!$order)
-	return;
-
-/** @var array $arParams */
-if ($arParams['PAGE'] == 'complete')
-{
-
-}
-
-if ($arParams['PAGE'] == 'complete')
-	include ('complete.php');
-elseif ($arParams['PAGE'] == 'pay')
-	include ('pay.php');
-elseif ($arParams['PAGE'] == 'success')
-	include ('success.php');
-
-?>
-	<p>Спасибо, заказ принят.</p><?
-
-if ($order['PAYED'] == 'Y')
-{
-	?>
-	<p>Заказ уже оплачен</p><?
-}
-else
-{
-	?>
-	<form action="/personal/order/payment/" method="post">
-	<input type="submit" value="Оплатить заказ" />
-	<input type="hidden" name="id" value="<?= $id ?>" />
-	</form><?
-}
-
-
-$id = $_REQUEST['id'];
-$order = \Local\Sale\Cart::getOrderById($id);
-if (!$order)
-	return;
-
-$host = $_SERVER['HTTP_HOST'];
+/** @var array $order */
 
 use Voronkovich\SberbankAcquiring\Client;
+use Voronkovich\SberbankAcquiring\OrderStatus;
 
 $client = new Client(array(
 	'userName' => 'kupibilet-api',
@@ -55,19 +10,21 @@ $client = new Client(array(
 	'apiUri' => Client::API_URI_TEST,
 ));
 
-$orderId     = $id;
-$orderAmount = $order['PRICE'] * 100;
-$returnUrl   = 'http://' . $host . '/personal/order/payment/success.php';
-$params = array();
-$params['failUrl']  = 'http://' . $host . '/personal/order/payment/error.php';
+$sbOrderId = $_REQUEST['orderId'];
+$ok = false;
+if ($sbOrderId)
+{
+	$result = $client->getOrderStatus($sbOrderId);
+	if (OrderStatus::isDeposited($result['OrderStatus']))
+	{
+		\Local\Sale\Cart::setOrderPayed($order['ID'], $sbOrderId);
+		$ok = true;
+	}
+}
 
-$result = $client->registerOrder($orderId, $orderAmount, $returnUrl, $params);
+if (!$ok)
+	return;
 
-$paymentOrderId = $result['orderId'];
-$paymentFormUrl = $result['formUrl'];
-
-debugmessage($result);
-debugmessage($paymentOrderId);
-debugmessage($paymentFormUrl);
-
-//header('Location: ' . $paymentFormUrl);
+?>
+<p>Заказ успешно оплачен</p>
+<p><a href="/personal/order/print/?id=<?= $order['ID'] ?>">Распечатать</a></p><?
