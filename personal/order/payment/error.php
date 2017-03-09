@@ -2,8 +2,9 @@
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 
 /** @global CMain $APPLICATION */
-$APPLICATION->SetTitle("Корзина");
+$APPLICATION->SetTitle("Ошибка при оплате заказа");
 
-$APPLICATION->IncludeComponent('tim:empty', 'cart');
+?>
+<p>Ошибка</p><?
 
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");

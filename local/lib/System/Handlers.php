@@ -3,6 +3,7 @@ namespace Local\System;
 use Local\Main\Event;
 use Local\Main\UserTypeQuotas;
 use Local\Main\UserTypeScheme;
+use Local\Sale\Cart;
 
 /**
  * Class Handlers Обработчики событий
@@ -37,6 +38,8 @@ class Handlers
 				array(__NAMESPACE__ . '\Handlers', 'prolog'));
 			AddEventHandler('search', 'BeforeIndex',
 				array(__NAMESPACE__ . '\Handlers', 'beforeSearchIndex'));
+			AddEventHandler('sale', 'OnBasketDelete',
+				array(__NAMESPACE__ . '\Handlers', 'basketDelete'));
 		}
 	}
 
@@ -101,6 +104,18 @@ class Handlers
 	{
 		if ($arFields['MODULE_ID'] == 'iblock' && $arFields['PARAM2'] == Event::IBLOCK_ID)
 			$arFields = Event::beforeSearchIndex($arFields);
+
+		return $arFields;
+	}
+
+	/**
+	 * После удаления товара из корзины
+	 * @param $arFields
+	 * @return mixed
+	 */
+	public static function basketDelete($arFields)
+	{
+		Cart::updateSessionCartSummary();
 
 		return $arFields;
 	}
