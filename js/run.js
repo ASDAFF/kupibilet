@@ -53,7 +53,6 @@ var Run = {
 			url: '/ajax/cart.php',
 			data: 'action=' + action + '&eid=' + Run.eventId + '&rid=' + Run.runId + '&id=' + id,
 			success: function (data) {
-				console.log(data);
 				if (action == 'add') {
 					if (data.ID)
 						point.addClass('cart');

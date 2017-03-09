@@ -23,6 +23,7 @@ if (!$console)
 
 include ('admin_template.php');
 include ('add_quotas.php');
+include ('field_longtext.php');
 
 if (!$console)
 	echo '</pre>';

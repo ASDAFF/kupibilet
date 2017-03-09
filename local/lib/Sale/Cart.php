@@ -19,12 +19,18 @@ class Cart
 	const CACHE_PATH = 'Local/Sale/Cart/';
 
 	/**
-	 * Возвращает сводку по корзине
+	 * Возвращает корзину текущего пользователя
+	 * @return array
+	 * @throws \Bitrix\Main\LoaderException
 	 */
-	public static function getSummaryDB()
+	public static function getCart()
 	{
-		$count = 0;
-		$price = 0;
+		$return = array(
+			'COUNT' => 0,
+			'PRICE' => 0,
+			'SERV_PRICE' => 0,
+		    'ITEMS' => array(),
+		);
 		Loader::IncludeModule('sale');
 
 		$basket = new \CSaleBasket();
@@ -33,15 +39,51 @@ class Cart
 			'ORDER_ID' => 'NULL',
 			'FUSER_ID' => $basket->GetBasketUserID(),
 		));
+		$ids = array();
 		while ($item = $rsCart->Fetch())
 		{
-			$count++;
-			$price += intval($item['PRICE']);
+			$id = intval($item['ID']);
+			$price = intval($item['PRICE']);
+			$serv = floor($price * SERVICE_CHARGE / 100);
+			$return['ITEMS'][$id] = array(
+				'ID' => $id,
+				'RUN' => intval($item['PRODUCT_ID']),
+				'EVENT' => intval($item['PRODUCT_XML_ID']),
+				'SIT' => intval($item['CATALOG_XML_ID']),
+			    'DETAIL_PAGE_URL' => $item['DETAIL_PAGE_URL'],
+			    'PRICE' => $price,
+			    'SERV' => $serv,
+			);
+
+			$return['COUNT']++;
+			$return['PRICE'] += $price;
+			$return['SERV_PRICE'] += $serv;
+
+			$ids[] = $id;
 		}
 
+		if ($ids)
+		{
+			$rsProps = $basket->GetPropsList(Array(), Array("@BASKET_ID" => $ids));
+			while ($prop = $rsProps->Fetch())
+			{
+				$id = $prop['BASKET_ID'];
+				$return['ITEMS'][$id]['PROPS'][$prop['CODE']] = $prop['VALUE'];
+			}
+		}
+
+		return $return;
+	}
+
+	/**
+	 * Возвращает сводку по корзине
+	 */
+	public static function getSummaryDB()
+	{
+		$cart = self::getCart();
 		return array(
-			'COUNT' => $count,
-			'PRICE' => $price,
+			'COUNT' => $cart['COUNT'],
+			'PRICE' => $cart['PRICE'],
 		);
 	}
 
@@ -132,9 +174,24 @@ class Cart
 		
 		$props = array();
 		$props[] = array(
-			'NAME' => 'Место',
+			'NAME' => 'ID Места',
 			'CODE' => 'SIT',
 			'VALUE' => $id,
+		);
+		$props[] = array(
+			'NAME' => 'Сектор',
+			'CODE' => 'SECTOR',
+			'VALUE' => $sit[3],
+		);
+		$props[] = array(
+			'NAME' => 'Ряд',
+			'CODE' => 'ROW',
+			'VALUE' => $sit[4],
+		);
+		$props[] = array(
+			'NAME' => 'Место',
+			'CODE' => 'NUM',
+			'VALUE' => $sit[5],
 		);
 		$name = $event['NAME'] . ' ' . $run['DATE_S'] .  ' ' . $sit[3] . ', ряд: ' . $sit[4] . ', место: ' . $sit[5];
 
@@ -172,7 +229,7 @@ class Cart
 	}
 
 	/**
-	 * Добавление товара (выбранное место) в корзину
+	 * Удаление товара из корзины
 	 * @param $id
 	 * @param $eventId
 	 * @param $runId
@@ -193,12 +250,22 @@ class Cart
 		if (!$run)
 			return false;
 
-		Loader::IncludeModule('sale');
-
 		$sits = self::getSitsByRun($runId);
 		$cartId = $sits[$id];
 		if (!$cartId)
 			return false;
+
+		return self::delete($cartId);
+	}
+
+	/**
+	 * Удаление товара из корзины
+	 * @param $cartId
+	 * @return bool|int
+	 */
+	public static function delete($cartId)
+	{
+		Loader::IncludeModule('sale');
 
 		$basket = new \CSaleBasket();
 		$basket->Init();
@@ -211,5 +278,26 @@ class Cart
 		return $return;
 	}
 
+	public static function createOrder($cart)
+	{
+		Loader::IncludeModule('sale');
 
+		$order = new \CSaleOrder();
+		$orderId = $order->Add(array(
+			'LID' => SITE_ID,
+			'PERSON_TYPE_ID' => 1,
+			'PAYED' => 'N',
+			'CANCELED' => 'N',
+			'STATUS_ID' => 'N',
+			'PRICE' => $cart['PRICE'] + $cart['SERV_PRICE'],
+			'CURRENCY' => 'RUB',
+			'USER_ID' => $userId,
+			'PAY_SYSTEM_ID' => 5,
+			'DELIVERY_ID' => 1,
+			'USER_DESCRIPTION' => 'ЗАКАЗ от SITE.RU',
+			'ADDITIONAL_INFO' => 'ЗАКАЗ от SITE.RU',
+		));
+
+		return $orderId;
+	}
 }
