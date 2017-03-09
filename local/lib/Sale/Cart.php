@@ -282,8 +282,10 @@ class Cart
 	{
 		Loader::IncludeModule('sale');
 
-		$order = new \CSaleOrder();
-		$orderId = $order->Add(array(
+		$user = new \CUser();
+		$userId = intval($user->GetID());
+
+		$fields = array(
 			'LID' => SITE_ID,
 			'PERSON_TYPE_ID' => 1,
 			'PAYED' => 'N',
@@ -292,12 +294,55 @@ class Cart
 			'PRICE' => $cart['PRICE'] + $cart['SERV_PRICE'],
 			'CURRENCY' => 'RUB',
 			'USER_ID' => $userId,
-			'PAY_SYSTEM_ID' => 5,
-			'DELIVERY_ID' => 1,
-			'USER_DESCRIPTION' => 'ЗАКАЗ от SITE.RU',
-			'ADDITIONAL_INFO' => 'ЗАКАЗ от SITE.RU',
-		));
+			'PAY_SYSTEM_ID' => 1,
+			'DELIVERY_ID' => 2,
+		);
+
+		$order = new \CSaleOrder();
+		$basket = new \CSaleBasket();
+		$orderId = $order->Add($fields);
+
+		if ($orderId)
+		{
+			foreach ($cart['ITEMS'] as $item)
+			{
+				$basket->Update($item['ID'], array(
+					'ORDER_ID' => $orderId,
+				));
+				$basket->Add(array(
+					'ORDER_ID' => $orderId,
+					'PRODUCT_ID' => 1,
+					'PRICE' => $cart['SERV_PRICE'],
+					'CURRENCY' => 'RUB',
+					'QUANTITY' => 1,
+					'LID' => SITE_ID,
+					'DELAY' => 'N',
+					'CAN_BUY' => 'Y',
+					'NAME' => 'Сервисный сбор',
+					'MODULE' => 'main',
+				));
+			}
+
+			self::updateSessionCartSummary();
+		}
 
 		return $orderId;
+	}
+
+	public static function getOrderById($id)
+	{
+		Loader::IncludeModule('sale');
+
+		$user = new \CUser();
+		$userId = intval($user->GetID());
+
+		$order = new \CSaleOrder();
+		$rsOrder = $order->GetList(array(), array(
+			'ID' => $id,
+			'USER_ID' => $userId,
+		));
+		$order = $rsOrder->Fetch();
+
+		return $order;
 	}
 }

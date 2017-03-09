@@ -6,7 +6,7 @@ $arExColumns = array();
 while($item = $dbItems->Fetch()) {
 	if ($item['Field'] == 'PROPERTY_23')
 	{
-		if ($arItem['Type'] == 'text')
+		if ($item['Type'] == 'text')
 		{
 			$dbItems = $DB->Query('ALTER TABLE ' . $tableName . ' CHANGE PROPERTY_23 PROPERTY_23 longtext NULL');
 			echo "Изменен тип поля PROPERTY_23 на longtext.\n";

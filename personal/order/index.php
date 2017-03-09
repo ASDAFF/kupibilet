@@ -5,7 +5,7 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetTitle("Заказ");
 
 $APPLICATION->IncludeComponent('tim:empty', 'order', array(
-	'ORDER' => 'Y',
+	'PAGE' => 'complete',
 ));
 
-require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
+require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");
