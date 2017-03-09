@@ -45,9 +45,7 @@ var Filters = {
 		});
 
 		$('.filter-add').on('click', function (e) {
-			var url = "/event/";
-			Filters.loadProducts(url, false);
-			history.pushState('', '', url);
+			Filters.updateProducts();
 		});
 
 		$('#engDate-picter').datepicker({

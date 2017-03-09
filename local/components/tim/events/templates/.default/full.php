@@ -180,7 +180,7 @@ $products = $component->products['ITEMS'];
 
                     <? $i++; ?>
                 <? } ?>
-            <div class="filter-add">Применить</div>
+            <a href="" class="filter-add"><span>Применить</span></a>
             </div>
             </div>
         </div>
