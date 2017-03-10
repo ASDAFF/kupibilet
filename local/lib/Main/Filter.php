@@ -338,7 +338,7 @@ class Filter
 				// Цены - для всех товаров
 				$data = self::$DATA_BY_KEY[''];
 				$group['MIN'] = floor($data['PRICE']['MIN'] / 100) * 100;
-				$group['MAX'] = ceil($data['PRICE']['MAX'] / 100) * 100;
+				$group['MAX'] = ceil($data['PRICE_TO']['MAX'] / 100) * 100;
 				$cntGroup = $group['MIN'] == $group['MAX'] ? 0 : 1;
 			}
 			elseif ($group['TYPE'] == 'date')

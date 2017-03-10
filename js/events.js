@@ -31,11 +31,33 @@ var Filters = {
 		this.ajaxCont.on('click', '#current-filters a', this.urlClick);
 		this.ajaxCont.on('click', '.pagination a', this.urlClick);
 		this.bcCont.on('click', 'a', this.urlClick);
+		
 
 		$(window).on('popstate', function (e) {
 			var url = e.target.location;
 			Filters.loadProducts(url, false);
 		});
+		
+		$('.filter-clear').on('click', function (e) {
+			var url = "/event/";
+			Filters.loadProducts(url, false);
+			history.pushState('', '', url);
+		});
+
+		$('.filter-add').on('click', function (e) {
+			Filters.updateProducts();
+		});
+
+		$('#engDate-picter').datepicker({
+            beforeShowDay: severalDates,
+            defaultDate: "+4d",
+            onSelect: function (selectedDate) {
+                //location.href = "/event/?d-from=" + selectedDate; // Переход
+				var url = '/event/?d-from=' + selectedDate;
+				Filters.loadProducts(url, false);
+				history.pushState('', '', url);
+            }
+        });
 	},
 	priceInit: function() {
 		this.priceGroup = $('.price-group');
@@ -140,6 +162,8 @@ var Filters = {
 		}
 		url += params;
 		Filters.loadProducts(url, true);
+
+		return false;
 	},
 	loadProducts: function(url, setHistory) {
 		$.post(url, {
@@ -185,19 +209,36 @@ var Filters = {
 
 			Filters.q = resp.SEARCH;
 
+
+
 			return false;
-		});
+
+		})
 	},
 	urlClick: function() {
 		var url = $(this).attr('href');
+	    console.log("a "+url);
+
 		if (url == '/')
 			return true;
 
 		Filters.loadProducts(url, true);
+
 		return false;
 	}
 };
 
 $(document).ready(function() {
 	Filters.init();
+    elList();
+
 });
+
+function elList(){
+	$('.elList').masonry({
+		// options...
+		itemSelector: '.it-item',
+		columnWidth: 395
+	});
+	console.log("Сотируем");
+}

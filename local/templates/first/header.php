@@ -10,6 +10,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="/images/favicon.png" rel="shortcut icon" type="image/x-icon">
     <title><? $APPLICATION->ShowTitle() ?></title>
 
     <?
@@ -23,10 +24,10 @@
 	$assets->addJs('/js/jquery-ui/jquery-ui.js');
     $assets->addJs('/js/jquery-ui/jquery.datepicker.extension.range.min.js');
 	$assets->addJs('/js/fancybox/jquery.fancybox.js');
+    $assets->addJs('/js/owl/owl.carousel.min.js');
 	$assets->addJs('/js/masonry.pkgd.min.js');
 	$assets->addJs('/js/events.js');
 	$assets->addJs('/js/scripts.js');
-
     $APPLICATION->ShowHead();
     ?>
 </head>
