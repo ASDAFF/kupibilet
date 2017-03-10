@@ -15,16 +15,19 @@ if ($notEmpty && isset($_POST['order_create']))
 		LocalRedirect('/personal/order/?id=' . $orderId);
 }
 
+if ($notEmpty)
+	\Local\Sale\Cart::prolongReserve($cart['ITEMS']);
+
 $emptyStyle = $notEmpty ? ' style="display:none;"' : '';
 
 ?>
-<div class="empty-cart"<?= $emptyStyle ?>>
-	Ваша корзина пуста
-</div><?
+<div class="engBox engContent cssPadding">
+    <div class="empty-cart"<?= $emptyStyle ?>>
+        Ваша корзина пуста
+    </div>
+</div>
 
-if ($notEmpty)
-{
-	?>
+<?if ($notEmpty) {?>
 	<div><?
 
 		// Распределяем билеты по показам
@@ -84,11 +87,11 @@ if ($notEmpty)
                             $totalServ += $item['PRICE'];
                             ?>
 
-                            <div class="it-block" id="<?= $cartId ?>>
+                            <div class="it-block" id="<?= $cartId?>">
                                 <div class="it-sec"><?= $item['PROPS']['SECTOR'] ?></div>
                                 <div class="it-rad"><?= $item['PROPS']['ROW'] ?></div>
                                 <div class="it-mest"><?= $item['PROPS']['NUM'] ?></div>
-                                <div class="it-price"><p>Цена</p>><?= $item['PRICE'] ?> руб.</div>
+                                <div class="it-price"><p>Цена</p><?= $item['PRICE'] ?> руб.</div>
                                 <div class="it-sbor"><p>Серв.сбор</p><?= $serv ?> руб.</div>
                                 <div class="it-sum"><p>Сумма</p><?= $item['PRICE'] + $serv ?> руб.</div>
                                 <div class="it-delete">
@@ -122,67 +125,12 @@ if ($notEmpty)
                             <input type="text" name="order_name" placeholder="Имя (*)">
                             <input type="text" name="order_surname"  placeholder="Фамилия (*)">
                             <input type="text" name="order_email"  placeholder="E-mail (*)">
-                            <input type="submit" name="order_create" value="Создать заказ">
+                            <input type="submit" name="order_create" value="ОПЛАТИТЬ">
                         </form>
                     </div>
                 </div>
             </div>
-
-
-<!--			<div class="run">-->
-<!--				<hr />-->
-<!--				<p>Блок показа (может быть несколько)</p>-->
-<!--				<p>Дата: --><?//= $run['DATE_S'] ?><!-- <a href="--><?//= $runHref ?><!--">Ссылка</a></p>-->
-<!--				<p>Событие: --><?//= $event['NAME'] ?><!-- <a href="--><?//= $event['DETAIL_PAGE_URL'] ?><!--">Ссылка</a></p>-->
-<!--				<p>Зал: --><?//= $hall['NAME'] ?><!-- <a href="--><?//= $hall['DETAIL_PAGE_URL'] ?><!--">Ссылка</a></p>-->
-<!---->
-<!--				<table>-->
-<!--					<thead>-->
-<!--						<tr>-->
-<!--							<th>Секция</th>-->
-<!--							<th>Ряд</th>-->
-<!--							<th>Место</th>-->
-<!--							<th>Цена</th>-->
-<!--							<th>Серв.сбор</th>-->
-<!--							<th>Сумма</th>-->
-<!--							<th>Удалить</th>-->
-<!--						</tr>-->
-<!--					</thead>-->
-<!--					<tbody>--><?//
-//						$total = 0;
-//						$totalServ = 0;
-//						foreach ($cartIds as $cartId)
-//						{
-//							$item = $cart['ITEMS'][$cartId];
-//							$serv = floor($item['PRICE'] * SERVICE_CHARGE / 100);
-//							$totalServ += $serv;
-//							$totalServ += $item['PRICE'];
-//							?>
-<!--							<tr id="--><?//= $cartId ?><!--">-->
-<!--								<td>--><?//= $item['PROPS']['SECTOR'] ?><!--</td>-->
-<!--								<td>--><?//= $item['PROPS']['ROW'] ?><!--</td>-->
-<!--								<td>--><?//= $item['PROPS']['NUM'] ?><!--</td>-->
-<!--								<td>--><?//= $item['PRICE'] ?><!-- руб.</td>-->
-<!--								<td>--><?//= $serv ?><!-- руб.</td>-->
-<!--								<td>--><?//= $item['PRICE'] + $serv ?><!-- руб.</td>-->
-<!--								<td><span class="delete">X</span></td>-->
-<!--							</tr>--><?//
-//						}
-//						?>
-<!--					</tbody>-->
-<!--				</table>-->
-<!--			</div>--><?//
-		}
-
-		?>
+		<?}?>
 	</div>
 
-	<form action="" method="post">
-		<input type="text" name="order_name" />
-		<input type="text" name="order_surname" />
-		<input type="text" name="order_email" />
-		<input type="submit" name="order_create" value="Создать заказ" />
-	</form>
-
-	<?
-}
+<?}

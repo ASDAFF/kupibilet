@@ -170,12 +170,20 @@ class Event
 					}
 					elseif ($key == 'DATE')
 					{
-						if (isset($value['FROM']) || isset($value['TO']))
+						if (isset($value['FROM']) || isset($value['TO']) || isset($value['DAY']))
 						{
 							$ex = false;
 							foreach ($product['RUNS'] as $ts)
 							{
-								if (!(isset($value['FROM']) && $ts < $value['FROM'] ||
+								if (isset($value['DAY']))
+								{
+									if ($ts >= $value['DAY'] && $ts <= $value['DAY'] + 86400)
+									{
+										$ex = true;
+										break;
+									}
+								}
+								elseif (!(isset($value['FROM']) && $ts < $value['FROM'] ||
 									isset($value['TO']) && $ts >= $value['TO'] + 86400))
 								{
 									$ex = true;

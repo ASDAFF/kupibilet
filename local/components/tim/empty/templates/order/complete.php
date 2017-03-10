@@ -1,5 +1,6 @@
 <?
 /** @var array $order */
+/** @var array $orderItems */
 
 ?>
 <p>Заказ <?= $order['ID'] ?> создан</p><?
@@ -11,9 +12,11 @@ if ($order['STATUS_ID'] == 'F')
 }
 else
 {
+	\Local\Sale\Cart::prolongReserve($orderItems['ITEMS']);
+
 	?>
 	<form action="/personal/order/payment/" method="post">
-	<input type="submit" value="Оплатить заказ" />
-	<input type="hidden" name="id" value="<?= $order['ID'] ?>" />
+		<input type="submit" value="Оплатить заказ" />
+		<input type="hidden" name="id" value="<?= $order['ID'] ?>" />
 	</form><?
 }

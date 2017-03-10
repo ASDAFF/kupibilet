@@ -24,6 +24,7 @@ $paymentFormUrl = $result['formUrl'];
 
 if ($paymentOrderId)
 {
+	\Local\Sale\Cart::prolongReserve($orderItems['ITEMS']);
 	\Local\Sale\Cart::setSbOrderId($order['ID'], $paymentOrderId);
 	header('Location: ' . $paymentFormUrl);
 }

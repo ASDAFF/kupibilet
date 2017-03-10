@@ -8,36 +8,36 @@ $aMenuLinks = Array(
 		"" 
 	),
 	Array(
-		"концерты", 
-		"/event/concert/",
+		"Концерты", 
+		"/event/concert/", 
 		Array(), 
 		Array(), 
 		"" 
 	),
 	Array(
 		"Спектакли", 
-		"/event/spectacle/",
+		"/event/spectacle/", 
 		Array(), 
 		Array(), 
 		"" 
 	),
 	Array(
 		"Фестивали", 
-		"/event/festival/",
+		"/event/festival/", 
 		Array(), 
 		Array(), 
 		"" 
 	),
 	Array(
 		"Опера", 
-		"/event/opera/",
+		"/event/opera/", 
 		Array(), 
 		Array(), 
 		"" 
 	),
 	Array(
 		"Детям", 
-		"/event/children/",
+		"/event/children/", 
 		Array(), 
 		Array(), 
 		"" 
