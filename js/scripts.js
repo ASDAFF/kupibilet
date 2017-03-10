@@ -38,7 +38,7 @@ $( function() {
 			beforeShowDay: severalDates,
 			defaultDate: "+4d",
 			onSelect: function (selectedDate) {
-				location.href = "/event/?d-from=" + selectedDate; // Переход
+				location.href = "/event/?d=" + selectedDate; // Переход
 			}
 		});
 	}

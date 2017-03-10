@@ -155,15 +155,23 @@ class Filter
 			}
 			elseif ($group['TYPE'] == 'date')
 			{
-				if (isset($urlParams['d-from']))
+				if (isset($urlParams['d']))
 				{
-					$group['FROM'] = $urlParams['d-from'];
+					$group['DAY'] = $urlParams['d'];
 					$cnt++;
 				}
-				if (isset($urlParams['d-to']))
+				else
 				{
-					$group['TO'] = $urlParams['d-to'];
-					$cnt++;
+					if (isset($urlParams['d-from']))
+					{
+						$group['FROM'] = $urlParams['d-from'];
+						$cnt++;
+					}
+					if (isset($urlParams['d-to']))
+					{
+						$group['TO'] = $urlParams['d-to'];
+						$cnt++;
+					}
 				}
 			}
 			else
@@ -250,6 +258,11 @@ class Filter
 					if ('DATE' == $code)
 						continue;
 
+					if (isset($group['DAY']))
+					{
+						$filters[$code]['DATA']['DATE']['DAY'] = MakeTimeStamp($group['DAY']);
+						$filters[$code]['KEY'] .= '|dd#' . MakeTimeStamp($group['DAY']);
+					}
 					if (isset($group['FROM']))
 					{
 						$filters[$code]['DATA']['DATE']['FROM'] = MakeTimeStamp($group['FROM']);
@@ -467,15 +480,23 @@ class Filter
 			}
 			elseif ($group['TYPE'] == 'date')
 			{
-				if (isset($group['FROM']))
+				if (isset($group['DAY']))
 				{
 					$params .= $params ? '&' : '?';
-					$params .= 'd-from=' . $group['FROM'];
+					$params .= 'd=' . $group['DAY'];
 				}
-				if (isset($group['TO']))
+				else
 				{
-					$params .= $params ? '&' : '?';
-					$params .= 'd-to=' . $group['TO'];
+					if (isset($group['FROM']))
+					{
+						$params .= $params ? '&' : '?';
+						$params .= 'd-from=' . $group['FROM'];
+					}
+					if (isset($group['TO']))
+					{
+						$params .= $params ? '&' : '?';
+						$params .= 'd-to=' . $group['TO'];
+					}
 				}
 			}
 			else
@@ -530,10 +551,15 @@ class Filter
 			}
 			elseif ($group['TYPE'] == 'date')
 			{
-				if (isset($group['FROM']))
-					$name = 'с ' . $group['FROM'];
-				if (isset($group['TO']))
-					$name .= ' по ' . $group['TO'];
+				if (isset($group['DAY']))
+					$name = $group['DAY'];
+				else
+				{
+					if (isset($group['FROM']))
+						$name = 'с ' . $group['FROM'];
+					if (isset($group['TO']))
+						$name .= ' по ' . $group['TO'];
+				}
 			}
 			else
 			{
