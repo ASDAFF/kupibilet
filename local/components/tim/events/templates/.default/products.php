@@ -28,7 +28,6 @@ if ($filter['CUR_FILTERS']) { ?>
         <p class="empty">Не найдено ни одного подходящего мероприятия. Попробуйте отключить какой-нибудь фильтр</p>
     <? } ?>
 
-    <div class="engBox-content">
         <div class="elList">
             <div class="grid-sizer"></div>
             <? $i = 0; ?>
@@ -43,7 +42,9 @@ if ($filter['CUR_FILTERS']) { ?>
                 <div class="it-item <? if ($i % 3 == 0) echo 'set-2'; ?>">
                     <div class="it-img">
                         <a href="<?= $item['DETAIL_PAGE_URL'] ?>">
-                            <img src="<?= $item['PREVIEW_PICTURE']['src'] ?>">
+                            <img src="<?= $item['PREVIEW_PICTURE']['src'] ?>"
+                                 width="<?= $item['PREVIEW_PICTURE']['width'] ?>"
+                                 height="<?= $item['PREVIEW_PICTURE']['height'] ?>">
                         </a>
                     </div>
                     <div class="it-inf">
@@ -186,5 +187,4 @@ if ($filter['CUR_FILTERS']) { ?>
         if ($component->navParams['iNumPage'] == 1) {
             echo $component->seo['TEXT'];
         } */?>
-    </div>
     </div>

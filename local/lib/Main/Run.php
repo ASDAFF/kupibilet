@@ -29,6 +29,11 @@ class Run
 	 */
 	const S_FORMAT = 'DD.MM.YYYY HH:MI';
 
+	/**
+	 * Только дата
+	 */
+	const DATE_FORMAT = 'DD.MM.YYYY';
+
 	public static function getAll($refreshCache = false)
 	{
 		$return = array();
@@ -82,6 +87,20 @@ class Run
 		return $return;
 	}
 
+	public static function getAllDates($refreshCache = false)
+	{
+		$return = array();
+		$items = self::getAll($refreshCache);
+		foreach ($items as $eventId => $runs)
+			foreach ($runs as $item)
+			{
+				$date = ConvertDateTime($item['DATE'], self::DATE_FORMAT);
+				$return[$date] = $date;
+			}
+
+		return $return;
+	}
+
 	public static function getByEvent($eventId, $refreshCache = false)
 	{
 		$return = array();
@@ -119,6 +138,7 @@ class Run
 					'DATE' => $item['PROPERTY_DATE_VALUE'],
 					'TS' => MakeTimeStamp($item['PROPERTY_DATE_VALUE']),
 				    'FURL' => ConvertDateTime($item['PROPERTY_DATE_VALUE'], self::URL_FORMAT),
+				    'DATE_S' => ConvertDateTime($item['PROPERTY_DATE_VALUE'], self::S_FORMAT),
 				);
 			}
 
