@@ -6,5 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Voronkovich\\SberbankAcquiring\\' => array($vendorDir . '/voronkovich/sberbank-acquiring-client/src'),
     'Local\\' => array($baseDir . '/lib'),
 );
