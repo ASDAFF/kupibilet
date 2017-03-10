@@ -1299,3 +1299,85 @@ html .city-select .ui-button.ui-state-disabled:active{
     margin-top: 15px;
 }
 }
+
+.elBasket {padding-top: 10px;}
+.elBasket-top { margin-bottom: 20px; border-bottom: 2px solid #e5cfd0;}
+.elBasket-top .it-img {position: absolute;}
+.elBasket-top .it-img img {width: 110px; height: 110px; background: #cac8c8;}
+.elBasket-top .it-body {margin-left: 130px; min-height: 100px;
+    padding: 10px;}
+.elBasket-top .it-body>div {margin-bottom: 5px;}
+.elBasket-top .it-body svg {color: #828282; margin-right: 5px;}
+.elBasket-top .it-body a {text-decoration: underline; color: #5a81d0; font-size: 12px; }
+.elBasket-top .it-title a {font-size: 16px; font-weight: 600;}
+.elBasket-top .it-date { font-weight: 600; }
+.elBasket-top .it-zal { font-weight: 600; }
+
+.elBasket-body {}
+.elBasket-body .it-block { width: 100%; display: table;
+    border-bottom: 1px solid #ebebeb;}
+.elBasket-body .it-block>div {display: table-cell;padding: 7px; font-weight: 600;
+    text-align: center; width: 10%; vertical-align: middle;}
+.elBasket-body .it-block:first-child {background: #efefef;}
+.elBasket-body .it-block:first-child>div {color: #7c7c7c;}
+.elBasket-body .it-block p {display: none; color: #919090; font-weight: 400;}
+
+.elBasket-body .it-block .it-sec {width: 30%; text-align: left;}
+.elBasket-body .it-block .it-rad {}
+.elBasket-body .it-block .it-mest {}
+.elBasket-body .it-block .it-price {}
+.elBasket-body .it-block .it-sbor {}
+.elBasket-body .it-block .it-sum {}
+.elBasket-body .it-block .it-delete {}
+.elBasket-body .it-block .it-delete:hover {color: red; cursor: pointer;}
+
+.elBasket-footer {margin: 30px 0; clear: both;text-align: right; width: auto;}
+.elBasket-footer .it-block {}
+.elBasket-footer .it-block>div {display: inline-block;}
+.elBasket-footer .it-block .it-title {}
+.elBasket-footer .it-block .it-value {width: 100px;}
+.elBasket-footer .it-full {margin-top: 20px; font-size: 25px; font-weight: 100;}
+
+@media only screen and (max-width: 750px) {
+
+    .elBasket-body .it-block { width: 100%; display: table;
+        border-bottom: 1px solid #ebebeb;}
+    .elBasket-body .it-block>div {display: inline-block; width: 10%;}
+
+    .elBasket-body .it-block p {display: block;}
+
+    .elBasket-body .it-block:first-child .it-price,
+    .elBasket-body .it-block:first-child .it-sbor,
+    .elBasket-body .it-block:first-child .it-sum,
+    .elBasket-body .it-block:first-child .it-delete {display: none;}
+
+    .elBasket-body .it-block .it-sec {width: 40%;}
+    .elBasket-body .it-block .it-rad {width: 20%;}
+    .elBasket-body .it-block .it-mest {width: 20%;}
+    .elBasket-body .it-block .it-price {width: 27%;}
+    .elBasket-body .it-block .it-sbor {width: 27%;}
+    .elBasket-body .it-block .it-sum {width: 27%;}
+    .elBasket-body .it-block .it-delete {width: 100%;}
+
+    .elBasket-footer .it-block,
+    .elBasket-footer .it-full {padding: 5px 15px;}
+    .elBasket-footer .it-block .it-value {width: auto;}
+    .elBasket-footer .it-full {font-size: 15px; margin: 10px 0 0 0;}
+
+}
+
+.elBasket-form {}
+.elBasket-form .it-title {font-size: 25px; font-weight: 100; line-height: 40px;}
+.elBasket-form form {padding: 10px 0; }
+.elBasket-form form input {margin-right: 20px; border: 1px solid #ccc;}
+.elBasket-form form input[type="submit"] {background: #901921; color: #fff; font-weight: 600; cursor: pointer;}
+
+@media only screen and (max-width: 800px) {
+    .elBasket-form .it-title {text-align: center;}
+    .elBasket-form form {text-align: center;}
+    .elBasket-form form input {margin: 10px;}
+}
+@media only screen and (max-width: 650px) {
+    .elBasket-form .it-title {margin: 0 20px;}
+    .elBasket-form form input {display: block; margin: 10px auto;}
+}

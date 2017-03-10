@@ -162,6 +162,8 @@ var Filters = {
 		}
 		url += params;
 		Filters.loadProducts(url, true);
+
+		return false;
 	},
 	loadProducts: function(url, setHistory) {
 		$.post(url, {
