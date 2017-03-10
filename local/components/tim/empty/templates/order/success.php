@@ -1,5 +1,6 @@
 <?
 /** @var array $order */
+/** @var array $orderItems */
 
 use Voronkovich\SberbankAcquiring\Client;
 use Voronkovich\SberbankAcquiring\OrderStatus;
@@ -17,7 +18,7 @@ if ($sbOrderId)
 	$result = $client->getOrderStatus($sbOrderId);
 	if (OrderStatus::isDeposited($result['OrderStatus']))
 	{
-		\Local\Sale\Cart::setOrderPayed($order['ID'], $sbOrderId);
+		\Local\Sale\Cart::setOrderPayed($order['ID'], $orderItems['ITEMS']);
 		$ok = true;
 	}
 }

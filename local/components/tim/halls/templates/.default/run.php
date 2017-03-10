@@ -34,6 +34,8 @@ $max += 10;
 
 $cartSummary = \Local\Sale\Cart::getSummary();
 $sits = \Local\Sale\Cart::getSitsByRun($run['ID']);
+$reserved = \Local\Sale\Reserve::getByRun($run['ID'])
+
 
 ?>
 	<div class="engBox">
@@ -96,16 +98,7 @@ $sits = \Local\Sale\Cart::getSitsByRun($run['ID']);
 				</div>
 			</div>
 		</div>
-	</div><?
-
-	// TODO:: убрать, когда верстальщик сделает
-	?>
-	<style>
-		.elZal-point.on.cart {
-			box-shadow: 0 0 5px #f00;
-		}
-	</style>
-
+	</div>
 	<div class="engBox">
 		<div class="elZal" id="elZal" data-event="<?= $event['ID'] ?>" data-run="<?= $run['ID'] ?>">
 			<div class="elZal-box" id="elZal-box" style="height:<?= $max ?>px;max-height:<?= $max ?>px;"><?
@@ -124,18 +117,18 @@ $sits = \Local\Sale\Cart::getSitsByRun($run['ID']);
 							'-o-transform:' . $rotate . ';' .
 							'transform:' . $rotate . ';';
 					}
-					if ($item[6])
+					if ($reserved[$itemId] && !$sits[$itemId] || !$item[6])
+					{
+						$pointStyle .= 'background-color:#d7d7d7;';
+						$pointClass .= ' off';
+					}
+					else
 					{
 						$qItem = $Quotas[$item[6]];
 						$pointStyle .= 'background-color:' . $qItem[1] . ';';
 						$pointClass .= ' on';
 						if ($sits[$itemId])
-							$pointClass .= ' cart';
-					}
-					else
-					{
-						$pointStyle .= 'background-color:#d7d7d7;';
-						$pointClass .= ' off';
+							$pointClass .= ' order';
 					}
 
 					?>

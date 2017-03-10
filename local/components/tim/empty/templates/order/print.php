@@ -1,10 +1,9 @@
 <?
 /** @var array $order */
+/** @var array $orderItems */
 
 ?>
 <p>Проверочный код: <?= $order['COMMENTS'] ?></p><?
-
-$orderItems = \Local\Sale\Cart::getOrderItems($order['ID']);
 
 // Распределяем билеты по показам
 $byRun = array();
