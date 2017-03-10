@@ -141,16 +141,16 @@ class Cart
 
 	/**
 	 * Добавление товара (выбранное место) в корзину
-	 * @param $id
+	 * @param $sitId
 	 * @param $eventId
 	 * @param $runId
 	 * @return bool|int
 	 */
-	public static function add($id, $eventId, $runId)
+	public static function add($sitId, $eventId, $runId)
 	{
 
-		$id = intval($id);
-		if ($id <= 0)
+		$sitId = intval($sitId);
+		if ($sitId <= 0)
 			return false;
 
 		$event = Event::getById($eventId);
@@ -161,28 +161,33 @@ class Cart
 		if (!$run)
 			return false;
 
-		$price = $run['PRICES'][$id];
+		$price = $run['PRICES'][$sitId];
 		if (!$price)
 			return false;
 
 		$hall = Hall::getById($event['PRODUCT']['HALL']);
 
 		$scheme = json_decode($hall['SCHEME'], true);
-		$sit = $scheme[$id];
+		$sit = $scheme[$sitId];
 		if (!$sit)
 			return false;
 
 		Loader::IncludeModule('sale');
 
+		// Проверка на наличие в собственной корзине
 		$sits = self::getSitsByRun($runId);
-		if ($sits[$id])
+		if ($sits[$sitId])
+			return false;
+
+		// Проверка на наличие в других корзинах и заказах
+		if (!Reserve::check($runId, $sitId))
 			return false;
 		
 		$props = array();
 		$props[] = array(
 			'NAME' => 'ID Места',
 			'CODE' => 'SIT',
-			'VALUE' => $id,
+			'VALUE' => $sitId,
 		);
 		$props[] = array(
 			'NAME' => 'Сектор',
@@ -204,7 +209,7 @@ class Cart
 		$fields = array(
 			'PRODUCT_ID' => $runId,
 			'PRICE' => $price,
-			'CATALOG_XML_ID' => $id,
+			'CATALOG_XML_ID' => $sitId,
 			'PRODUCT_XML_ID' => $eventId,
 			'CURRENCY' => 'RUB',
 			'QUANTITY' => 1,
@@ -226,26 +231,31 @@ class Cart
 		if (!$basketItem)
 			return false;
 
-		$ID = $basketItem->getId();
+		$cartId = $basketItem->getId();
 
-		if ($ID)
+		if ($cartId)
+		{
+			// Бронируем билет
+			Reserve::add($runId, $sitId, $cartId);
+			// Корректируем сводку
 			self::updateSessionCartSummary();
+		}
 
-		return $ID;
+		return $cartId;
 	}
 
 	/**
 	 * Удаление товара из корзины
-	 * @param $id
+	 * @param $sitId
 	 * @param $eventId
 	 * @param $runId
 	 * @return bool|int
 	 */
-	public static function remove($id, $eventId, $runId)
+	public static function remove($sitId, $eventId, $runId)
 	{
 
-		$id = intval($id);
-		if ($id <= 0)
+		$sitId = intval($sitId);
+		if ($sitId <= 0)
 			return false;
 
 		$event = Event::getById($eventId);
@@ -257,7 +267,7 @@ class Cart
 			return false;
 
 		$sits = self::getSitsByRun($runId);
-		$cartId = $sits[$id];
+		$cartId = $sits[$sitId];
 		if (!$cartId)
 			return false;
 
@@ -279,7 +289,10 @@ class Cart
 		$return = $res->isSuccess();
 
 		if ($return)
+		{
+			Reserve::delete($cartId);
 			self::updateSessionCartSummary();
+		}
 
 		return $return;
 	}
@@ -353,7 +366,7 @@ class Cart
 		return $order;
 	}
 
-	public static function setOrderPayed($id, $price)
+	public static function setOrderPayed($id, $items)
 	{
 		Loader::IncludeModule('sale');
 
@@ -362,6 +375,9 @@ class Cart
 			'STATUS_ID' => 'F',
 		    'COMMENTS' => rand(100, 999) . '-' . rand(100, 999),
 		));
+
+		foreach ($items as $item)
+			Reserve::pay($item['ID']);
 	}
 
 	public static function setSbOrderId($id, $sbOrderId)
@@ -372,5 +388,11 @@ class Cart
 		$order->Update($id, array(
 			'XML_ID' => $sbOrderId,
 		));
+	}
+
+	public static function prolongReserve($items)
+	{
+		foreach ($items as $item)
+			Reserve::prolong($item['ID']);
 	}
 }

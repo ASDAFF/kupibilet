@@ -15,6 +15,9 @@ if ($notEmpty && isset($_POST['order_create']))
 		LocalRedirect('/personal/order/?id=' . $orderId);
 }
 
+if ($notEmpty)
+	\Local\Sale\Cart::prolongReserve($cart['ITEMS']);
+
 $emptyStyle = $notEmpty ? ' style="display:none;"' : '';
 
 ?>

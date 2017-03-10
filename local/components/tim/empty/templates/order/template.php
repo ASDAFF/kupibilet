@@ -9,6 +9,8 @@ $order = \Local\Sale\Cart::getOrderById($id);
 if (!$order)
 	return;
 
+$orderItems = \Local\Sale\Cart::getOrderItems($order['ID']);
+
 /** @var array $arParams */
 if ($arParams['PAGE'] == 'complete')
 	include ('complete.php');

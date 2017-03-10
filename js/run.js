@@ -47,7 +47,7 @@ var Run = {
 		var point = $(this);
 		var item = point.parent();
 		var id = item.attr('id');
-		var action = point.hasClass('cart') ? 'remove' : 'add';
+		var action = point.hasClass('order') ? 'remove' : 'add';
 		$.ajax({
 			type: 'POST',
 			url: '/ajax/cart.php',
@@ -55,11 +55,11 @@ var Run = {
 			success: function (data) {
 				if (action == 'add') {
 					if (data.ID)
-						point.addClass('cart');
+						point.addClass('order');
 				}
 				else if (action == 'remove') {
 					if (data.SUCCESS)
-						point.removeClass('cart');
+						point.removeClass('order');
 				}
 				if (typeof(data.CART) != 'undefined') {
 					Run.cartCount.text(data.CART.COUNT);

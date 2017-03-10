@@ -48,7 +48,7 @@ class TimHalls extends \CBitrixComponent
 					{
 						$template = 'event';
 						$APPLICATION->AddChainItem($this->event['NAME'], $this->event['DETAIL_PAGE_URL']);
-						if ($runCodeDate)
+						if ($runCodeDate && $runCodeTime)
 						{
 							$template = 'run';
 							$this->run = Run::getByUrlCodes($this->event['RUNS'], $runCodeDate, $runCodeTime);
