@@ -42,7 +42,9 @@ if ($filter['CUR_FILTERS']) { ?>
                 <div class="it-item <? if ($i % 3 == 0) echo 'set-2'; ?>">
                     <div class="it-img">
                         <a href="<?= $item['DETAIL_PAGE_URL'] ?>">
-                            <img src="<?= $item['PREVIEW_PICTURE']['src'] ?>">
+                            <img src="<?= $item['PREVIEW_PICTURE']['src'] ?>"
+                                 width="<?= $item['PREVIEW_PICTURE']['width'] ?>"
+                                 height="<?= $item['PREVIEW_PICTURE']['height'] ?>">
                         </a>
                     </div>
                     <div class="it-inf">

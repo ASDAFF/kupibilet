@@ -138,6 +138,7 @@ class Run
 					'DATE' => $item['PROPERTY_DATE_VALUE'],
 					'TS' => MakeTimeStamp($item['PROPERTY_DATE_VALUE']),
 				    'FURL' => ConvertDateTime($item['PROPERTY_DATE_VALUE'], self::URL_FORMAT),
+				    'DATE_S' => ConvertDateTime($item['PROPERTY_DATE_VALUE'], self::S_FORMAT),
 				);
 			}
 

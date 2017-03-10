@@ -27,7 +27,7 @@ if ($item['PRICE'] != $item['PRICE_TO'])
                     <form class='ep-form'>
                         <ul>
                             <? foreach ($event['RUNS'] as $run) { ?>
-                                <li value="<?=$run['ID']?>"><?=$run['DATE']?></li>
+                                <li value="<?=$run['ID']?>"><?=$run['DATE_S']?></li>
                             <?}?>
                         </ul>
                         <div class='eventpage-place'><?=$hall['NAME']?></div>

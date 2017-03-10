@@ -24,7 +24,9 @@ $dates = \Local\Main\Run::getAllDates();
 				<div class="it-item">
 					<div class="it-img">
 						<a href="<?= $item['DETAIL_PAGE_URL'] ?>">
-							<img src="<?= $item['PREVIEW_PICTURE']['src'] ?>"/>
+							<img src="<?= $item['PREVIEW_PICTURE']['src'] ?>"
+							     width="<?= $item['PREVIEW_PICTURE']['width'] ?>"
+							     height="<?= $item['PREVIEW_PICTURE']['height'] ?>">
 						</a>
 					</div>
 					<div class="it-inf">
