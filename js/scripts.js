@@ -33,52 +33,36 @@ $(function() {
 
 
 $( function() {
-	if ($('#engDate-picter').length) {
-		$('#engDate-picter').datepicker({
-			beforeShowDay: severalDates,
+	var DP = $('#engDate-picter');
+	if (DP.length) {
+		DP.datepicker({
+			beforeShowDay: function severalDates(date){
+				var r = [false, ""];
+				if (typeof(picterDates) != 'undefined') {
+					var dat = $.datepicker.formatDate("dd.mm.yy", date);
+					for (var i = 0, c = picterDates.length; i < c; i++)
+						if (dat == picterDates[i]) {
+							r = [true, "yellow"];
+							return r;
+						}
+				}
+				return r;
+			},
 			defaultDate: "+4d",
 			onSelect: function (selectedDate) {
-				location.href = "/event/?d=" + selectedDate; // Переход
+				if (typeof(Filters) != 'undefined' && Filters.inited)
+					Filters.dateClick(selectedDate);
+				else
+					location.href = "/event/?d=" + selectedDate;
 			}
 		});
 	}
-
 } );
 
-// $(function() {
-//     $.datepicker.setDefaults($.datepicker.regional['ru']);
-//     $('#engDate-picter').datepicker({
-//         beforeShowDay: severalDates,
-//         range: 'period', // режим - выбор периода
-//         numberOfMonths: 1,
-//         onSelect: function(dateText, inst, extensionRange) {
-//             // extensionRange - объект расширения
-//             $('[name=startDate]').val(extensionRange.startDateText);
-//             $('[name=endDate]').val(extensionRange.endDateText);
-//         }
-//     });
-//
-//     $('#engDate-picter').datepicker('setDate', ['+4d', '+8d']);
-//
-//     // объект расширения (хранит состояние календаря)
-//     var extensionRange = $('#engDate-picter').datepicker('widget').data('datepickerExtensionRange');
-//     if(extensionRange.startDateText) $('[name=startDate]').val(extensionRange.startDateText);
-//     if(extensionRange.endDateText) $('[name=endDate]').val(extensionRange.endDateText);
-// });
 
-
-
-//           Перевод
+//  Перевод
 ( function( factory ) {
-    if ( typeof define === "function" && define.amd ) {
-
-        // AMD. Register as an anonymous module.
-        define( [ "../widgets/datepicker" ], factory );
-    } else {
-
-        // Browser globals
-        factory( jQuery.datepicker );
-    }
+    factory( jQuery.datepicker );
 }( function( datepicker ) {
 
     datepicker.regional.ru = {

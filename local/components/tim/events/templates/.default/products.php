@@ -28,7 +28,6 @@ if ($filter['CUR_FILTERS']) { ?>
         <p class="empty">Не найдено ни одного подходящего мероприятия. Попробуйте отключить какой-нибудь фильтр</p>
     <? } ?>
 
-    <div class="engBox-content">
         <div class="elList">
             <div class="grid-sizer"></div>
             <? $i = 0; ?>
@@ -186,5 +185,4 @@ if ($filter['CUR_FILTERS']) { ?>
         if ($component->navParams['iNumPage'] == 1) {
             echo $component->seo['TEXT'];
         } ?>
-    </div>
     </div>

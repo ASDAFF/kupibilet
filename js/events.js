@@ -2,11 +2,13 @@
  * Панель фильтров
  */
 var Filters = {
+	inited: false,
 	price_from: 0,
 	price_to: 0,
 	price_min: 0,
 	price_max: 0,
 	price: false,
+	date: '',
 	mfWidth: 0,
 	curMfg: false,
 	priceInputFl: false,
@@ -15,6 +17,7 @@ var Filters = {
 		if (!this.panel.length)
 			return;
 
+		this.inited = true;
 		this.catalogPath = this.panel.find('input[name=catalog_path]').val();
 		this.separator = this.panel.find('input[name=separator]').val();
 		this.q = this.panel.find('input[name=q]').val();
@@ -23,93 +26,73 @@ var Filters = {
 		this.ajaxCont = $('#catalog-list');
 		this.bcCont = $('#bc');
 		this.h1Cont = $('#h1');
+		this.clearBtn = $('.filter-clear');
 
 		this.priceInit();
-		this.dateInit();
 
 		this.cb.click(this.checkboxClick);
 		this.ajaxCont.on('click', '#current-filters a', this.urlClick);
 		this.ajaxCont.on('click', '.pagination a', this.urlClick);
 		this.bcCont.on('click', 'a', this.urlClick);
-		
+		this.clearBtn.on('click', this.urlClick);
 
 		$(window).on('popstate', function (e) {
 			var url = e.target.location;
 			Filters.loadProducts(url, false);
 		});
-		
-		$('.filter-clear').on('click', function (e) {
-			var url = "/event/";
-			Filters.loadProducts(url, false);
-			history.pushState('', '', url);
-		});
-
-		$('.filter-add').on('click', function (e) {
-			Filters.updateProducts();
-		});
-
-		$('#engDate-picter').datepicker({
-            beforeShowDay: severalDates,
-            defaultDate: "+4d",
-            onSelect: function (selectedDate) {
-                //location.href = "/event/?d-from=" + selectedDate; // Переход
-				var url = '/event/?d-from=' + selectedDate;
-				Filters.loadProducts(url, false);
-				history.pushState('', '', url);
-            }
-        });
+	},
+	dateClick: function(date) {
+		Filters.date = date;
+		Filters.updateProducts();
 	},
 	priceInit: function() {
 		this.priceGroup = $('.price-group');
+		this.labelFrom = $('#slider-range-value1 b');
+		this.labelTo = $('#slider-range-value2 b');
 		this.inputFrom = this.priceGroup.find('.from');
 		this.inputTo = this.priceGroup.find('.to');
 		this.price_from = this.inputFrom.val();
 		this.price_to = this.inputTo.val();
 		this.price_min = this.priceGroup.data('min');
 		this.price_max = this.priceGroup.data('max');
+		this.priceLabelFrom1 = $('#slider-range-value1');
+		this.priceLabelTo1 = $('#slider-range-value2');
+		this.priceLabelFrom2 = $(".it-filter-money #slider-range span:first")
+		this.priceLabelTo2 = $(".it-filter-money #slider-range span:last")
 
-		if (this.price_min == this.price_max)
-			return;
-
-		this.inputFrom.on('change', Filters.priceChange);
-		this.inputTo.on('change', Filters.priceChange);
+		this.priceSlider = $('#slider-range');
+		this.priceSlider.slider({
+			range: true,
+			min: this.price_min,
+			max: this.price_max,
+			values: [this.price_from, this.price_to],
+			step: 100,
+			slide: this.priceSlide,
+			stop: this.updateProducts
+		});
 	},
-	priceChange: function() {
-		Filters.price_from = Filters.inputFrom.val();
-		Filters.price_to = Filters.inputTo.val();
-		//Filters.updateProducts();
+	correctSliderPositions: function(event, ui) {
+		Filters.priceLabelFrom1.css("left", Filters.priceLabelFrom2.css("left"));
+		Filters.priceLabelTo1.css("left", Filters.priceLabelTo2.css("left"));
+	},
+	priceSlide: function(event, ui) {
+		Filters.labelFrom.text(ui.values[0]);
+		Filters.labelTo.text(ui.values[1]);
+		Filters.correctSliderPositions();
+		Filters.inputFrom.val(ui.values[0]);
+		Filters.inputTo.val(ui.values[1]);
+		Filters.price_from = ui.values[0];
+		Filters.price_to = ui.values[1];
 	},
 	priceCorrect: function(data) {
 		Filters.price_from = data.FROM;
 		Filters.price_to = data.TO;
 		Filters.inputFrom.val(data.FROM);
 		Filters.inputTo.val(data.TO);
-	},
-	dateInit: function() {
-		this.dateGroup = $('.date-group');
-		this.dateFrom = this.dateGroup.find('.from');
-		this.dateTo = this.dateGroup.find('.to');
-		this.date_from = this.dateFrom.val();
-		this.date_to = this.dateTo.val();
-		this.date_min = this.dateGroup.data('min');
-		this.date_max = this.dateGroup.data('max');
-
-		if (this.date_min == this.date_max)
-			return;
-
-		this.dateFrom.on('change', Filters.dateChange);
-		this.dateTo.on('change', Filters.dateChange);
-	},
-	dateChange: function() {
-		Filters.date_from = Filters.dateFrom.val();
-		Filters.date_to = Filters.dateTo.val();
-		//Filters.updateProducts();
-	},
-	dateCorrect: function(data) {
-		Filters.date_from = data.FROM;
-		Filters.date_to = data.TO;
-		Filters.dateFrom.val(data.FROM);
-		Filters.dateTo.val(data.TO);
+		Filters.labelFrom.text(data.FROM);
+		Filters.labelTo.text(data.TO);
+		Filters.priceSlider.slider('values', [data.FROM, data.TO]);
+		Filters.correctSliderPositions();
 	},
 	checkboxClick: function() {
 		var input = $(this);
@@ -152,13 +135,9 @@ var Filters = {
 				params += 'p-to=' + Filters.price_to;
 			}
 		}
-		if (Filters.date_from != Filters.date_min) {
+		if (Filters.date) {
 			params += params ? '&' : '?';
-			params += 'd-from=' + Filters.date_from;
-		}
-		if (Filters.date_to != Filters.date_max) {
-			params += params ? '&' : '?';
-			params += 'd-to=' + Filters.date_to;
+			params += 'd=' + Filters.date;
 		}
 		url += params;
 		Filters.loadProducts(url, true);
@@ -175,9 +154,6 @@ var Filters = {
 			for (var i in resp.FILTERS) {
 				if (i == 'PRICE') {
 					Filters.priceCorrect(resp.FILTERS[i]);
-				}
-				else if (i == 'DATE') {
-					Filters.dateCorrect(resp.FILTERS[i]);
 				}
 				else {
 					var cnt = resp.FILTERS[i][0];
@@ -209,16 +185,12 @@ var Filters = {
 
 			Filters.q = resp.SEARCH;
 
-
-
 			return false;
 
 		})
 	},
 	urlClick: function() {
 		var url = $(this).attr('href');
-	    console.log("a "+url);
-
 		if (url == '/')
 			return true;
 

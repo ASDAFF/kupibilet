@@ -3,6 +3,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 
 // TODO: Пока оставим 15 первых попавшихся событий, дальше добавим какую-то нужную сортировку и фильтр
 $events = \Local\Main\Event::getByFilter(array(), array(), array('nTopCount' => 15));
+$dates = \Local\Main\Run::getAllDates();
 
 ?>
 <div class="engBox engContent">
@@ -52,18 +53,7 @@ $events = \Local\Main\Event::getByFilter(array(), array(), array('nTopCount' => 
                 <div class="it-date-form">
                     <div id="engDate-picter"></div>
                     <script>
-                        function severalDates(date){
-
-                            var dates = new Array("11.03.2017", "12.03.2017");
-
-
-                            var dat = $.datepicker.formatDate("dd.mm.yy", date);
-                            var r = [true, ""];
-                            for (var i=0, c=dates.length; i<c; i++)
-                                if (dat == dates[i])
-                                    r = [true, "yellow"];
-                            return r;
-                        }
+	                    var picterDates = <?= json_encode(array_values($dates)) ?>;
                     </script>
                 </div>
             </div>

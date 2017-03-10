@@ -82,7 +82,7 @@ class Event
 					'HALL' => intval($item['PROPERTY_HALL_VALUE']),
 					'GENRE' => intval($genre['ID']),
 					'PRICE' => intval($item['PROPERTY_PRICE_VALUE']),
-                    'PRICE_TO' => $item['PROPERTY_PRICE_TO_VALUE'],
+                    'PRICE_TO' => intval($item['PROPERTY_PRICE_TO_VALUE']),
                     'E_TICKET' => $item['PROPERTY_E_TICKET_VALUE'],
                     'AGE' => $item['PROPERTY_AGE_VALUE'],
 					'RUNS' => $runs[$id],
@@ -224,7 +224,7 @@ class Event
 					if (!isset($return['PRICE']['MIN']) || $return['PRICE']['MIN'] > $product['PRICE'])
 						$return['PRICE']['MIN'] = $product['PRICE'];
 					if (!isset($return['PRICE']['MAX']) || $return['PRICE']['MAX'] < $product['PRICE_TO'])
-						$return['PRICE_TO']['MAX'] = $product['PRICE'];
+						$return['PRICE_TO']['MAX'] = $product['PRICE_TO'];
 
 					foreach ($product['RUNS'] as $ts)
 					{
