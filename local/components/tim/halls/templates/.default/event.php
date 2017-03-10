@@ -25,11 +25,11 @@ if ($item['PRICE'] != $item['PRICE_TO'])
                 <div class='eventpage-info'>
                     <div class='eventpage-ttl'><?=$event['NAME']?></div>
                     <form class='ep-form'>
-                        <select>
+                        <ul>
                             <? foreach ($event['RUNS'] as $run) { ?>
-                                <option value="<?=$run['ID']?>"><?=$run['DATE']?></option>
+                                <li value="<?=$run['ID']?>"><?=$run['DATE']?></li>
                             <?}?>
-                        </select>
+                        </ul>
                         <div class='eventpage-place'><?=$hall['NAME']?></div>
                         <div class='eventpage-price'><?=$price?> руб.</div>
                         <?if($event['PRODUCT']['E_TICKET'] != 0){?>
