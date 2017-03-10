@@ -418,7 +418,7 @@ class Event
 					$product['PIC_TITLE'] = $iprop['ELEMENT_PREVIEW_PICTURE_FILE_TITLE'] ?
 						$iprop['ELEMENT_PREVIEW_PICTURE_FILE_TITLE'] : $item['NAME'];
 					$product['DETAIL_PAGE_URL'] = $detail;
-					$product['PREVIEW_PICTURE'] = \CFile::GetPath($item['PREVIEW_PICTURE']);
+                    $product['PREVIEW_PICTURE'] = \CFile::ResizeImageGet($item['PREVIEW_PICTURE'], array('width'=>375, 'height'=>10000), BX_RESIZE_IMAGE_PROPORTIONAL, true);
 
 					$runs = Run::getByEvent($item['ID']);
 					$product['RUNS'] = $runs;

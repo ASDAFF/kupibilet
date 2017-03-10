@@ -23,7 +23,7 @@ $events = \Local\Main\Event::getByFilter(array(), array(), array('nTopCount' => 
 				<div class="it-item">
 					<div class="it-img">
 						<a href="<?= $item['DETAIL_PAGE_URL'] ?>">
-							<img src="<?= $item['PREVIEW_PICTURE'] ?>"/>
+							<img src="<?= $item['PREVIEW_PICTURE']['src'] ?>"/>
 						</a>
 					</div>
 					<div class="it-inf">
@@ -33,7 +33,7 @@ $events = \Local\Main\Event::getByFilter(array(), array(), array('nTopCount' => 
 						{
 							$href = $item['DETAIL_PAGE_URL'] . $run['FURL'];
 							?>
-							<div class="it-date"><i class="engIcon setIcon-date-black"></i><?= $run['DATE'] ?>
+							<div class="it-date"><i class="engIcon setIcon-date-black"></i><?= $run['DATE_S'] ?>
 								<a href="<?= $href ?>">Купить билет</a></div>
 							<div class="it-map"><i class="engIcon setIcon-map-black"></i><?= $hall['NAME'] ?></div>
 							<div class="it-money"><i class="engIcon setIcon-price-black"></i><?= $price ?> руб.</div><?

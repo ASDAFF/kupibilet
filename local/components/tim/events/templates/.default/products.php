@@ -43,7 +43,7 @@ if ($filter['CUR_FILTERS']) { ?>
                 <div class="it-item <? if ($i % 3 == 0) echo 'set-2'; ?>">
                     <div class="it-img">
                         <a href="<?= $item['DETAIL_PAGE_URL'] ?>">
-                            <img src="<?= $item['PREVIEW_PICTURE'] ?>">
+                            <img src="<?= $item['PREVIEW_PICTURE']['src'] ?>">
                         </a>
                     </div>
                     <div class="it-inf">
@@ -52,7 +52,7 @@ if ($filter['CUR_FILTERS']) { ?>
 	                    if ($run)
 	                    {
 		                    ?>
-		                    <div class="it-date"><i class="engIcon setIcon-date-black"></i><?= $run['DATE'] ?>
+		                    <div class="it-date"><i class="engIcon setIcon-date-black"></i><?= $run['DATE_S'] ?>
 		                    </div><?
 	                    }
 
@@ -181,10 +181,10 @@ if ($filter['CUR_FILTERS']) { ?>
     }
     ?>
 
-    <div class="seo-text"><?
+    <div class="seo-text"><?/*
         // Описание выводим только на первой странице.
         if ($component->navParams['iNumPage'] == 1) {
             echo $component->seo['TEXT'];
-        } ?>
+        } */?>
     </div>
     </div>
