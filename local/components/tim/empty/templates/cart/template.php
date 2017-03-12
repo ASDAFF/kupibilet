@@ -49,7 +49,7 @@ $emptyStyle = $notEmpty ? ' style="display:none;"' : '';
                 <div class="elBasket">
                     <div class="elBasket-top">
                         <div class="it-img">
-                            <img src="<?= $event['PREVIEW_PICTURE']['src'] ?>">
+                            <img src="<?= $event['PREVIEW_PICTURE'] ?>">
                         </div>
                         <div class="it-body">
                             <div class="it-title"><a href="<?= $event['DETAIL_PAGE_URL'] ?>"><?= $event['NAME'] ?></a></div>
