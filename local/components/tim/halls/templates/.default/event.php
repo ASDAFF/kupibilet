@@ -25,10 +25,14 @@ if ($item['PRICE'] != $item['PRICE_TO'])
                 <div class='eventpage-info'>
                     <div class='eventpage-ttl'><?=$event['NAME']?></div>
                     <form class='ep-form'>
-                        <ul>
-                            <? foreach ($event['RUNS'] as $run) { ?>
-                                <li value="<?=$run['ID']?>"><?=$run['DATE_S']?></li>
-                            <?}?>
+                        <ul><?
+	                        foreach ($event['RUNS'] as $run)
+	                        {
+		                        $href = $event['DETAIL_PAGE_URL'] . $run['FURL'];
+		                        ?>
+                                <li value="<?=$run['ID']?>"><?=$run['DATE_S']?><a class="engBtn-kyp" href="<?= $href ?>">Купить билет</a></li><?
+	                        }
+	                        ?>
                         </ul>
                         <div class='eventpage-place'><?=$hall['NAME']?></div>
                         <div class='eventpage-price'><?=$price?> руб.</div>

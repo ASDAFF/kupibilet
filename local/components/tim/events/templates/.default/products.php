@@ -52,9 +52,10 @@ if ($filter['CUR_FILTERS']) { ?>
 
 	                    if ($run)
 	                    {
+		                    $href = $item['DETAIL_PAGE_URL'] . $run['FURL'];
 		                    ?>
 		                    <div class="it-date"><i class="engIcon setIcon-date-black"></i><?= $run['DATE_S'] ?>
-		                    </div><?
+		                    <a class="engBtn-kyp" href="<?= $href ?>">Купить билет</a></div><?
 	                    }
 
 	                    ?>

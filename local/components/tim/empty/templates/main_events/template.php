@@ -1,8 +1,9 @@
 <?
 if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 
-// TODO: Пока оставим 15 первых попавшихся событий, дальше добавим какую-то нужную сортировку и фильтр
-$events = \Local\Main\Event::getByFilter(array(), array(), array('nTopCount' => 15));
+$data = \Local\Main\Event::getDataByFilter(array());
+$events = \Local\Main\Event::getByFilter(array('DATE' => 'asc'), $data['IDS'], array('nPageSize' => 15,
+                                                                                     'iNumPage' => 1));
 $dates = \Local\Main\Run::getAllDates();
 
 ?>
@@ -22,6 +23,7 @@ $dates = \Local\Main\Run::getAllDates();
 
 				?>
 				<div class="it-item">
+				<?= $item['ID']?>
 					<div class="it-img">
 						<a href="<?= $item['DETAIL_PAGE_URL'] ?>">
 							<img src="<?= $item['PREVIEW_PICTURE']['src'] ?>"

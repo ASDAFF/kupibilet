@@ -65,7 +65,7 @@
                 <div class="it-title">ОРГАНИЗАТОРАМ</div>
                 <div class="it-menu">
                     <ul>
-                        <li><a href="">Контакты</a></li>
+                        <li>Контакты</li>
                     </ul>
                 </div>
                 <div class="it-menu">
@@ -116,8 +116,8 @@
                 <div class="it-title">Оплата</div>
                 <div class="it-menu set-cart">
                     <ul>
-                        <li><a href=""><i class="engIcon setIcon-45x31 setIcon-master"></i></a></li>
-                        <li><a href=""><i class="engIcon setIcon-45x31 setIcon-visa"></i></a></li>
+                        <li><i class="engIcon setIcon-45x31 setIcon-master"></i></li>
+                        <li><i class="engIcon setIcon-45x31 setIcon-visa"></i></li>
                     </ul>
                 </div>
             </div>

@@ -7,7 +7,7 @@ var Cart = {
 		this.emptyCart = $('.empty-cart');
 	},
 	deleteItem: function() {
-		var tr = $(this).closest('tr');
+		var tr = $(this).closest('.it-block');
 		var id = tr.attr('id');
 		$.ajax({
 			type: 'POST',

@@ -41,13 +41,16 @@ class Hall
 			$iblockElement = new \CIBlockElement();
 			$rsItems = $iblockElement->GetList(array("NAME" => "ASC"), array(
 				'IBLOCK_ID' => self::IBLOCK_ID,
+			    'ACTIVE' => 'Y',
 			), false, false, array(
-				'ID', 'NAME', 'CODE', 'DETAIL_TEXT', 'DETAIL_PICTURE',
+				'ID', 'NAME', 'CODE', 'DETAIL_TEXT', 'DETAIL_PICTURE', 'IBLOCK_SECTION_ID',
                 'PROPERTY_SCHEME', 'PROPERTY_ADDRESS',
 			));
 			while ($item = $rsItems->Fetch())
 			{
 				$id = intval($item['ID']);
+				$cityId = intval($item['IBLOCK_SECTION_ID']);
+				$city = City::getById($cityId);
 				$return['ITEMS'][$id] = array(
 					'ID' => $id,
 					'NAME' => $item['NAME'],
@@ -57,6 +60,7 @@ class Hall
 				    'DETAIL_PAGE_URL' => self::DIR . ($item['CODE'] ? $item['CODE'] : $item['ID']) . '/',
 				    'SCHEME' => $item['PROPERTY_SCHEME_VALUE'],
                     'ADDRESS' => $item['PROPERTY_ADDRESS_VALUE'],
+				    'CITY' => $city['NAME'],
 				);
 				if ($item['CODE'])
 					$return['BY_CODE'][$item['CODE']] = $id;

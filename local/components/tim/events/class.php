@@ -29,7 +29,7 @@ class TimEvents extends \CBitrixComponent
 		),
 		'date' => array(
 			'ORDER_DEFAULT' => 'asc',
-			'FIELD' => 'PROPERTY_DATE',
+			'FIELD' => 'DATE',
 			'NAME' => 'По дате',
 			'DEFAULT' => true,
 		),
@@ -107,7 +107,8 @@ class TimEvents extends \CBitrixComponent
 		if (!$empty)
 		{
 			$this->filter = Filter::getData($this->searchIds, $this->searchQuery, $this->urlParams);
-			$this->products = Event::getByFilter($this->sort['QUERY'], $this->filter['PRODUCTS_IDS'], $this->navParams);
+			$this->products = Event::getByFilter($this->sort['QUERY'], $this->filter['PRODUCTS_IDS'],
+				$this->navParams, true);
 		}
 
 		$this->SetPageProperties();

@@ -74,6 +74,12 @@ class Event
 				$id = intval($item['ID']);
 				$gid = intval($item['PROPERTY_GENRE_VALUE']);
 				$genre = Genre::getById($gid);
+				$runSort = 10000000000; //2286 год
+				foreach ($runs[$id] as $run)
+				{
+					$runSort = $run;
+					break;
+				}
 
 				$product = array(
 					'ID' => $id,
@@ -86,6 +92,7 @@ class Event
                     'E_TICKET' => $item['PROPERTY_E_TICKET_VALUE'],
                     'AGE' => $item['PROPERTY_AGE_VALUE'],
 					'RUNS' => $runs[$id],
+				    'RUN_SORT' => $runSort,
 				);
 
 				foreach ($codes as $code)
@@ -94,10 +101,25 @@ class Event
 				$return[$id] = $product;
 			}
 
+			uasort($return, '\Local\Main\Event::runCmp');
+
 			$extCache->endDataCache($return);
 		}
 
 		return $return;
+	}
+
+	/**
+	 * Для пользовательской событий по дате ближайшего показа
+	 * @param $a
+	 * @param $b
+	 * @return int
+	 */
+	static function runCmp($a, $b)
+	{
+		if ($a['RUN_SORT'] == $b['RUN_SORT'])
+			return 0;
+		return ($a['RUN_SORT'] < $b['RUN_SORT']) ? -1 : 1;
 	}
 
 	/**
@@ -379,7 +401,7 @@ class Event
 		} else {
 			$extCache->startDataCache();
 
-			if ($productIds || $nav['nTopCount'])
+			if ($productIds)
 			{
 				$return['NAV'] = array(
 					'COUNT' => count($productIds),
@@ -387,15 +409,19 @@ class Event
 				);
 
 				// В случае поиска - ручная пагинация
-				if ($sort['SEARCH'] == 'asc' && $nav)
-				{
-					$l = $nav['nPageSize'];
-					$offset = ($nav['iNumPage'] - 1) * $l;
-					$productIds = array_slice($productIds, $offset, $l);
-					$nav = false;
-				}
+				$manualSort = false;
+				if ($nav)
+					if ($sort['SEARCH'] == 'asc' || $sort['DATE'] == 'asc')
+					{
+						$l = $nav['nPageSize'];
+						$offset = ($nav['iNumPage'] - 1) * $l;
+						$productIds = array_slice($productIds, $offset, $l);
+						$nav = false;
+						$manualSort = true;
+						$sort = array();
+					}
 
-				if (!isset($sort['ID']))
+				if (!$manualSort && !isset($sort['ID']))
 					$sort['ID'] = 'DESC';
 
 				$filter = array(
@@ -435,7 +461,7 @@ class Event
 				}
 
 				// Восстановление сортировки для поиска
-				if ($sort['SEARCH'] == 'asc')
+				if ($manualSort)
 				{
 					$items = array();
 					foreach ($productIds as $id)

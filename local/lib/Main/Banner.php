@@ -38,19 +38,18 @@ class Banner
             ), false, false, array(
                 'ID', 'NAME', 'PREVIEW_PICTURE',
                 'PROPERTY_EVENT',
+                'PROPERTY_HREF',
             ));
             while ($item = $rsItems->Fetch())
             {
-
-
                 $id = intval($item['ID']);
                 $return[$id] = array(
                     'ID' => $id,
                     'NAME' => $item['NAME'],
                     'PREVIEW_PICTURE' => \CFile::GetPath($item['PREVIEW_PICTURE']),
                     'EVENT' => $item['PROPERTY_EVENT_VALUE'],
+                    'HREF' => $item['PROPERTY_HREF_VALUE'],
                 );
-
             }
 
             $extCache->endDataCache($return);

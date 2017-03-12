@@ -1,6 +1,6 @@
 <?
 if (!function_exists('DebugMessage')) {
-	function DebugMessage($message, $title = false, $color = '#008B8B') {
+	function DebugMessage($message, $backtrace = false, $title = false, $color = '#008B8B') {
 	?><table border="0" cellpadding="5" cellspacing="0" style="border:1px solid <?=$color?>;margin:2px;"><tr><td style="color:<?=$color?>;font-size:11px;font-family:Verdana;"><?
 				if(strlen($title)) {
 					?><p>[<?=$title?>]</p><?
@@ -10,6 +10,22 @@ if (!function_exists('DebugMessage')) {
 				}
 				else {
 					var_dump($message);
+				}
+				$bt = array();
+				if($backtrace && function_exists('debug_backtrace'))
+				{
+					$arBacktrace = debug_backtrace();
+					$iterationsCount = min(count($arBacktrace), 18);
+					for ($i = 1; $i < $iterationsCount; $i++)
+					{
+						$s = $arBacktrace[$i]['function'];
+						if (strlen($arBacktrace[$i]['class']))
+							$s = $arBacktrace[$i]['class'] . '::' . $s;
+						$bt[] = $s;
+					}
+					echo '<pre>';
+					print_r($bt);
+					echo '</pre>';
 				}
 				?></td></tr></table><?
 	}

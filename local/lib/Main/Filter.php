@@ -333,7 +333,7 @@ class Filter
 	{
 		self::$DATA_BY_KEY = array();
 		foreach (self::$FILTER_BY_KEY as $key => $filter)
-			self::$DATA_BY_KEY[$key] = Event::getDataByFilter($filter, true);
+			self::$DATA_BY_KEY[$key] = Event::getDataByFilter($filter);
 	}
 
 	/**

@@ -52,7 +52,7 @@ class Run
 			$extCache->startDataCache();
 
 			$iblockElement = new \CIBlockElement();
-			$rsItems = $iblockElement->GetList(array(), array(
+			$rsItems = $iblockElement->GetList(array('PROPERTY_DATE' => 'ASC'), array(
 				'IBLOCK_ID' => self::IBLOCK_ID,
 			), false, false, array(
 				'ID',

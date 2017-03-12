@@ -121,7 +121,7 @@ $emptyStyle = $notEmpty ? ' style="display:none;"' : '';
                     </div>
                     <div class="elBasket-form">
                         <div class="it-title">Куда и кому отправлять билет?</div>
-                        <form action="/personal/order/" method="post">
+                        <form action="/personal/cart/" method="post">
                             <input type="text" name="order_name" placeholder="Имя (*)">
                             <input type="text" name="order_surname"  placeholder="Фамилия (*)">
                             <input type="text" name="order_email"  placeholder="E-mail (*)">
