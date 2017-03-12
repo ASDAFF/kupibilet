@@ -23,7 +23,6 @@ $dates = \Local\Main\Run::getAllDates();
 
 				?>
 				<div class="it-item">
-				<?= $item['ID']?>
 					<div class="it-img">
 						<a href="<?= $item['DETAIL_PAGE_URL'] ?>">
 							<img src="<?= $item['PREVIEW_PICTURE']['src'] ?>"
