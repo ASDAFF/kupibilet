@@ -40,6 +40,8 @@ class Handlers
 				array(__NAMESPACE__ . '\Handlers', 'beforeSearchIndex'));
 			AddEventHandler('sale', 'OnBasketDelete',
 				array(__NAMESPACE__ . '\Handlers', 'basketDelete'));
+			AddEventHandler('main', 'OnBeforeUserRegister',
+				array(__NAMESPACE__ . '\Handlers', 'beforeUserRegister'));
 		}
 	}
 
@@ -118,6 +120,15 @@ class Handlers
 		Cart::updateSessionCartSummary();
 
 		return $arFields;
+	}
+
+	/**
+	 * Логин копируем из email
+	 * @param $arFields
+	 */
+	function beforeUserRegister(&$arFields)
+	{
+		$arFields['LOGIN'] = $arFields['EMAIL'];
 	}
 
 
