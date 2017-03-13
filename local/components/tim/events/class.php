@@ -108,7 +108,7 @@ class TimEvents extends \CBitrixComponent
 		{
 			$this->filter = Filter::getData($this->searchIds, $this->searchQuery, $this->urlParams);
 			$this->products = Event::getByFilter($this->sort['QUERY'], $this->filter['PRODUCTS_IDS'],
-				$this->navParams, true);
+				$this->navParams);
 		}
 
 		$this->SetPageProperties();
