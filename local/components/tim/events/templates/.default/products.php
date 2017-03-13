@@ -39,7 +39,7 @@ if ($filter['CUR_FILTERS']) { ?>
 	            if ($item['PRICE'] != $item['PRICE_TO'])
 		            $price .= ' - ' . $item['PRICE_TO'];
 	            ?>
-                <div class="it-item <? if ($i % 3 == 0) echo 'set-2'; ?>">
+                <div class="it-item">
                     <div class="it-img">
                         <a class="engAnm" href="<?= $item['DETAIL_PAGE_URL'] ?>"  style="background-image: url(<?= $item['PREVIEW_PICTURE']['src'] ?>);filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='<?= $item['PREVIEW_PICTURE']['src'] ?>');">
                             <img src="<?= $item['PREVIEW_PICTURE']['src'] ?>"
