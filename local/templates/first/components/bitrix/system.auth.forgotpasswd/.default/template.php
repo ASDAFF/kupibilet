@@ -6,10 +6,13 @@
  * @var array $arResult
  */
 
-ShowMessage($arParams["~AUTH_RESULT"]);
+
 
 ?>
-<form name="bform" method="post" target="_top" action="<?=$arResult["AUTH_URL"]?>"><?
+<div class="engBox">
+    <div class="elFormAuth">
+        <?ShowMessage($arParams["~AUTH_RESULT"]);?>
+        <form name="bform" method="post" target="_top" action="<?=$arResult["AUTH_URL"]?>"><?
 	if (strlen($arResult["BACKURL"]) > 0)
 	{
 		?>
@@ -48,3 +51,5 @@ ShowMessage($arParams["~AUTH_RESULT"]);
 	<a href="<?=$arResult["AUTH_AUTH_URL"]?>"><b>Авторизация</b></a>
 	</p>
 </form>
+    </div>
+</div>

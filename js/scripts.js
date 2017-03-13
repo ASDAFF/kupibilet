@@ -1,19 +1,5 @@
-$(document).ready(function() {
-    $(".eng-popap-btn").fancybox({
-        maxWidth	: 800,
-        maxHeight	: '100%',
-        fitToView	: false,
-        padding     : 0,
-        width		: '400',
-        height		: '600',
-        autoSize	: true,
-        closeClick	: false
-    });
-
-	
-});
-
 $(function() {
+    // Меню
     var pull 		= $('#engNav-btn');
     menu 		= $('nav ul');
     menuHeight	= menu.height();
@@ -23,40 +9,34 @@ $(function() {
         menu.slideToggle();
     });
 
-    $(window).resize(function(){
-        var w = $(window).width();
-        if(w > 320 && menu.is(':hidden')) {
-            menu.removeAttr('style');
-        }
-    });
-});
+    // Изменения размера экрана
+    engBlockFix();
 
-
-$( function() {
-	var DP = $('#engDate-picter');
-	if (DP.length) {
-		DP.datepicker({
-			beforeShowDay: function severalDates(date){
-				var r = [false, ""];
-				if (typeof(picterDates) != 'undefined') {
-					var dat = $.datepicker.formatDate("dd.mm.yy", date);
-					for (var i = 0, c = picterDates.length; i < c; i++)
-						if (dat == picterDates[i]) {
-							r = [true, "yellow"];
-							return r;
-						}
-				}
-				return r;
-			},
-			defaultDate: "+4d",
-			onSelect: function (selectedDate) {
-				if (typeof(Filters) != 'undefined' && Filters.inited)
-					Filters.dateClick(selectedDate);
-				else
-					location.href = "/event/?d=" + selectedDate;
-			}
-		});
-	}
+    // Дата
+    var DP = $('#engDate-picter');
+    if (DP.length) {
+        DP.datepicker({
+            beforeShowDay: function severalDates(date){
+                var r = [false, ""];
+                if (typeof(picterDates) != 'undefined') {
+                    var dat = $.datepicker.formatDate("dd.mm.yy", date);
+                    for (var i = 0, c = picterDates.length; i < c; i++)
+                        if (dat == picterDates[i]) {
+                            r = [true, "yellow"];
+                            return r;
+                        }
+                }
+                return r;
+            },
+            defaultDate: "+4d",
+            onSelect: function (selectedDate) {
+                if (typeof(Filters) != 'undefined' && Filters.inited)
+                    Filters.dateClick(selectedDate);
+                else
+                    location.href = "/event/?d=" + selectedDate;
+            }
+        });
+    }
 } );
 
 
@@ -89,13 +69,27 @@ $( function() {
 
 } ) );
 
+function engBlockFix() {
+    var rightBlockDetail = $('.elRight-filter');
+    var rightBlock = $('.engBox-right');
+    var centerBlock = $(".engBox-content");
 
+    if($(document).width() < 1200) {
+        rightBlockDetail.detach();
+        centerBlock.prepend(rightBlockDetail);
+    }
+    if($(document).width() > 1200) {
+        rightBlockDetail.detach();
+        rightBlock.prepend(rightBlockDetail);
+    }};
 
 $(document).ready(function() {
+    $( window ).resize(function() {engBlockFix();});
+
     $('.elSlider').owlCarousel({
         navigation : true, // показывать кнопки next и prev
         nav:true,
-        navText: ["<img src='images/slider/left.png'>","<img src='images/slider/right.png'>"],
+        navText: ["<span class='engIcon setIcon-slider-left'></span>","<span class='engIcon setIcon-slider-right'></span>"],
 
         slideSpeed : 300,
         paginationSpeed : 400,

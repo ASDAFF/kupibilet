@@ -8,7 +8,9 @@
 if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
 
 ?>
-<div class="bx-auth"><?
+<div class="engBox">
+    <div class="elFormAuth">
+        <div class="bx-auth"><?
 
 	ShowMessage($arParams["~AUTH_RESULT"]);
 
@@ -89,4 +91,6 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
 		</noindex><?
 	}
 	?>
+</div>
+    </div>
 </div>

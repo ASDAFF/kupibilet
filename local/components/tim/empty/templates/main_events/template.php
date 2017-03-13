@@ -24,11 +24,11 @@ $dates = \Local\Main\Run::getAllDates();
 				?>
 				<div class="it-item">
 					<div class="it-img">
-						<a href="<?= $item['DETAIL_PAGE_URL'] ?>">
-							<img src="<?= $item['PREVIEW_PICTURE']['src'] ?>"
-							     width="<?= $item['PREVIEW_PICTURE']['width'] ?>"
-							     height="<?= $item['PREVIEW_PICTURE']['height'] ?>">
-						</a>
+                        <a class="engAnm" href="<?= $item['DETAIL_PAGE_URL'] ?>"  style="background-image: url(<?= $item['PREVIEW_PICTURE']['src'] ?>);filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='<?= $item['PREVIEW_PICTURE']['src'] ?>');">
+                            <img src="<?= $item['PREVIEW_PICTURE']['src'] ?>"
+                                 width="<?= $item['PREVIEW_PICTURE']['width'] ?>"
+                                 height="<?= $item['PREVIEW_PICTURE']['height'] ?>">
+                        </a>
 					</div>
 					<div class="it-inf">
 						<div class="it-title"><?= $item['NAME'] ?></div><?
@@ -37,10 +37,10 @@ $dates = \Local\Main\Run::getAllDates();
 						{
 							$href = $item['DETAIL_PAGE_URL'] . $run['FURL'];
 							?>
-							<div class="it-date"><i class="engIcon setIcon-date-black"></i><?= $run['DATE_S'] ?>
-								<a class="engBtn-kyp" href="<?= $href ?>">Купить билет</a></div>
+							<div class="it-date"><i class="engIcon setIcon-date-black"></i><?= $run['DATE_S'] ?></div>
 							<div class="it-map"><i class="engIcon setIcon-map-black"></i><?= $hall['NAME'] ?></div>
-							<div class="it-money"><i class="engIcon setIcon-price-black"></i><?= $price ?> руб.</div><?
+							<div class="it-money"><i class="engIcon setIcon-price-black"></i><?= $price ?> руб.</div>
+                            <a class="engBtn-kyp" href="<?= $href ?>">Купить билет</a><?
 						}
 
 						?>
@@ -51,7 +51,7 @@ $dates = \Local\Main\Run::getAllDates();
 		</div>
     </div>
     <div class="engBox-right">
-        <div class="elList">
+        <div class="elRight-filter">
             <div class="it-item">
                 <div class="it-date-form">
                     <div id="engDate-picter"></div>

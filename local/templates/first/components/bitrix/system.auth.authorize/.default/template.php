@@ -7,11 +7,14 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
  * @var array $arResult
  */
 
-ShowMessage($arParams["~AUTH_RESULT"]);
-ShowMessage($arResult['ERROR_MESSAGE']);
-
 ?>
-<div class="bx-auth">
+<div class="engBox">
+    <div class="elFormAuth">
+        <?
+        ShowMessage($arParams["~AUTH_RESULT"]);
+        ShowMessage($arResult['ERROR_MESSAGE']);
+        ?>
+        <div class="bx-auth">
 	<div class="bx-auth-note">Авторизация</div>
 	<form name="form_auth" method="post" target="_top" action="<?=$arResult["AUTH_URL"]?>">
 		<input type="hidden" name="AUTH_FORM" value="Y" />
@@ -74,4 +77,7 @@ ShowMessage($arResult['ERROR_MESSAGE']);
 
 		?>
 	</form>
-</div><?
+</div>
+    </div>
+</div>
+<?

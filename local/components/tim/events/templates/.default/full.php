@@ -29,7 +29,7 @@ $dates = \Local\Main\Run::getAllDates();
 	        </div>
 	    </div>
         <div class="engBox-right">
-            <div class="elList">
+            <div class="elRight-filter">
             <div id="filters-panel" class="it-item setColor-white">
 
                 <input type="hidden" name="q" value="<?= $component->searchQuery ?>">

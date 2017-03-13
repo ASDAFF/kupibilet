@@ -19,18 +19,16 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
     <?
     $assets = \Bitrix\Main\Page\Asset::getInstance();
 
-	$assets->addCss('/js/fancybox/jquery.fancybox.css');
-	$assets->addCss('/js/jquery-ui/jquery-ui.css');
-	$assets->addCss('/css/style.css');
+    //	$assets->addCss('/js/jquery-ui/jquery-ui.min.css');
+    $assets->addCss('/css/style.css');
 
-	$assets->addJs('/js/jquery-2.1.4.min.js');
-	$assets->addJs('/js/jquery-ui/jquery-ui.js');
+    $assets->addJs('/js/jquery-2.1.4.min.js');
+    $assets->addJs('/js/jquery-ui/jquery-ui.min.js');
     $assets->addJs('/js/jquery-ui/jquery.datepicker.extension.range.min.js');
-	$assets->addJs('/js/fancybox/jquery.fancybox.js');
     $assets->addJs('/js/owl/owl.carousel.min.js');
-	$assets->addJs('/js/masonry.pkgd.min.js');
-	$assets->addJs('/js/events.js');
-	$assets->addJs('/js/scripts.js');
+    //	$assets->addJs('/js/masonry.pkgd.min.js');
+    $assets->addJs('/js/events.js');
+    $assets->addJs('/js/scripts.js');
     $APPLICATION->ShowHead();
     ?>
 </head>
@@ -40,9 +38,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
     <div class="engBox">
         <div class="engBox-3 engPl-6 engPl-cssText-center engMb ">
             <div class="elHeader-logo">
-                <a href="/">
-                    <img src="/images/logo.png">
-                </a>
+                <a href="/" class="engIcon setIcon-logo"></a>
             </div>
         </div>
         <div class="engBox-5  engPl-none cssText-center cssVertical-center">

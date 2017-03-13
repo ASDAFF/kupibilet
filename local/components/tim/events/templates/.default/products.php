@@ -41,7 +41,7 @@ if ($filter['CUR_FILTERS']) { ?>
 	            ?>
                 <div class="it-item <? if ($i % 3 == 0) echo 'set-2'; ?>">
                     <div class="it-img">
-                        <a href="<?= $item['DETAIL_PAGE_URL'] ?>">
+                        <a class="engAnm" href="<?= $item['DETAIL_PAGE_URL'] ?>"  style="background-image: url(<?= $item['PREVIEW_PICTURE']['src'] ?>);filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='<?= $item['PREVIEW_PICTURE']['src'] ?>');">
                             <img src="<?= $item['PREVIEW_PICTURE']['src'] ?>"
                                  width="<?= $item['PREVIEW_PICTURE']['width'] ?>"
                                  height="<?= $item['PREVIEW_PICTURE']['height'] ?>">
@@ -54,8 +54,8 @@ if ($filter['CUR_FILTERS']) { ?>
 	                    {
 		                    $href = $item['DETAIL_PAGE_URL'] . $run['FURL'];
 		                    ?>
-		                    <div class="it-date"><i class="engIcon setIcon-date-black"></i><?= $run['DATE_S'] ?>
-		                    <a class="engBtn-kyp" href="<?= $href ?>">Купить билет</a></div><?
+		                    <div class="it-date"><i class="engIcon setIcon-date-black"></i><?= $run['DATE_S'] ?></div>
+                            <a class="engBtn-kyp" href="<?= $href ?>">Купить билет</a><?
 	                    }
 
 	                    ?>

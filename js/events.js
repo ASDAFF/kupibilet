@@ -202,15 +202,6 @@ var Filters = {
 
 $(document).ready(function() {
 	Filters.init();
-    elList();
 
 });
 
-function elList(){
-	$('.elList').masonry({
-		// options...
-		itemSelector: '.it-item',
-		columnWidth: 395
-	});
-	console.log("Сотируем");
-}
