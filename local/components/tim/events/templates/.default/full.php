@@ -11,7 +11,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)
 $filter = $component->filter;
 $products = $component->products['ITEMS'];
 
-$dates = \Local\Main\Run::getAllDates();
+$dates = \Local\Main\Event::getAllDates();
 
 ?>
 

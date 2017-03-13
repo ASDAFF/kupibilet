@@ -25,7 +25,7 @@ if ($filter['CUR_FILTERS']) { ?>
 
 <div id="events">
     <? if (count($products) <= 0) { ?>
-        <p class="empty">Не найдено ни одного подходящего мероприятия. Попробуйте отключить какой-нибудь фильтр</p>
+        <p class="empty">Не найдено ни одного подходящего мероприятия</p>
     <? } ?>
 
         <div class="elList">

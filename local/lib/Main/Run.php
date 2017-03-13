@@ -29,11 +29,6 @@ class Run
 	 */
 	const S_FORMAT = 'DD.MM.YYYY HH:MI';
 
-	/**
-	 * Только дата
-	 */
-	const DATE_FORMAT = 'DD.MM.YYYY';
-
 	public static function getAll($refreshCache = false)
 	{
 		$return = array();
@@ -83,20 +78,6 @@ class Run
 		foreach ($items as $eventId => $runs)
 			foreach ($runs as $item)
 				$return[$eventId][$item['ID']] = $item['TS'];
-
-		return $return;
-	}
-
-	public static function getAllDates($refreshCache = false)
-	{
-		$return = array();
-		$items = self::getAll($refreshCache);
-		foreach ($items as $eventId => $runs)
-			foreach ($runs as $item)
-			{
-				$date = ConvertDateTime($item['DATE'], self::DATE_FORMAT);
-				$return[$date] = $date;
-			}
 
 		return $return;
 	}

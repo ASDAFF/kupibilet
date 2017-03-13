@@ -26,6 +26,11 @@ class Event
 	const CACHE_TIME = 86400;
 
 	/**
+	 * Только дата
+	 */
+	const DATE_FORMAT = 'DD.MM.YYYY';
+
+	/**
 	 * Возвращает все мероприятия со свойствами, которые нужны для построения панели фильтров
 	 * @param bool|false $refreshCache
 	 * @return array
@@ -105,6 +110,25 @@ class Event
 
 			$extCache->endDataCache($return);
 		}
+
+		return $return;
+	}
+
+	/**
+	 * Все даты, в которых есть события
+	 * @param bool $refreshCache
+	 * @return array
+	 */
+	public static function getAllDates($refreshCache = false)
+	{
+		$return = array();
+		$items = self::getAll($refreshCache);
+		foreach ($items as $eventId => $event)
+			foreach ($event['RUNS'] as $ts)
+			{
+				$date = ConvertTimeStamp($ts);
+				$return[$date] = $date;
+			}
 
 		return $return;
 	}
