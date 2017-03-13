@@ -6,6 +6,8 @@ use Bitrix\Sale\Compatible\BasketCompatibility;
 use Local\Main\Event;
 use Local\Main\Hall;
 use Local\Main\Run;
+use Local\System\User;
+use Local\System\Utils;
 
 /**
  * Class Cart Корзина
@@ -87,9 +89,13 @@ class Cart
 	public static function getSummaryDB()
 	{
 		$cart = self::getCart();
+		$tickets = Utils::cardinalNumberRus($cart['COUNT'], 'билетов', 'билет', 'билета');
+		$tickets = $cart['COUNT'] . ' ' . $tickets;
 		return array(
 			'COUNT' => $cart['COUNT'],
+			'TICKETS' => $tickets,
 			'PRICE' => $cart['PRICE'],
+			'SERV_PRICE' => $cart['SERV_PRICE'],
 		);
 	}
 
@@ -297,12 +303,13 @@ class Cart
 		return $return;
 	}
 
-	public static function createOrder($cart)
+	public static function createOrder($cart, $user)
 	{
 		Loader::IncludeModule('sale');
 
-		$user = new \CUser();
-		$userId = intval($user->GetID());
+		$userId = $user['ID'];
+		if (!$userId)
+			return 0;
 
 		$fields = array(
 			'LID' => SITE_ID,
@@ -344,6 +351,32 @@ class Cart
 			));
 
 			self::updateSessionCartSummary();
+
+			$userName = $user['NAME'];
+			if ($user['LAST_NAME'])
+			{
+				if ($userName)
+					$userName .= ' ';
+				$userName .= $user['LAST_NAME'];
+				if ($userName)
+					$userName = 'Уважаемый ' . $userName . ",";
+			}
+			$eventFields = array(
+				'ORDER_ID' => $orderId,
+				'ORDER_DATE' => date('d.m.Y H:i'),
+				'ORDER_USER' => $userName,
+				'EMAIL' => $user['EMAIL'],
+				'PRICE' => $cart['PRICE'] + $cart['SERV_PRICE'],
+			    'ORDER_LIST' => '',
+			    'SALE_EMAIL' => \COption::GetOptionString('sale', 'order_email', 'order@' . $_SERVER['SERVER_NAME']),
+			);
+			if ($_SESSION['LOCAL_USER']['PASS'])
+			{
+				$eventFields['REG_INFO'] = "На сайте был зарегистрирован пользователь с указанным email\n";
+				$eventFields['REG_INFO'] .= "Пароль: " . $_SESSION['LOCAL_USER']['PASS'] . "\n";
+				//unset($_SESSION['LOCAL_USER']['PASS']);
+			}
+			\CEvent::Send('ADD_ORDER', 's1', $eventFields);
 		}
 
 		return $orderId;
@@ -353,8 +386,7 @@ class Cart
 	{
 		Loader::IncludeModule('sale');
 
-		$user = new \CUser();
-		$userId = intval($user->GetID());
+		$userId = User::getCurrentUserId();
 
 		$order = new \CSaleOrder();
 		$rsOrder = $order->GetList(array(), array(
@@ -370,14 +402,37 @@ class Cart
 	{
 		Loader::IncludeModule('sale');
 
+		$secret = rand(100, 999) . '-' . rand(100, 999);
+
 		$order = new \CSaleOrder();
 		$order->Update($id, array(
 			'STATUS_ID' => 'F',
-		    'COMMENTS' => rand(100, 999) . '-' . rand(100, 999),
+		    'COMMENTS' => $secret,
 		));
 
 		foreach ($items as $item)
 			Reserve::pay($item['ID']);
+
+		$user = User::getCurrentUser();
+
+		$userName = $user['NAME'];
+		if ($user['LAST_NAME'])
+		{
+			if ($userName)
+				$userName .= ' ';
+			$userName .= $user['LAST_NAME'];
+			if ($userName)
+				$userName = 'Уважаемый ' . $userName . ",";
+		}
+		$eventFields = array(
+			'ORDER_ID' => $id,
+			'ORDER_USER' => $userName,
+			'EMAIL' => $user['EMAIL'],
+			'SALE_EMAIL' => \COption::GetOptionString('sale', 'order_email', 'order@' . $_SERVER['SERVER_NAME']),
+		    'PRINT' => 'http://' . \COption::GetOptionString('main', 'server_name', $_SERVER['SERVER_NAME']) . '/personal/order/print/?id=19',
+		    'SECRET' => $secret,
+		);
+		\CEvent::Send('PAY_ORDER', 's1', $eventFields);
 	}
 
 	public static function setSbOrderId($id, $sbOrderId)
