@@ -11,12 +11,11 @@ if ($order['STATUS_ID'] == 'F')
 }
 else
 {
-	use Voronkovich\SberbankAcquiring\Client;
 
-	$client = new Client(array(
+	$client = new Voronkovich\SberbankAcquiring\Client(array(
 		'userName' => 'kupibilet-api',
 		'password' => 'kupibilet',
-		'apiUri' => Client::API_URI_TEST,
+		'apiUri' => Voronkovich\SberbankAcquiring\Client::API_URI_TEST,
 	));
 
 	$orderId = $order['ID'];
