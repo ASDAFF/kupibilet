@@ -8,7 +8,8 @@
 if ($order['STATUS_ID'] == 'F')
 {
 	?>
-	<p>Заказ уже оплачен</p><?
+	<p>Заказ уже оплачен</p>
+	<p><a href="/personal/order/print/?id=<?= $order['ID'] ?>">Распечатать</a></p><?
 }
 else
 {
