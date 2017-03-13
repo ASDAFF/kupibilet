@@ -369,6 +369,8 @@ class Cart
 				'PRICE' => $cart['PRICE'] + $cart['SERV_PRICE'],
 			    'ORDER_LIST' => '',
 			    'SALE_EMAIL' => \COption::GetOptionString('sale', 'order_email', 'order@' . $_SERVER['SERVER_NAME']),
+			    'PAYLINK' => 'http://' . \COption::GetOptionString('main', 'server_name', $_SERVER['SERVER_NAME']) .
+				    '/personal/order/payment/?id=' . $orderId,
 			);
 			if ($_SESSION['LOCAL_USER']['PASS'])
 			{
@@ -429,7 +431,8 @@ class Cart
 			'ORDER_USER' => $userName,
 			'EMAIL' => $user['EMAIL'],
 			'SALE_EMAIL' => \COption::GetOptionString('sale', 'order_email', 'order@' . $_SERVER['SERVER_NAME']),
-		    'PRINT' => 'http://' . \COption::GetOptionString('main', 'server_name', $_SERVER['SERVER_NAME']) . '/personal/order/print/?id=19',
+		    'PRINT' => 'http://' . \COption::GetOptionString('main', 'server_name',
+				    $_SERVER['SERVER_NAME']) . '/personal/order/print/?id=' . $id,
 		    'SECRET' => $secret,
 		);
 		\CEvent::Send('PAY_ORDER', 's1', $eventFields);
