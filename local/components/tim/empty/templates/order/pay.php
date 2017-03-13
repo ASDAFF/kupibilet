@@ -1,6 +1,8 @@
 <?
 /** @var array $order */
 
+use Voronkovich\SberbankAcquiring\Client;
+
 $host = $_SERVER['HTTP_HOST'];
 
 if ($order['STATUS_ID'] == 'F')
@@ -12,10 +14,10 @@ if ($order['STATUS_ID'] == 'F')
 else
 {
 
-	$client = new Voronkovich\SberbankAcquiring\Client(array(
+	$client = new Client(array(
 		'userName' => 'kupibilet-api',
 		'password' => 'kupibilet',
-		'apiUri' => Voronkovich\SberbankAcquiring\Client::API_URI_TEST,
+		'apiUri' => Client::API_URI_TEST,
 	));
 
 	$orderId = $order['ID'];
