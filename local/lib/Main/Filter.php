@@ -596,7 +596,7 @@ class Filter
 		{
 			return array(
 				'H1' => 'Результаты поиска по запросу «' . $searchQuery . '»',
-				'TITLE' => 'Результаты поиска по запросу «' . $searchQuery . '» - (шаблон)',
+				'TITLE' => 'Результаты поиска по запросу «' . $searchQuery . '»',
 			);
 		}
 
@@ -653,6 +653,11 @@ class Filter
 					$type = strtolower($lastItem['NAME']);
 				}
 			}
+
+			if ($group['TYPE'] == 'date')
+			{
+				$suffix = $lastItem['DAY'];
+			}
 		}
 
 		if (!$name)
@@ -662,9 +667,9 @@ class Filter
 			$name = strtolower($name);
 		$h1 = $prefix . $name . $suffix;
 		$h1l = strtolower($h1);
-		$title = '(шаблон для заголовка) ' . $h1l . ' – (продолжение шаблона для заголовка)';
-		$description = $h1 . ' (шаблон описания) ' . $type;
-		$text = '(шаблон текста) ' . $h1l . ' (продолжение шаблона текста)';
+		$title = $h1l;
+		$description = $h1 . ' ' . $type;
+		$text = $h1l;
 
 		return array(
 			'H1' => $h1,

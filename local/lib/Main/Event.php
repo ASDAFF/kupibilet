@@ -638,9 +638,9 @@ class Event
 				$ipropValues = new ElementValues(self::IBLOCK_ID, $item['ID']);
 				$iprop = $ipropValues->getValues();
 				$title = $iprop['ELEMENT_META_TITLE'] ? $iprop['ELEMENT_META_TITLE'] :
-					$item['NAME'] . ' - (здесь будет шаблон для заголовка)';
+					$item['NAME'];
 				$desc = $iprop['ELEMENT_META_DESCRIPTION'] ? $iprop['ELEMENT_META_DESCRIPTION'] :
-					'Шаблон для описания ' . $item['NAME'] . '. (шаблон)';
+					$item['NAME'];
 				$pictures = array();
 				$file = new \CFile();
 				foreach ($item['PROPERTY_PHOTOS_VALUE'] as $picId)

@@ -56,9 +56,8 @@ foreach ($byRun as $runId => $cartIds)
 		?>
 		<div class="bilet">
 			<div class="block" style="width: 150px; padding-left: 30px; vertical-align: top;">
-				<div class="line" ><span>№ <b style="font-size: 17px;"><?= $cartId
-							?></b></span></div>
-				<div class="line"></div>
+				<div class="line" ><span>№ <b style="font-size: 17px;"><?= $order['COMMENTS'] ?></b></span></div>
+				<div class="line"><span><b style="font-size: 14px;">KB-<?= $cartId ?></b></span></div>
 			</div>
 			<div class="block css-center" style="width: 230px;">
 				<div class="line"><span style="font-size: 12px;"><i style="font-size: 30px; display: block; width: 230px;">БИЛЕТ</i></span></div>

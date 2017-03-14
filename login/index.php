@@ -7,7 +7,10 @@ if (is_string($_REQUEST["backurl"]) && strpos($_REQUEST["backurl"], "/") === 0)
 	LocalRedirect($_REQUEST["backurl"]);
 }
 
+/** @global CMain $APPLICATION */
 $APPLICATION->SetTitle("Вход на сайт");
+$APPLICATION->SetPageProperty('title', "Вход на сайт");
+
 ?>
 <div class="engBox">
     <div class="elFormAuth">

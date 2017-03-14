@@ -1,6 +1,10 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-$APPLICATION->SetTitle("Персональный раздел");
+
+/** @global CMain $APPLICATION */
+$APPLICATION->SetTitle("Личный кабинет");
+$APPLICATION->SetPageProperty('title', "Личный кабинет");
+
 ?>
 <div class="engBox">
     <div class="elFormAuth">

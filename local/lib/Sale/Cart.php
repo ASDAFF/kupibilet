@@ -435,7 +435,7 @@ class Cart
 	{
 		Loader::IncludeModule('sale');
 
-		$secret = rand(100, 999) . '-' . rand(100, 999);
+		$secret = rand(10, 99) . '-' . rand(10, 99) . '-' . rand(10, 99) . '-' . rand(10, 99);
 
 		$order = new \CSaleOrder();
 		$order->Update($id, array(
