@@ -1,9 +1,33 @@
+<!doctype html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<style rel="stylesheet">
+		body {margin: 0; padding: 0;
+			font-family: "Times New Roman";
+			font-size: 14px;}
+		.bilet {display: table; width: 600px;
+			border-bottom: 2px dashed #cdcccc;}
+		.block {display: table-cell; vertical-align: middle; padding: 10px 0; }
+		.line {display: table-row;  vertical-align: middle;}
+
+		.vertikal {display: block;
+			-webkit-transform: rotate(-90deg);
+			-moz-transform: rotate(-90deg);
+			-ms-transform: rotate(-90deg);
+			transform: rotate(-90deg);}
+		.css-padding {padding: 7px 0;}
+		.css-center {text-align: center;}
+		span {display: block;}
+		b {font-size: 20px;}
+	</style>
+</head>
+<body>
 <?
 /** @var array $order */
 /** @var array $orderItems */
-
-?>
-<p>Проверочный код: <?= $order['COMMENTS'] ?></p><?
 
 // Распределяем билеты по показам
 $byRun = array();
@@ -21,42 +45,36 @@ foreach ($byRun as $runId => $cartIds)
 	$run = \Local\Main\Run::getById($runId);
 	$event = \Local\Main\Event::getById($run['EVENT']);
 	$hall = \Local\Main\Hall::getById($event['PRODUCT']['HALL']);
-	?>
-	<div class="run">
-	<hr />
-	<p>Блок показа (может быть несколько)</p>
-	<p>Дата: <?= $run['DATE_S'] ?> </p>
-	<p>Событие: <?= $event['NAME'] ?></p>
-	<p>Зал: <?= $hall['NAME'] ?></p>
 
-	<table>
-		<thead>
-		<tr>
-			<th>Секция</th>
-			<th>Ряд</th>
-			<th>Место</th>
-			<th>Цена</th>
-		</tr>
-		</thead>
-		<tbody><?
-		$total = 0;
-		$totalServ = 0;
-		foreach ($cartIds as $cartId)
-		{
-			$item = $orderItems['ITEMS'][$cartId];
-			$serv = floor($item['PRICE'] * SERVICE_CHARGE / 100);
-			$totalServ += $serv;
-			$totalServ += $item['PRICE'];
-			?>
-			<tr id="<?= $cartId ?>">
-				<td><?= $item['PROPS']['SECTOR'] ?></td>
-				<td><?= $item['PROPS']['ROW'] ?></td>
-				<td><?= $item['PROPS']['NUM'] ?></td>
-				<td><?= $item['PRICE'] ?> руб.</td>
-			</tr><?
-		}
+	foreach ($cartIds as $cartId)
+	{
+		$item = $orderItems['ITEMS'][$cartId];
+
 		?>
-		</tbody>
-	</table>
-	</div><?
+		<div class="bilet">
+			<div class="block" style="width: 150px; padding-left: 30px; vertical-align: top;">
+				<div class="line" ><span>№ <b style="font-size: 17px;"><?= $cartId
+							?></b></span></div>
+				<div class="line"></div>
+			</div>
+			<div class="block css-center" style="width: 230px;">
+				<div class="line"><span style="font-size: 12px;"><i style="font-size: 30px; display: block; width: 230px;">БИЛЕТ</i></span></div>
+				<div class="line css-padding"><span class="css-padding"><b><?= $run['DATE_S'] ?></b></span></div>
+				<div class="line css-padding"><span class="css-padding"><b><?= $event['NAME'] ?></b></span></div>
+				<div class="line css-padding"><span class="css-padding"><b><?= $hall['NAME'] ?></b></span></div>
+			</div>
+			<div class="block"  style="width: 150px; padding-left: 10px; vertical-align: text-top;">
+				<div class="line css-center" style="font-size: 12px;"><span style="width: 150px;">www.kupibilet.online</span></div>
+				<div class="line css-center"><span><b style="padding-top: 20px; display: block;
+				"><?= $item['PROPS']['SECTOR'] ?></b></span></div>
+				<div class="line"><span class="css-padding">Ряд: <b><?= $item['PROPS']['ROW'] ?></b></span></div>
+				<div class="line"><span class="css-padding">Место: <b><?= $item['PROPS']['NUM'] ?></b></span></div>
+				<div class="line"><span class="css-padding">Цена: <b><?= $item['PRICE'] ?> руб.</b></span></div>
+			</div>
+			<div class="block" style="width: 50px; border-left: 1px dashed #000"><i class="vertikal css-center">КОНТРОЛЬ<br><?= $order['COMMENTS'] ?></i></div>
+		</div><?
+	}
 }
+?>
+</body>
+</html>
