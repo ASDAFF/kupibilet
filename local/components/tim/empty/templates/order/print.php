@@ -1,9 +1,14 @@
-<!doctype html>
+<?
+/** @var array $order */
+/** @var array $orderItems */
+
+?><!doctype html>
 <html lang="ru">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Печать заказа № <?= $order['ID'] ?></title>
 	<style rel="stylesheet">
 		body {margin: 0; padding: 0;
 			font-family: "Times New Roman";
@@ -26,8 +31,6 @@
 </head>
 <body>
 <?
-/** @var array $order */
-/** @var array $orderItems */
 
 // Распределяем билеты по показам
 $byRun = array();

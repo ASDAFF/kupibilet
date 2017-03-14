@@ -38,12 +38,12 @@ $dates = \Local\Main\Event::getAllDates();
 							$href = $item['DETAIL_PAGE_URL'] . $run['FURL'];
 							?>
 							<div class="it-date"><i class="engIcon setIcon-date-black"></i><?= $run['DATE_S'] ?></div>
-							<div class="it-map"><i class="engIcon setIcon-map-black"></i><?= $hall['NAME'] ?></div>
-							<div class="it-money"><i class="engIcon setIcon-price-black"></i><?= $price ?> руб.</div>
-                            <a class="engBtn-kyp" href="<?= $href ?>">Купить билет</a><?
+							<a class="engBtn-kyp" href="<?= $href ?>">Купить билет</a><?
 						}
 
 						?>
+						<div class="it-map"><i class="engIcon setIcon-map-black"></i><?= $hall['NAME'] ?></div>
+						<div class="it-money"><i class="engIcon setIcon-price-black"></i><?= $price ?> руб.</div>
 					</div>
 				</div><?
 			}
