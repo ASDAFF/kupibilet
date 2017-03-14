@@ -8,8 +8,6 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)
 $hall = $component->hall;
 $events = \Local\Main\Event::getByHall($hall['ID']);
 
-debugmessage($events);
-
 ?>
 <div class="engBox engContent">
     <div class='hallpage-detail'>
