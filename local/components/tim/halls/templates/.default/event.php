@@ -34,8 +34,12 @@ if ($item['PRICE'] != $item['PRICE_TO'])
 	                        }
 	                        ?>
                         </ul>
-                        <div class='eventpage-place'><?=$hall['NAME']?></div>
-                        <div class='eventpage-price'><?=$price?> руб.</div>
+                        <div class='eventpage-place'>
+                            <i class="engIcon setIcon-map-black"></i>
+                            <?=$hall['NAME']?></div>
+                        <div class='eventpage-price'>
+                            <i class="engIcon setIcon-price-black"></i>
+                            <?=$price?> руб.</div>
                         <?if($event['PRODUCT']['E_TICKET'] != 0){?>
                             <input class='btn' type="submit" value="Купить билет">
                         <?}?>

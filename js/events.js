@@ -57,8 +57,8 @@ var Filters = {
 		this.price_max = this.priceGroup.data('max');
 		this.priceLabelFrom1 = $('#slider-range-value1');
 		this.priceLabelTo1 = $('#slider-range-value2');
-		this.priceLabelFrom2 = $(".it-filter-money #slider-range span:first")
-		this.priceLabelTo2 = $(".it-filter-money #slider-range span:last")
+		this.priceLabelFrom2 = $(".it-filter-money #slider-range span:first");
+		this.priceLabelTo2 = $(".it-filter-money #slider-range span:last");
 
 		this.priceSlider = $('#slider-range');
 		this.priceSlider.slider({

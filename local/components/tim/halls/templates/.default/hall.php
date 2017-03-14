@@ -13,7 +13,7 @@ $events = \Local\Main\Event::getByHall($hall['ID']);
             <div class='hallpage-img'><img src='<?=CFile::GetPath($hall["PICTURE"])?>'></div>
             <div class='hallpage-descr'>
                 <div class='hallpage-ttl'><?=$hall['NAME']?></div>
-                <div class='hallpage-place'><?=$hall['NAME']?></div>
+                <div class='hallpage-place'><i class="engIcon setIcon-map-black"></i><?=$hall['NAME']?></div>
                 <div class='hallpage-txt'>
                     <?=$hall['DETAIL_TEXT']?>
                 </div>

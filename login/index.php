@@ -9,7 +9,11 @@ if (is_string($_REQUEST["backurl"]) && strpos($_REQUEST["backurl"], "/") === 0)
 
 $APPLICATION->SetTitle("Вход на сайт");
 ?>
-<p class="notetext">Вы зарегистрированы и успешно авторизовались.</p>
+<div class="engBox">
+    <div class="elFormAuth">
+        <p class="notetext">Вы зарегистрированы и успешно авторизовались.</p>
 
-<p><a href="/">Вернуться на главную страницу</a></p>
+        <p><a href="/">Вернуться на главную страницу</a></p>
+    </div>
+</div>
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

@@ -37,6 +37,49 @@ $(function() {
             }
         });
     }
+
+    //fix menu
+    var headHeight = 350; // высота шапки
+    $(window).on('scroll resize load', function() {
+        if($(this).scrollTop() > headHeight)
+            $('.elZal-top').addClass('fixed-menu');
+        else
+            $('.elZal-top').removeClass('fixed-menu', 600);
+    });
+    // Скролинг
+    var elZal = $(".elZal"),
+        elZalZoom = $(".elZalZoom"),
+        elZalBtnPlus = $("#elZalBtnPlus"),
+        elZalBtnMinus = $("#elZalBtnMinus"),
+        zoom = 1,
+        HeightSize = 400;
+
+        $(window).on('scroll resize load', function() {
+            if($(this).scrollTop() > HeightSize)
+                elZalZoom.addClass('fixed');
+            else
+                elZalZoom.removeClass('fixed', 600);
+        });
+
+
+        elZalBtnPlus.click(function () {
+            if(zoom < 1.6) {
+                zoom = zoom+0.2;
+                elZalBtnMinus.removeClass('none');
+                elZalBtnPlus.removeClass('none');
+            }else{elZalBtnPlus.addClass('none')}
+            elZal.css("zoom",zoom);
+        });
+        elZalBtnMinus.click(function () {
+            if(zoom > 0.8) {
+                zoom = zoom-0.2;
+            elZalBtnMinus.removeClass('none');
+            elZalBtnPlus.removeClass('none');
+            }else{elZalBtnMinus.addClass('none')}
+            elZal.css("zoom",zoom);
+        });
+
+
 } );
 
 
