@@ -54,8 +54,10 @@ var Run = {
 			data: 'action=' + action + '&eid=' + Run.eventId + '&rid=' + Run.runId + '&id=' + id,
 			success: function (data) {
 				if (action == 'add') {
-					if (data.ID)
+					if (data.ID) {
 						point.addClass('order');
+						engLog('Место забронировано','<a href="/personal/cart/">Перейти в корзину</a> продолжить покупки');
+					}
 				}
 				else if (action == 'remove') {
 					if (data.SUCCESS)
