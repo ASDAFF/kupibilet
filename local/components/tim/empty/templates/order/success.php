@@ -10,7 +10,7 @@ if ($order['STATUS_ID'] != 'F')
 	$client = new Client(array(
 		'userName' => 'kupibilet-api',
 		'password' => 'kupibilet',
-		//'apiUri' => Client::API_URI_TEST,
+		'apiUri' => Client::API_URI_TEST,
 	));
 
 	$sbOrderId = $_REQUEST['orderId'];
