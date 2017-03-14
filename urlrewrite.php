@@ -1,6 +1,12 @@
 <?
 $arUrlRewrite = array(
 	array(
+		"CONDITION" => "#^/personal/order/payment/success/(.*)/(.*)#",
+		"RULE" => "id=\$1",
+		"ID" => "",
+		"PATH" => "/personal/order/payment/success/index.php",
+	),
+	array(
 		"CONDITION" => "#^/bitrix/services/ymarket/#",
 		"RULE" => "",
 		"ID" => "",
@@ -17,18 +23,6 @@ $arUrlRewrite = array(
 		"RULE" => "",
 		"ID" => "",
 		"PATH" => "/event/index.php",
-	),
-	array(
-		"CONDITION" => "#^/personal/order/payment/success/(.*)/(.*)#",
-		"RULE" => "id=\$1",
-		"ID" => "",
-		"PATH" => "/personal/order/payment/success/index.php",
-	),
-	array(
-		"CONDITION" => "#^#",
-		"RULE" => "",
-		"ID" => "bitrix:news",
-		"PATH" => "/local/templates/first/header.php",
 	),
 );
 

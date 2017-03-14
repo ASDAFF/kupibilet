@@ -232,7 +232,7 @@ button.engInputYa {height: 36px;}
 
 .engIcon.setIcon-45x31 {width: 45px; height: 31px;}
 
-.engIcon.setIcon-logo {background-position:-111px -151px; width: 305px; height: 57px;}
+.engIcon.setIcon-logo {background-position:-208px -151px; width: 206px; height: 57px;}
 
 .engIcon.setIcon-fb {background-position:-113px -92px;}
 .engIcon.setIcon-tw {background-position:-113px -92px;}
@@ -430,9 +430,9 @@ footer {clear: both; margin-top: 20px;}
 .elFooter .it-title {font-weight: bold; font-size: 16px; margin-top: 30px;}
 .elFooter .it-title {font-weight: bold;}
 .elFooter .it-menu {}
-.elFooter .it-menu a {padding: 5px 0; display: block;}
+.elFooter .it-menu a,.elFooter .it-menu span {padding: 5px 0; display: block;}
 .elFooter .it-menu a:hover {color: #ffffff; text-decoration: underline;}
-.elFooter .it-menu a i {margin-right: 10px;}
+.elFooter .it-menu a i, .elFooter .it-menu span i {margin-right: 10px;}
 .elFooter .it-menu.set-soc li {display: inline-block; width: 49%;}
 .elFooter .it-menu.set-cart li {display: inline-block;}
 
@@ -1129,7 +1129,15 @@ html .ep-form .ui-button.ui-state-disabled:active{
 .ep-form {
     margin-top: 35px;
 }
-.ep-form .engBtn-kyp {position: relative; bottom: auto; right: auto; margin-left: 10px;}
+.ep-form li {position: relative;}
+.ep-form .engBtn-kyp {position: absolute; right: 0;}
+@media only screen and (max-width: 1200px) {
+    .ep-form .engBtn-kyp {position: relative; margin-left: 10px;}
+}
+@media only screen and (max-width: 400px) {
+    .ep-form .engBtn-kyp {margin: 10px 0;}
+}
+
 .eventpage-place,
 .eventpage-price{
     font-weight:bold;
@@ -1199,6 +1207,7 @@ html .ep-form .ui-button.ui-state-disabled:active{
 .hall-it-name{
     margin-left:50px;
 }
+.hall-it-name a {margin-right: 5px;}
 .letter{
     width:50px;
     float: left;
@@ -1517,7 +1526,27 @@ html .city-select .ui-button.ui-state-disabled:active{
 .js-run {margin-bottom: 20px;}
 
 .elBanner {width: auto; margin: 20px auto; max-width: 400px;}
-.elBanner a img {width: 100%;}
+.elBanner img {width: 100%;}
 @media only screen and (max-width: 650px) {
     .elBanner {margin: 10px auto;}
+}
+
+#engAjaxLog {}
+#engAjaxLog .it-item {position: relative; z-index: 100;
+    max-width: 100%; overflow: hidden;
+    margin: 5px; padding: 15px;
+    font-size: 13px; font-weight: 600; color: #fff;
+    border-radius: 0;
+    background: rgba(0, 0, 0, 0.66); box-shadow: 0 3px 7px rgba(0,0,0,0.3);
+    -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box;}
+
+
+#engAjaxLog .it-title {font-size: 16px; font-weight: 600; margin-bottom: 10px;}
+#engAjaxLog .it-item a {display: inline-block; margin-right: 5px;
+    padding: 5px 10px; background: #c5260d;
+    color: #ffffff; font-weight: 800;}
+/*--------------------- 600px */
+@media only screen and (max-width: 600px) {
+    #engAjaxLog {left:0px; right: auto;width: 100%; max-width: 95%;}
+    #engAjaxLog .it-item  {width: 100%; margin: 0; overflow: hidden;}
 }

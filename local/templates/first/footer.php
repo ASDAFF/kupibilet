@@ -70,16 +70,16 @@
                 </div>
                 <div class="it-menu">
                     <ul>
-                        <li><i class="engIcon setIcon-15 setIcon-footer-map"></i>
-                        	<?$APPLICATION->IncludeFile(
-								SITE_DIR."/include/main/address.php",
-								array(),
-								array(
-									"MODE" => "text"
-								)
-							); ?>
-                        	</li>
-                        <li><i class="engIcon setIcon-15 setIcon-footer-phone"></i>
+                        <li><span><i class="engIcon setIcon-15 setIcon-footer-map"></i>
+                            <?$APPLICATION->IncludeFile(
+                                SITE_DIR."/include/main/address.php",
+                                array(),
+                                array(
+                                    "MODE" => "text"
+                                )
+                            ); ?>
+                        	</span></li>
+                        <li><span><i class="engIcon setIcon-15 setIcon-footer-phone"></i>
                         	<?$APPLICATION->IncludeFile(
 								SITE_DIR."/include/main/tel.php",
 								array(),
@@ -87,8 +87,8 @@
 									"MODE" => "text"
 								)
 							); ?>
-						</li>
-                        <li><i class="engIcon setIcon-15 setIcon-footer-mail"></i>
+                                </span></li>
+                        <li><span><i class="engIcon setIcon-15 setIcon-footer-mail"></i>
                         	<?$APPLICATION->IncludeFile(
 								SITE_DIR."/include/main/mail.php",
 								array(),
@@ -96,7 +96,7 @@
 									"MODE" => "text"
 								)
 							); ?>
-                        	</li>
+                            </span></li>
                     </ul>
                 </div>
             </div>
@@ -135,5 +135,6 @@
         </div>
     </div>
 </footer>
+<div id="engAjaxLog"></div>
 </body>
 </html>

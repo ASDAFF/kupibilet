@@ -144,3 +144,17 @@ $(document).ready(function() {
         itemsMobile : false
     });
 });
+
+function engLog(title,text){
+    var log = $("#engAjaxLog"),
+        logItem = $("<div class='it-item'><div class='it-title'>"+title+"</div>"+text+"</div>");
+
+    log.css('position','fixed').css('z-index','1000').css('bottom','0').css('right','0');
+
+    logItem.appendTo(log);
+    setTimeout(function(){
+        logItem.fadeOut(300,function(){
+            $(this).remove();
+        });
+    },4000);
+}
