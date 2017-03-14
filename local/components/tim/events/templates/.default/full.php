@@ -134,7 +134,10 @@ $dates = \Local\Main\Event::getAllDates();
                     <? $i++; ?>
                 <? } ?>
             </div>
-            </div>
+            </div><?
+
+	        $APPLICATION->IncludeComponent('tim:empty', 'right_banners');
+	        ?>
         </div>
 
     </div>

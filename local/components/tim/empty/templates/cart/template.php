@@ -160,7 +160,7 @@ if ($notEmpty)
 				<input type="text" name="order_name" placeholder="Имя" value="<?= $order_name ?>" />
 				<input type="text" name="order_lastname"  placeholder="Фамилия" value="<?= $order_lastname ?>" />
 				<input type="text" name="order_email"  placeholder="E-mail (*)" value="<?= $order_email ?>" />
-				<input type="submit" name="order_create" value="ОПЛАТИТЬ">
+				<input type="submit" name="order_create" value="ОФОРМИТЬ ЗАКАЗ">
 			</form>
 		</div>
 	</div>

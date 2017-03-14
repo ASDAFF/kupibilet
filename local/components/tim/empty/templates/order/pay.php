@@ -11,13 +11,23 @@ if ($order['STATUS_ID'] == 'F')
 	<p>Заказ уже оплачен</p>
 	<p><a href="/personal/order/print/?id=<?= $order['ID'] ?>">Распечатать</a></p><?
 }
+elseif ($order['STATUS_ID'] == 'O')
+{
+	?>
+	<p>Заказ просрочен</p><?
+}
+elseif ($order['XML_ID'])
+{
+	header('Location: https://securepayments.sberbank.ru/payment/merchants/kupibilet/payment_ru.html?mdOrder=' .
+		$order['XML_ID']);
+}
 else
 {
 
 	$client = new Client(array(
 		'userName' => 'kupibilet-api',
 		'password' => 'kupibilet',
-		'apiUri' => Client::API_URI_TEST,
+		//'apiUri' => Client::API_URI_TEST,
 	));
 
 	$orderId = $order['ID'];
@@ -26,7 +36,15 @@ else
 	$params = array();
 	$params['failUrl'] = 'http://' . $host . '/personal/order/payment/error.php';
 
-	$result = $client->registerOrder($orderId, $orderAmount, $returnUrl, $params);
+	$result = array();
+	try
+	{
+		$result = $client->registerOrder($orderId, $orderAmount, $returnUrl, $params);
+	}
+	catch (\Exception $e)
+	{
+		LocalRedirect('/personal/order/payment/error.php');
+	}
 
 	$paymentOrderId = $result['orderId'];
 	$paymentFormUrl = $result['formUrl'];

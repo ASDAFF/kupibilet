@@ -303,6 +303,37 @@ class Cart
 		return $return;
 	}
 
+	public static function overdueOrderByCartId($cartId)
+	{
+		Loader::IncludeModule('sale');
+
+		$basket = new \CSaleBasket();
+		$basket->Init();
+		$rsCart = $basket->GetList(array(), array(
+			'ID' => $cartId,
+		));
+		if ($cartItem = $rsCart->Fetch())
+		{
+			// Если заказ уже создан - удаляем только бронь
+			if ($cartItem['ORDER_ID'] != 'NULL')
+			{
+				$rsCart1 = $basket->GetList(array(), array(
+					'ID' != $cartId,
+					'ORDER_ID' => $cartItem['ORDER_ID'],
+				));
+				while ($item = $rsCart1->Fetch())
+					Reserve::delete($item['ID']);
+				Cart::setOrderOverdue($cartItem['ORDER_ID']);
+			}
+			// Если заказ не создан - удаляем и бронь и позицию
+			else
+			{
+				BasketCompatibility::delete($cartId);
+				Reserve::delete($cartId);
+			}
+		}
+	}
+
 	public static function createOrder($cart, $user)
 	{
 		Loader::IncludeModule('sale');
@@ -438,6 +469,16 @@ class Cart
 		\CEvent::Send('PAY_ORDER', 's1', $eventFields);
 	}
 
+	public static function setOrderOverdue($id)
+	{
+		Loader::IncludeModule('sale');
+
+		$order = new \CSaleOrder();
+		$order->Update($id, array(
+			'STATUS_ID' => 'O',
+		));
+	}
+
 	public static function setSbOrderId($id, $sbOrderId)
 	{
 		Loader::IncludeModule('sale');
@@ -452,5 +493,28 @@ class Cart
 	{
 		foreach ($items as $item)
 			Reserve::prolong($item['ID']);
+	}
+
+	public static function getHistory()
+	{
+		$return = array();
+
+		$userId = User::getCurrentUserId();
+		if (!$userId)
+			return $return;
+
+		Loader::IncludeModule('sale');
+
+		$order = new \CSaleOrder();
+		$rsOrder = $order->GetList(array(), array(
+			'USER_ID' => $userId,
+		));
+		while ($order = $rsOrder->Fetch())
+		{
+			$id = intval($order['ID']);
+			$return[$id] = $order;
+		}
+
+		return $return;
 	}
 }

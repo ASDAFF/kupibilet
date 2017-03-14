@@ -116,8 +116,7 @@ class Reserve
 		));
 		while ($item = $rsItems->Fetch())
 		{
-			Cart::delete($item['UF_CART']);
-			$dataClass::delete($item['ID']);
+			Cart::overdueOrderByCartId($item['UF_CART']);
 		}
 	}
 

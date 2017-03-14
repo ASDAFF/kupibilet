@@ -10,7 +10,7 @@ if ($order['STATUS_ID'] != 'F')
 	$client = new Client(array(
 		'userName' => 'kupibilet-api',
 		'password' => 'kupibilet',
-		'apiUri' => Client::API_URI_TEST,
+		//'apiUri' => Client::API_URI_TEST,
 	));
 
 	$sbOrderId = $_REQUEST['orderId'];
@@ -30,5 +30,6 @@ if ($order['STATUS_ID'] != 'F')
 }
 
 ?>
-<p>Заказ успешно оплачен</p>
-<p><a href="/personal/order/print/?id=<?= $order['ID'] ?>">Распечатать</a></p><?
+<p>Оплата прошла успешно. Теперь Вы можете <a href="/personal/order/print/?id=<?= $order['ID'] ?>">распечатать билет</a>
+		и посетить выбранное мероприятие.</p>
+<p>Приятного времяпровождения!</p><?
