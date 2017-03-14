@@ -18,7 +18,7 @@ elseif ($order['STATUS_ID'] == 'O')
 }
 elseif ($order['XML_ID'])
 {
-	header('Location: https://3dsec.sberbank.ru/payment/merchants/kupibilet/payment_ru.html?mdOrder=' .
+	header('Location: https://securepayments.sberbank.ru/payment/merchants/kupibilet/payment_ru.html?mdOrder=' .
 		$order['XML_ID']);
 }
 else
@@ -27,7 +27,7 @@ else
 	$client = new Client(array(
 		'userName' => 'kupibilet-api',
 		'password' => 'kupibilet',
-		'apiUri' => Client::API_URI_TEST,
+		//'apiUri' => Client::API_URI_TEST,
 	));
 
 	$orderId = $order['ID'];
