@@ -978,7 +978,6 @@ footer {clear: both; margin-top: 20px;}
 .eventpage-info{
     position:relative;
     background:#f2f2f3;
-    height:465px;
     padding:35px;
     box-sizing:border-box;
 }
@@ -1039,6 +1038,7 @@ footer {clear: both; margin-top: 20px;}
 }
 .up-img{
     height:318px;
+    background-size:cover;
     background-repeat:no-repeat !important;
     background-position:top center !important;
 }
@@ -1058,26 +1058,20 @@ footer {clear: both; margin-top: 20px;}
 }
 
 .up-info>div{
-    padding-left: 25px;
     font-weight: bold;
     color: #3f3c43;
     font-size: 13px;
 
 }
+.up-info i {margin-right: 5px;}
 .up-info>.up-title{
     padding-left: 0px;
     margin-bottom: 25px;
     line-height: 22px;
 }
-.up-date{
-    background:url(../images/icon/icon-date-black.png) no-repeat left top;
-    margin-bottom:3px;
-}
-.up-place{
-    background:url(../images/icon/icon-map-black.png) no-repeat left top;
-    margin-bottom:10px;
-}
-.up-price{background:url(../images/icon/icon-price-black.png) no-repeat left top;}
+.up-date{margin-bottom:5px;}
+.up-place{margin-bottom:5px;}
+.up-price{margin-bottom:5px;}
 .up-events-ttl {
     font-weight: 800;
     font-size: 14px;

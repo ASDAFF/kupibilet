@@ -34,19 +34,19 @@ $events = \Local\Main\Event::getByHall($hall['ID']);
 				?>
 		        <div class='up-events-item'>
 			        <div class="up-img"
-			             style="background:url(<?= CFile::GetPath($event['PREVIEW_PICTURE']['src']) ?>);"></div>
+			             style="background-image:url(<?= CFile::GetPath($event['PREVIEW_PICTURE']['src']) ?>);"></div>
 			        <div class="up-info">
 				        <div class="up-title"><?= $event['NAME'] ?></div><?
 
 				        if ($run)
 				        {
 					        ?>
-					        <div class="up-date"><?= $run['DATE'] ?></div><?
+					        <div class="up-date"><i class="engIcon setIcon-date-black"></i><?= $run['DATE'] ?></div><?
 				        }
 
 				        ?>
-				        <div class="up-place"><?= $hall['NAME'] ?></div>
-				        <div class="up-price"><?= $price ?> руб.</div>
+				        <div class="up-place"><i class="engIcon setIcon-map-black"></i><?= $hall['NAME'] ?></div>
+				        <div class="up-price"><i class="engIcon setIcon-price-black"></i><?= $price ?> руб.</div>
 			        </div>
 		        </div><?
 	        }
@@ -54,13 +54,6 @@ $events = \Local\Main\Event::getByHall($hall['ID']);
         </div>
     </div>
 </div>
-<script>
-    $('.elList').masonry({
-        // options...
-        itemSelector: '.it-item',
-        columnWidth: 395
-    });
-</script><?
 
 $APPLICATION->SetTitle($hall['NAME']);
 $APPLICATION->SetPageProperty('title', $hall['NAME']);
