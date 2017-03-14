@@ -113,7 +113,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 		?>
 	    <div class="engBox">
 	        <div class="elSlider">
-	            <?$APPLICATION->IncludeComponent('tim:empty', 'banner');?>
+	            <?$APPLICATION->IncludeComponent('tim:empty', 'main_banners');?>
 	        </div>
 	    </div><?
 	}

@@ -32,6 +32,26 @@ class Banner
         {
             $extCache->startDataCache();
 
+	        $codeById = array();
+
+	        $iblockSection = new \CIBlockSection();
+	        $rsItems = $iblockSection->GetList(array(), array(
+		        'IBLOCK_ID' => self::IBLOCK_ID,
+		        'ACTIVE' => 'Y',
+	        ), false, array(
+		        'ID', 'NAME', 'CODE',
+	        ));
+	        while ($item = $rsItems->Fetch())
+	        {
+		        $code = trim($item['CODE']);
+		        if (!$code)
+			        continue;
+
+		        $id = intval($item['ID']);
+		        $codeById[$id] = $code;
+		        $return[$code] = array();
+	        }
+
             $iblockElement = new \CIBlockElement();
             $rsItems = $iblockElement->GetList(array("SORT" => "ASC", "NAME" => "ASC"), array(
                 'IBLOCK_ID' => self::IBLOCK_ID, "ACTIVE"=>"Y"
@@ -43,7 +63,9 @@ class Banner
             while ($item = $rsItems->Fetch())
             {
                 $id = intval($item['ID']);
-                $return[$id] = array(
+	            $section = intval($item['IBLOCK_SECTION_ID']);
+	            $code = $codeById[$section];
+                $return[$code][$id] = array(
                     'ID' => $id,
                     'NAME' => $item['NAME'],
                     'PREVIEW_PICTURE' => \CFile::GetPath($item['PREVIEW_PICTURE']),
@@ -58,9 +80,18 @@ class Banner
         return $return;
     }
 
-    public static function getById($id, $refreshCache = false) {
-        $items = self::getAll($refreshCache);
-        return $items[$id];
-    }
+	/**
+	 * Возвращает баннеры по коду раздела
+	 * @param $code
+	 * @param int $count
+	 * @return array
+	 */
+	public static function getBySectionCode($code, $count = 0) {
+		$all = self::getAll();
+		$banners = $all[$code];
+		if ($count)
+			$banners = array_slice($banners, 0, $count);
+		return $banners;
+	}
 
 }

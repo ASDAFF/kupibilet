@@ -60,11 +60,9 @@ $dates = \Local\Main\Event::getAllDates();
                     </script>
                 </div>
             </div>
-        </div>
-        <div class="elBanner">
-            <a href="">
-                <img src="/upload/iblock/5fe/5fee7b4891b5f50819f2c967c39d2c70.jpg" alt="">
-            </a>
-        </div>
+        </div><?
+
+	    $APPLICATION->IncludeComponent('tim:empty', 'right_banners');
+	    ?>
     </div>
 </div><?

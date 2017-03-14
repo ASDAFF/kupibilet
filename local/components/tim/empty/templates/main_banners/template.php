@@ -1,7 +1,7 @@
 <?
 if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 
-$banners = \Local\Main\Banner::getAll(array(), array(), array());
+$banners = \Local\Main\Banner::getBySectionCode('main_slider');
 
 foreach ($banners as $item) {
 
