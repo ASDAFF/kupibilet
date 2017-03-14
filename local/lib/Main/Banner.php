@@ -53,10 +53,11 @@ class Banner
 	        }
 
             $iblockElement = new \CIBlockElement();
-            $rsItems = $iblockElement->GetList(array("SORT" => "ASC", "NAME" => "ASC"), array(
-                'IBLOCK_ID' => self::IBLOCK_ID, "ACTIVE"=>"Y"
+            $rsItems = $iblockElement->GetList(array('SORT' => 'ASC', 'NAME' => 'ASC'), array(
+                'IBLOCK_ID' => self::IBLOCK_ID,
+                'ACTIVE' => 'Y'
             ), false, false, array(
-                'ID', 'NAME', 'PREVIEW_PICTURE',
+                'ID', 'NAME', 'PREVIEW_PICTURE', 'IBLOCK_SECTION_ID',
                 'PROPERTY_EVENT',
                 'PROPERTY_HREF',
             ));

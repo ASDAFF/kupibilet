@@ -70,7 +70,7 @@
                 </div>
                 <div class="it-menu">
                     <ul>
-                        <li><a href=""><i class="engIcon setIcon-15 setIcon-footer-map"></i>
+                        <li><i class="engIcon setIcon-15 setIcon-footer-map"></i>
                         	<?$APPLICATION->IncludeFile(
 								SITE_DIR."/include/main/address.php",
 								array(),
@@ -78,8 +78,8 @@
 									"MODE" => "text"
 								)
 							); ?>
-                        	</a></li>
-                        <li><a href=""><i class="engIcon setIcon-15 setIcon-footer-phone"></i>
+                        	</li>
+                        <li><i class="engIcon setIcon-15 setIcon-footer-phone"></i>
                         	<?$APPLICATION->IncludeFile(
 								SITE_DIR."/include/main/tel.php",
 								array(),
@@ -87,8 +87,8 @@
 									"MODE" => "text"
 								)
 							); ?>
-						</a></li>
-                        <li><a href=""><i class="engIcon setIcon-15 setIcon-footer-mail"></i>
+						</li>
+                        <li><i class="engIcon setIcon-15 setIcon-footer-mail"></i>
                         	<?$APPLICATION->IncludeFile(
 								SITE_DIR."/include/main/mail.php",
 								array(),
@@ -96,7 +96,7 @@
 									"MODE" => "text"
 								)
 							); ?>
-                        	</a></li>
+                        	</li>
                     </ul>
                 </div>
             </div>
