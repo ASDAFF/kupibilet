@@ -23,6 +23,7 @@ var Run = {
 
 
 		this.ZalBox.on('mouseenter', '.elZal-item', this.hover);
+		this.ZalBox.on('mouseleave', '.elZal-item', this.leave);
 		this.ZalBox.on('click', '.elZal-point.on', this.click);
 	},
 	hover: function() {
@@ -41,7 +42,18 @@ var Run = {
 			Run.priceRow.show();
 		else
 			Run.priceRow.hide();
-		Run.ZalInf.appendTo($(this));
+
+		var pos = item.offset();
+		var left = pos.left - 68;
+		var top = pos.top + 36;
+		Run.ZalInf.css({
+			left: "" + left + "px",
+			top: "" + top + "px"
+		});
+		Run.ZalInf.show();
+	},
+	leave: function() {
+		Run.ZalInf.hide();
 	},
 	click: function() {
 		var point = $(this);

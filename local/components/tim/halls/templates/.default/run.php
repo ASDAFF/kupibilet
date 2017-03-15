@@ -154,25 +154,24 @@ $reserved = \Local\Sale\Reserve::getByRun($run['ID'])
 		</div>
 	</div>
 
-	<div id="popup-hidden">
-		<div class="elZal-inf">
-			<div class="engRow">
-				<div class="engBox-12 cssText-center elZal-inf-title"></div>
-			</div>
-			<div class="engRow">
-				<div class="engBox-6">Ряд</div>
-				<div class="engBox-6 cssText-right elZal-inf-set"></div>
-			</div>
-			<div class="engRow">
-				<div class="engBox-6">Место</div>
-				<div class="engBox-6 cssText-right elZal-inf-number"></div>
-			</div>
-			<div class="engRow priceRow">
-				<div class="engBox-12 cssText-center">Стоимость</div>
-				<div class="engBox-12 cssText-center elZal-inf-money"></div>
-			</div>
+	<div class="elZal-inf" style="display:none;">
+		<div class="engRow">
+			<div class="engBox-12 cssText-center elZal-inf-title"></div>
 		</div>
-	</div><?
+		<div class="engRow">
+			<div class="engBox-6">Ряд</div>
+			<div class="engBox-6 cssText-right elZal-inf-set"></div>
+		</div>
+		<div class="engRow">
+			<div class="engBox-6">Место</div>
+			<div class="engBox-6 cssText-right elZal-inf-number"></div>
+		</div>
+		<div class="engRow priceRow">
+			<div class="engBox-12 cssText-center">Стоимость</div>
+			<div class="engBox-12 cssText-center elZal-inf-money"></div>
+		</div>
+	</div>
+	<?
 
 foreach ($Quotas as $j => $item)
 {

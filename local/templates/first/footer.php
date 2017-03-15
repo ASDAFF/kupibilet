@@ -31,40 +31,34 @@
             </div>
             <div class="engBox-3 engPl-4 engMb-6">
                 <div class="it-title">Как купить</div>
-                <div class="it-menu">
-                    <?/*<ul>
-                        <li><a href="">Корпоративным клиентам</a></li>
-                        <li><a href="">Возврат билетов</a></li>
-                        <li><a href="">Подарочные карты</a></li>
-                        <li><a href="">Как купить билет</a></li>
-                        <li><a href="">Доставка билета</a></li>
-                        <li><a href="">Правила использования падорочных карт</a></li>
-                    </ul>*/?>
-                    <?$APPLICATION->IncludeComponent(
-	"bitrix:menu", 
-	"main", 
-	array(
-		"ALLOW_MULTI_SELECT" => "N",
-		"CHILD_MENU_TYPE" => "buy",
-		"DELAY" => "N",
-		"MAX_LEVEL" => "1",
-		"MENU_CACHE_GET_VARS" => array(
-		),
-		"MENU_CACHE_TIME" => "3600",
-		"MENU_CACHE_TYPE" => "N",
-		"MENU_CACHE_USE_GROUPS" => "Y",
-		"ROOT_MENU_TYPE" => "buy",
-		"USE_EXT" => "N",
-		"COMPONENT_TEMPLATE" => "main"
-	),
-	false
-);?>
+                <div class="it-menu"><?
+	                $APPLICATION->IncludeComponent(
+						"bitrix:menu",
+						"main",
+						array(
+							"ALLOW_MULTI_SELECT" => "N",
+							"CHILD_MENU_TYPE" => "buy",
+							"DELAY" => "N",
+							"MAX_LEVEL" => "1",
+							"MENU_CACHE_GET_VARS" => array(
+							),
+							"MENU_CACHE_TIME" => "3600",
+							"MENU_CACHE_TYPE" => "N",
+							"MENU_CACHE_USE_GROUPS" => "Y",
+							"ROOT_MENU_TYPE" => "buy",
+							"USE_EXT" => "N",
+							"COMPONENT_TEMPLATE" => "main"
+						),
+						false
+					);
+	                ?>
                 </div>
             </div>
             <div class="engBox-4 engPl-4 engMb">
                 <div class="it-title">ОРГАНИЗАТОРАМ</div>
                 <div class="it-menu">
                     <ul>
+	                    <li><a href="/about/">О нас</a></li>
                         <li>Контакты</li>
                     </ul>
                 </div>

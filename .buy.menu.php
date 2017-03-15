@@ -20,6 +20,20 @@ $aMenuLinks = Array(
 		Array(), 
 		Array(), 
 		"" 
+	),
+	Array(
+		"Способы оплаты",
+		"/payment/",
+		Array(),
+		Array(),
+		""
+	),
+	Array(
+		"Публичная оферта",
+		"/oferta.docx",
+		Array(),
+		Array(),
+		""
 	)
 );
 ?>
