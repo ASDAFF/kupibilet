@@ -19,7 +19,7 @@ $APPLICATION->IncludeComponent('tim:events', '', array(
         "news" => "",
         "section" => "#SECTION_CODE_PATH#/",
         "detail" => "#SECTION_CODE_PATH#/#ELEMENT_CODE#/",
-    )
+    ),
 ));
 
 if (!$isAjax)

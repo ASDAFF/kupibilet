@@ -134,7 +134,11 @@ $(document).ready(function() {
         nav:true,
         navText: ["<span class='engIcon setIcon-slider-left'></span>","<span class='engIcon setIcon-slider-right'></span>"],
 
-        slideSpeed : 300,
+        autoplay:true,
+        autoplayTimeout:3000,
+        loop:true,
+
+
         paginationSpeed : 400,
 
         items : 1,

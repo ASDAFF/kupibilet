@@ -761,9 +761,9 @@ footer {clear: both; margin-top: 20px;}
 .elZal-inf-number {}
 
 
-.elZal-inf {position: absolute; z-index: 1; top: 30px; left: -50%; padding: 10px; display: none; width: 145px;
+.elZal-inf {position: absolute; z-index: 1; top: 30px; left: -68px; padding: 10px; width: 145px;
     background: #000000; color: #ffffff;}
-.elZal-inf:before { content: ''; left: 10px; top: -20px;
+.elZal-inf:before { content: ''; left: 68px; top: -20px;
     position: absolute;
     border: 10px solid transparent;
     border-bottom: 10px solid #000000;
@@ -1052,10 +1052,12 @@ footer {clear: both; margin-top: 20px;}
     text-align:left;
 }
 .up-info{
+    position: relative;
     background:#e4e4e6;
-    padding:5px 12px 5px;
+    padding:5px 12px 40px;
     border-top: 2px solid #fff;
 }
+.up-info .engBtn-kyp {bottom: 10px;}
 
 .up-info>div{
     font-weight: bold;
@@ -1458,6 +1460,7 @@ html .city-select .ui-button.ui-state-disabled:active{
 .elBasket-body .it-block p {display: none; color: #919090; font-weight: 400;}
 
 .elBasket-body .it-block .it-sec {width: 30%; text-align: left;}
+.elBasket-body .it-block .it-sec.set-70 {width: 70%;}
 .elBasket-body .it-block .it-rad {}
 .elBasket-body .it-block .it-mest {}
 .elBasket-body .it-block .it-price {}
@@ -1487,6 +1490,7 @@ html .city-select .ui-button.ui-state-disabled:active{
     .elBasket-body .it-block:first-child .it-delete {display: none;}
 
     .elBasket-body .it-block .it-sec {width: 40%;}
+    .elBasket-body .it-block .it-sec.set-70 {width: 100%;}
     .elBasket-body .it-block .it-rad {width: 20%;}
     .elBasket-body .it-block .it-mest {width: 20%;}
     .elBasket-body .it-block .it-price {width: 27%;}
@@ -1543,4 +1547,16 @@ html .city-select .ui-button.ui-state-disabled:active{
 @media only screen and (max-width: 600px) {
     #engAjaxLog {left:0px; right: auto;width: 100%; max-width: 95%;}
     #engAjaxLog .it-item  {width: 100%; margin: 0; overflow: hidden;}
+}
+
+.elDost-top {margin-bottom: 10px; padding-left: 30px; position: relative;}
+.elDost-top input {position: absolute; left: 0; top:-1px; width: 18px; height: 18px;}
+.elDost-bottom {}
+.elDost-bottom input {margin-right: 20px; width: 220px;}
+
+.elDostPole {display: none;}
+.elDostPole.on {display: block;}
+
+@media only screen and (max-width: 750px) {
+    .elDost-bottom input {text-align: center;}
 }
