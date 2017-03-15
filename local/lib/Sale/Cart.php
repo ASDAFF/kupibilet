@@ -348,7 +348,7 @@ class Cart
 			'PAYED' => 'N',
 			'CANCELED' => 'N',
 			'STATUS_ID' => 'N',
-			'PRICE' => $cart['PRICE'] + $cart['SERV_PRICE'],
+			'PRICE' => $cart['PRICE'] + $cart['SERV_PRICE'] + $deliveryPrice,
 			'PRICE_DELIVERY' => $deliveryPrice,
 			'CURRENCY' => 'RUB',
 			'USER_ID' => $userId,
