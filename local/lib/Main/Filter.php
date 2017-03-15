@@ -360,7 +360,7 @@ class Filter
 				$data = self::$DATA_BY_KEY[''];
 				$group['MIN'] = $data['DATE']['MIN'];
 				$group['MAX'] = $data['DATE']['MAX'];
-				$cntGroup = $group['MIN'] == $group['MAX'] ? 0 : 1;
+				$cntGroup = $group['CHECKED_CNT'];
 			}
 			else
 			{
@@ -600,13 +600,10 @@ class Filter
 			);
 		}
 
-		$name = '';
-		$type = 'мероприятия';
-		$suffix = '';
-		$prefix = '';
+		$type = '';
+		$date = '';
 
 		$href = self::$CATALOG_PATH;
-		$parts = array();
 
 		foreach (self::$GROUPS as $group)
 		{
@@ -616,6 +613,7 @@ class Filter
 			$itemsCnt = 0;
 			$lastItem = false;
 			$part = '';
+			$text = '';
 			foreach ($group['ITEMS'] as $code => $item)
 			{
 				if ($item['CHECKED'] && $item['CNT'])
@@ -625,21 +623,17 @@ class Filter
 					$part .= $code;
 					$itemsCnt++;
 					$lastItem = $item;
-
-					if ($code == 'action')
-						$suffix .= ' по акции';
-
-					if (!$prefix)
-					{
-						if ($code == 'new')
-							$prefix = 'Новые ';
-					}
+					if ($text)
+						$text .= ', ';
+					$text .= strtolower($item['NAME']);
 				}
 			}
 			if ($part)
-			{
 				$href .= $part . '/';
-				$parts[] = $part;
+
+			if ($group['TYPE'] == 'date')
+			{
+				$date = $group['DAY'];
 			}
 
 			if (!$itemsCnt)
@@ -647,37 +641,32 @@ class Filter
 
 			if ($group['TYPE'] == 'genre')
 			{
-				if ($itemsCnt == 1)
-				{
-					$name = $lastItem['NAME'];
-					$type = strtolower($lastItem['NAME']);
-				}
-			}
-
-			if ($group['TYPE'] == 'date')
-			{
-				$suffix = $lastItem['DAY'];
+				$type = $text;
 			}
 		}
 
-		if (!$name)
-			$name = 'Мероприятия';
+		if (!$type)
+			$type = 'мероприятия';
+		if (!$date)
+			$date = date('Y') . ' год';
 
-		if ($prefix)
-			$name = strtolower($name);
-		$h1 = $prefix . $name . $suffix;
+
+		$h1 = $type . ' ' . $date;
 		$h1l = strtolower($h1);
-		$title = $h1l;
-		$description = $h1 . ' ' . $type;
+		$title = 'Билеты на ' . $type . ' КМВ онлайн. Афиша на ' . $date . ' – KupiBilet Online';
+		$description = 'Билеты на ' . $type .
+			' в городах КМВ (Пятигорск, Кисловодск, Ессентуки) онлайн. Афиша мероприятий на ' . $date .
+			'. Бронируйте билеты на сайте или по телефону +7 (928) 335-65-65.';
+		$keywords = 'билеты на ' . $type . ' онлайн, купить билеты, афиша, ' . $date;
 		$text = $h1l;
 
 		return array(
 			'H1' => $h1,
 			'TITLE' => $title,
 			'DESCRIPTION' => $description,
+			'KEYWORDS' => $keywords,
 			'TEXT' => $text,
 		    'URL' => $href,
-		    'PARTS' => $parts,
 		);
 	}
 

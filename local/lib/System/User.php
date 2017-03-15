@@ -70,6 +70,8 @@ class User
 					'NAME' => $user['NAME'],
 				    'LAST_NAME' => $user['LAST_NAME'],
 				    'EMAIL' => $user['EMAIL'],
+				    'PHONE' => $user['PERSONAL_PHONE'],
+				    'ADDRESS' => $user['PERSONAL_STREET'],
 				);
 			}
 			else
@@ -83,8 +85,10 @@ class User
 	 * Корректирует имя и фамилию ползователя
 	 * @param $name
 	 * @param $lastName
+	 * @param $phone
+	 * @param $address
 	 */
-	public static function update($name, $lastName)
+	public static function update($name, $lastName, $phone, $address)
 	{
 		if (self::$user === false)
 			return;
@@ -94,6 +98,10 @@ class User
 			$update['NAME'] = $name;
 		if ($lastName && self::$user['LAST_NAME'] != $lastName)
 			$update['LAST_NAME'] = $lastName;
+		if ($phone && self::$user['PHONE'] != $phone)
+			$update['PERSONAL_PHONE'] = $phone;
+		if ($address && self::$user['ADDRESS'] != $address)
+			$update['PERSONAL_STREET'] = $address;
 		if ($update)
 		{
 			$u = self::getBitrixUser();
@@ -128,19 +136,23 @@ class User
 	 * @param $name
 	 * @param $lastName
 	 * @param $email
+	 * @param $phone
+	 * @param $address
 	 * @return array|bool
 	 */
-	public static function checkOrder($name, $lastName, $email)
+	public static function checkOrder($name, $lastName, $email, $phone, $address)
 	{
 		$name = htmlspecialchars(trim($name));
 		$lastName = htmlspecialchars(trim($lastName));
 		$email = htmlspecialchars(trim($email));
+		$phone = htmlspecialchars(trim($phone));
+		$address = htmlspecialchars(trim($address));
 
 		$user = self::getCurrentUser();
 		if ($user)
 		{
 			// Если пользователь авторизован - скорректируем поля профиля
-			self::update($name, $lastName);
+			self::update($name, $lastName, $phone, $address);
 		}
 		else
 		{

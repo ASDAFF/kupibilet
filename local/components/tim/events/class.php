@@ -271,27 +271,14 @@ class TimEvents extends \CBitrixComponent
 		{
 			$this->seo = Seo::getByUrl($this->filter['SEO']['URL']);
 
-			/*
-			Пока отключил обработку галочки "Применять к дочерним фильтрам"
-			$parts = $this->filter['SEO']['PARTS'];
-			while (!$this->seo)
-			{
-				array_pop($parts);
-				if (!$parts)
-					break;
-
-				$url = Filter::$CATALOG_PATH . implode('/', $parts) . '/';
-				$seo = Seo::getByUrl($url);
-				if ($seo['CHILDREN'])
-					$this->seo = $seo;
-			}*/
-
 			if (!$this->seo['H1'])
 				$this->seo['H1'] = $this->filter['SEO']['H1'];
 			if (!$this->seo['TITLE'])
 				$this->seo['TITLE'] = $this->filter['SEO']['TITLE'];
 			if (!$this->seo['DESCRIPTION'])
 				$this->seo['DESCRIPTION'] = $this->filter['SEO']['DESCRIPTION'];
+			if (!$this->seo['KEYWORDS'])
+				$this->seo['KEYWORDS'] = $this->filter['SEO']['KEYWORDS'];
 			if (!$this->seo['TEXT'])
 				$this->seo['TEXT'] = $this->filter['SEO']['TEXT'];
 		}

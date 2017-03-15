@@ -7,17 +7,29 @@ $assets->addJs('/js/cart.js');
 $cart = \Local\Sale\Cart::getCart();
 $notEmpty = $cart['COUNT'] > 0;
 
+$deliveryPrice = 50;
+$deliveryErrors = '';
+
 /** @var array $arParams */
 if ($notEmpty && isset($_POST['order_create']))
 {
 	$user = \Local\System\User::checkOrder(
 		$_REQUEST['order_name'],
 		$_REQUEST['order_lastname'],
-		$_REQUEST['order_email']
+		$_REQUEST['order_email'],
+		$_REQUEST['order_phone'],
+		$_REQUEST['order_address']
 	);
-	if ($user['ID'])
+	if ($_REQUEST['delivery'])
 	{
-		$orderId = \Local\Sale\Cart::createOrder($cart, $user);
+		if (!$_REQUEST['order_phone'])
+			$deliveryErrors .= 'Введите телефон<br/ >';
+		if (!$_REQUEST['order_address'])
+			$deliveryErrors .= 'Введите адрес<br/ >';
+	}
+	if ($user['ID'] && !$deliveryErrors)
+	{
+		$orderId = \Local\Sale\Cart::createOrder($cart, $user, $_REQUEST['delivery'] ? $deliveryPrice : 0);
 		if ($orderId)
 			LocalRedirect('/personal/order/?id=' . $orderId);
 	}
@@ -115,58 +127,68 @@ if ($notEmpty)
 	        </div><?
 		}
 
-		$tickets = \Local\System\Utils::cardinalNumberRus($cart['COUNT'], 'билетов', 'билет', 'билета');
-		$tickets = $cart['COUNT'] . ' ' . $tickets;
+		$order_name = $_REQUEST['order_name'];
+		$order_lastname = $_REQUEST['order_lastname'];
+		$order_email = $_REQUEST['order_email'];
+		$order_address = $_REQUEST['order_address'];
+		$order_phone = $_REQUEST['order_phone'];
+		if ($user)
+		{
+			if (!$order_name)
+				$order_name = $user['NAME'];
+			if (!$order_lastname)
+				$order_lastname = $user['LAST_NAME'];
+			if (!$order_email)
+				$order_email = $user['EMAIL'];
+			if (!$order_phone)
+				$order_phone = $user['PHONE'];
+			if (!$order_address)
+				$order_address = $user['ADDRESS'];
+		}
+
+		$pole = $_REQUEST['delivery'] ? ' on' : '';
+
 		?>
-        <!-- Верстака для доставки -->
-        <div class="elBasket-body elDost">
-            <div class="it-block js-row" >
-                <div class="it-sec set-70">
-                    <div class="elDost-top">
-                        <input type="checkbox" id="elDostId"/>
-                        Доставить билет на дом с курьером (только по КМВ)
-                    </div>
-                    <div class="elDost-bottom elDostPole">
-                        <input type="text" name="order_adres" placeholder="Введите адрес" value="">
-                        <input type="text" name="order_phone" placeholder="Введите Номер телефона" value="">
-                    </div>
-                </div>
-                <div class="it-sum">
-                    <div class="elDostPole">
-                        <p>Сумма</p>50 руб.
-                    </div>
-                </div>
-                <div class="it-delete">
-                    <div class="elDostPole">
+		<form action="/personal/cart/" method="post">
+		<div class="elBasket-body elDost">
+			<div class="it-block js-row" >
+				<div class="it-sec set-70">
+					<div class="elDost-top">
+						<input type="checkbox" id="elDostId"
+						       name="delivery"<?= $pole ? ' checked' : ''?>/>
+						<label for="elDostId">Доставить билет на дом с курьером (только по КМВ)</label>
+					</div>
+					<div class="elDost-bottom elDostPole<?= $pole ?>"><?
+						echo $deliveryErrors;
+						?>
+						<input type="text" name="order_address" placeholder="Введите адрес" value="<?= $order_address ?>">
+						<input type="text" name="order_phone" placeholder="Введите Номер телефона" value="<?= $order_phone ?>">
+					</div>
+				</div>
+				<div class="it-sum">
+					<div class="elDostPole<?= $pole ?>">
+						<p>Сумма</p><?= $deliveryPrice ?> руб.
+					</div>
+				</div>
+				<div class="it-delete">
+					<div class="elDostPole<?= $pole ?>">
                         <span class="delete">
                             <svg class="engSvg" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26">
-                                <path d="M21.736,19.64l-2.098,2.096c-0.383,0.386-1.011,0.386-1.396,0l-5.241-5.239L7.76,21.735 c-0.385,0.386-1.014,0.386-1.397-0.002L4.264,19.64c-0.385-0.386-0.385-1.011,0-1.398L9.505,13l-5.24-5.24 c-0.384-0.387-0.384-1.016,0-1.398l2.098-2.097c0.384-0.388,1.013-0.388,1.397,0L13,9.506l5.242-5.241 c0.386-0.388,1.014-0.388,1.396,0l2.098,2.094c0.386,0.386,0.386,1.015,0.001,1.401L16.496,13l5.24,5.241 C22.121,18.629,22.121,19.254,21.736,19.64z"></path>
+	                            <path d="M21.736,19.64l-2.098,2.096c-0.383,0.386-1.011,0.386-1.396,0l-5.241-5.239L7.76,21.735 c-0.385,0.386-1.014,0.386-1.397-0.002L4.264,19.64c-0.385-0.386-0.385-1.011,0-1.398L9.505,13l-5.24-5.24 c-0.384-0.387-0.384-1.016,0-1.398l2.098-2.097c0.384-0.388,1.013-0.388,1.397,0L13,9.506l5.242-5.241 c0.386-0.388,1.014-0.388,1.396,0l2.098,2.094c0.386,0.386,0.386,1.015,0.001,1.401L16.496,13l5.24,5.241 C22.121,18.629,22.121,19.254,21.736,19.64z"></path>
                             </svg>
                         </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <script>
-            $(function() {
-                var elDost = $('#elDostId'),
-                    elDostPole = elDost.parents($('.it-block')).find($('.elDostPole'));
+					</div>
+				</div>
+			</div>
+		</div><?
 
-                elDost.click(function () {
-                    if(elDost.prop("checked")) {
-                        console.log(elDostPole);
-                        elDostPole.addClass('on');
-                    }else{
-                        console.log('Отмена');
-                        elDostPole.removeClass('on');
-                    }
-                });
+		$tickets = \Local\System\Utils::cardinalNumberRus($cart['COUNT'], 'билетов', 'билет', 'билета');
+		$tickets = $cart['COUNT'] . ' ' . $tickets;
+		$total = $cart['PRICE'] + $cart['SERV_PRICE'];
+		if ($pole)
+			$total += $deliveryPrice;
 
-            });
-        </script>
-        <!-- Конец -->
-
-
+		?>
 		<div class="elBasket-footer">
 			<div class="it-block">
 				<div class="it-title">Вы выбрали <b id="js-tickets"><?= $tickets ?></b> стоимостью</div>
@@ -176,23 +198,14 @@ if ($notEmpty)
 				<div class="it-title">Сервисный сбор составит</div>
 				<div class="it-value"><b><span id="js-serv-price"><?= $cart['SERV_PRICE'] ?></span> руб.</b></div>
 			</div>
+			<div class="it-block js-delivery-block"<?= $pole ? '' : ' style="display:none;"'?>>
+				<div class="it-title">Доставка</div>
+				<div class="it-value"><b><span id="js-delivery"><?= $deliveryPrice ?></span> руб.</b></div>
+			</div>
 			<div class="it-full">
-				Итого к оплате - <span id="js-total"><?= ($cart['PRICE'] + $cart['SERV_PRICE']) ?></span> руб.
+				Итого к оплате - <span id="js-total"><?= $total ?></span> руб.
 			</div>
 		</div><?
-
-		$order_name = $_REQUEST['order_name'];
-		$order_lastname = $_REQUEST['order_lastname'];
-		$order_email = $_REQUEST['order_email'];
-		if ($user)
-		{
-			if (!$order_name)
-				$order_name = $user['NAME'];
-			if (!$order_lastname)
-				$order_lastname = $user['LAST_NAME'];
-			if (!$order_email)
-				$order_email = $user['EMAIL'];
-		}
 
 		?>
 		<div class="elBasket-form">
@@ -205,13 +218,12 @@ if ($notEmpty)
 			}
 
 			?>
-			<form action="/personal/cart/" method="post">
-				<input type="text" name="order_name" placeholder="Имя" value="<?= $order_name ?>" />
-				<input type="text" name="order_lastname"  placeholder="Фамилия" value="<?= $order_lastname ?>" />
-				<input type="text" name="order_email"  placeholder="E-mail (*)" value="<?= $order_email ?>" />
-				<input type="submit" name="order_create" value="ОФОРМИТЬ ЗАКАЗ">
-			</form>
+			<input type="text" name="order_name" placeholder="Имя" value="<?= $order_name ?>" />
+			<input type="text" name="order_lastname"  placeholder="Фамилия" value="<?= $order_lastname ?>" />
+			<input type="text" name="order_email"  placeholder="E-mail (*)" value="<?= $order_email ?>" />
+			<input type="submit" name="order_create" value="ОФОРМИТЬ ЗАКАЗ">
 		</div>
+		</form>
 	</div>
 	</div><?
 

@@ -334,7 +334,7 @@ class Cart
 		}
 	}
 
-	public static function createOrder($cart, $user)
+	public static function createOrder($cart, $user, $deliveryPrice)
 	{
 		Loader::IncludeModule('sale');
 
@@ -349,12 +349,13 @@ class Cart
 			'CANCELED' => 'N',
 			'STATUS_ID' => 'N',
 			'PRICE' => $cart['PRICE'] + $cart['SERV_PRICE'],
-			//'PRICE_DELIVERY' => $cart['SERV_PRICE'],
+			'PRICE_DELIVERY' => $deliveryPrice,
 			'CURRENCY' => 'RUB',
 			'USER_ID' => $userId,
 			'PAY_SYSTEM_ID' => 1,
-			'DELIVERY_ID' => 2,
 		);
+		if ($deliveryPrice)
+			$fields['DELIVERY_ID'] = 2;
 
 		$order = new \CSaleOrder();
 		$basket = new \CSaleBasket();

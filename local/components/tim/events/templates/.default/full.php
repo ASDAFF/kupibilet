@@ -156,4 +156,6 @@ if ($component->seo['TITLE'])
     $APPLICATION->SetPageProperty('title', $component->seo['TITLE']);
 if ($component->seo['DESCRIPTION'])
     $APPLICATION->SetPageProperty('description', $component->seo['DESCRIPTION']);
+if ($component->seo['DESCRIPTION'])
+	$APPLICATION->SetPageProperty('keywords', $component->seo['KEYWORDS']);
 ?>
