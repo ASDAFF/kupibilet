@@ -7,7 +7,7 @@ $assets->addJs('/js/cart.js');
 $cart = \Local\Sale\Cart::getCart();
 $notEmpty = $cart['COUNT'] > 0;
 
-$deliveryPrice = 50;
+$deliveryPrice = 100;
 $deliveryErrors = '';
 
 /** @var array $arParams */
