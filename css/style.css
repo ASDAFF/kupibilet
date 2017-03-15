@@ -1457,6 +1457,12 @@ html .city-select .ui-button.ui-state-disabled:active{
     text-align: center; width: 10%; vertical-align: middle;}
 .elBasket-body .it-block:first-child {background: #efefef;}
 .elBasket-body .it-block:first-child>div {color: #7c7c7c;}
+
+.elBasket-body.elDost .it-block {background: none;}
+.elBasket-body.elDost .it-block>div {color: #525252;}
+
+
+
 .elBasket-body .it-block p {display: none; color: #919090; font-weight: 400;}
 
 .elBasket-body .it-block .it-sec {width: 30%; text-align: left;}
@@ -1496,6 +1502,7 @@ html .city-select .ui-button.ui-state-disabled:active{
     .elBasket-body .it-block .it-price {width: 27%;}
     .elBasket-body .it-block .it-sbor {width: 27%;}
     .elBasket-body .it-block .it-sum {width: 27%;}
+    .elBasket-body .it-block .it-sum .elDostPole {width: 100%;}
     .elBasket-body .it-block .it-delete {width: 100%;}
 
     .elBasket-footer .it-block,
@@ -1558,5 +1565,6 @@ html .city-select .ui-button.ui-state-disabled:active{
 .elDostPole.on {display: block;}
 
 @media only screen and (max-width: 750px) {
-    .elDost-bottom input {text-align: center;}
+    .elDost-bottom {text-align: center;}
+    .elDost-bottom input {margin-bottom: 10px;}
 }
