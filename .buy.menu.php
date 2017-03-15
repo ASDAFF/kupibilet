@@ -30,7 +30,7 @@ $aMenuLinks = Array(
 	),
 	Array(
 		"Публичная оферта",
-		"/oferta.docx",
+		"/oferta/",
 		Array(),
 		Array(),
 		""
