@@ -12,7 +12,7 @@
 		<p>Бронь необходимо оплатить в течение 20 минут, по истечении данного времени она аннулируется.</p>
         <form action="/personal/order/payment/" method="post">
             <div class="elFormYes">
-                <label for="elFormYes">С договором оферты согласен</label>
+                <label for="elFormYes">С договором <a href="/oferta/">оферты</a> согласен</label>
                 <input type="checkbox" id="elFormYes" name="delivery">
             </div>
 			<input id="elFormYesTo" type="submit" disabled="false" class="set-none"  value="Оплатить заказ" />
