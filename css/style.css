@@ -523,10 +523,15 @@ footer {clear: both; margin-top: 20px;}
 .elList .it-inf i {position: absolute; left: 0;}
 
 .elList .it-inf .it-title {padding: 0 0 5px 0; font-weight: bold; }
-.elList .it-form {position: relative; margin: 0 10px; margin-bottom: 10px;}
-.elList .it-form-input {width: 100%; height: 35px; padding-left: 15px;
+
+
+.elRight-email { background: #e4e3e5;padding: 5px; margin: 20px 0;}
+.elRight-email .it-inf {padding: 10px; position: relative;}
+.elRight-email .it-inf .it-title {padding: 0 0 5px 0; font-weight: bold; }
+.elRight-email .it-form {position: relative; margin: 0 10px; margin-bottom: 10px;}
+.elRight-email .it-form-input {width: 100%; height: 35px; padding-left: 15px;
     border: 0; background: #ffffff;}
-.elList .it-form-btn {height: 35px; padding: 0 25px; position: absolute; right: -2px; top: 0;
+.elRight-email .it-form-btn {height: 35px; padding: 0 25px; position: absolute; right: -2px; top: 0;
     border: 0; color: #ffffff;
     background: #3f3c43;}
 
@@ -945,11 +950,15 @@ footer {clear: both; margin-top: 20px;}
 
 .elFormAuth form input,
 .elFormAuth bform input {margin: 5px 0; margin-left: 10px;}
-.elFormAuth form input[name="Login"],
+.elFormAuth form input[type="submit"],
 .elFormAuth form input[name="Register"],
 .elFormAuth form input[name="send_account_info"]
-{    display: inline-block;
+{    display: inline-block; cursor: pointer;
     padding: 5px 10px;  background: #3f3c43;  color: #ffffff;  font-weight: 800;}
+.elFormAuth form input.set-none {
+    cursor: auto;
+    background: none; color: #525252; font-weight: 400;
+}
 .elFormAuth form a {color: #901921; margin-bottom: 10px; display: inline-block;
     text-decoration: underline;}
 .elFormAuth form p {margin: 0}
@@ -1453,6 +1462,8 @@ html .city-select .ui-button.ui-state-disabled:active{
 .elBasket-body {}
 .elBasket-body .it-block { width: 100%; display: table;
     border-bottom: 1px solid #ebebeb;}
+.elBasket-body .it-block-text {width: 48%; position: absolute; margin: 10px 0;}
+
 .elBasket-body .it-block>div {display: table-cell;padding: 7px; font-weight: 600;
     text-align: center; width: 10%; vertical-align: middle;}
 .elBasket-body .it-block:first-child {background: #efefef;}
@@ -1482,10 +1493,15 @@ html .city-select .ui-button.ui-state-disabled:active{
 .elBasket-footer .it-block .it-value {width: 100px;}
 .elBasket-footer .it-full {margin-top: 20px; font-size: 25px; font-weight: 100;}
 
+@media only screen and (max-width: 1200px) {
+    .elBasket-body .it-block-text {margin: 20px;}
+}
+
 @media only screen and (max-width: 750px) {
 
     .elBasket-body .it-block { width: 100%; display: table;
         border-bottom: 1px solid #ebebeb;}
+    .elBasket-body .it-block-text {width: auto; position: relative;}
     .elBasket-body .it-block>div {display: inline-block; width: 10%;}
 
     .elBasket-body .it-block p {display: block;}
@@ -1568,3 +1584,6 @@ html .city-select .ui-button.ui-state-disabled:active{
     .elDost-bottom {text-align: center;}
     .elDost-bottom input {margin-bottom: 10px;}
 }
+
+.elFormYes {margin-bottom: 10px; position: relative;}
+.elFormYes input {position: relative; left: 0; top: 6px; width: 18px; height: 18px;}

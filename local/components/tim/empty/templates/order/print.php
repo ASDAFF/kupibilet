@@ -60,13 +60,13 @@ foreach ($byRun as $runId => $cartIds)
 				<div class="line"><span><b style="font-size: 14px;">KB-<?= $cartId ?></b></span></div>
 			</div>
 			<div class="block css-center" style="width: 230px;">
-				<div class="line"><span style="font-size: 12px;"><i style="font-size: 30px; display: block; width: 230px;">БИЛЕТ</i></span></div>
-				<div class="line css-padding"><span class="css-padding"><b><?= $run['DATE_S'] ?></b></span></div>
+				<div class="line"><span style="font-size: 22px; font-weight: bold; display: block; width: 230px;">www.kupibilet.online</span></div>
+				<div class="line css-padding"><span class="css-padding" style="font-size: 22px;"><?= $run['DATE_S'] ?></span></div>
 				<div class="line css-padding"><span class="css-padding"><b><?= $event['NAME'] ?></b></span></div>
 				<div class="line css-padding"><span class="css-padding"><b><?= $hall['NAME'] ?></b></span></div>
 			</div>
 			<div class="block"  style="width: 150px; padding-left: 10px; vertical-align: text-top;">
-				<div class="line css-center" style="font-size: 12px;"><span style="width: 150px;">www.kupibilet.online</span></div>
+				<div class="line css-center" style="font-size: 12px;"><span style="width: 150px;"><i style="font-size: 26px; line-height: 23px;">БИЛЕТ</i></span></div>
 				<div class="line css-center"><span><b style="padding-top: 20px; display: block;
 				"><?= $item['PROPS']['SECTOR'] ?></b></span></div>
 				<div class="line"><span class="css-padding">Ряд: <b><?= $item['PROPS']['ROW'] ?></b></span></div>

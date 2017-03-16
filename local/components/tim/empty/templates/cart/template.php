@@ -180,6 +180,9 @@ if ($notEmpty)
 					</div>
 				</div>
 			</div>
+            <div class="it-block-text">
+                Доставка билетов за пределы КМВ осуществляется по предварительной договоренности по телефону +7 (928) 335-65-65
+            </div>
 		</div><?
 
 		$tickets = \Local\System\Utils::cardinalNumberRus($cart['COUNT'], 'билетов', 'билет', 'билета');

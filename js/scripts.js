@@ -79,6 +79,20 @@ $(function() {
             elZal.css("zoom",zoom);
         });
 
+        // Проверка и согласие с офер
+
+        var elFormYes = $('#elFormYes'),
+            elFormYesTo = $('#elFormYesTo');
+
+        elFormYes.click(function () {
+            if((elFormYes).prop("checked")){
+                elFormYesTo.removeClass('set-none');
+                elFormYesTo.removeAttr('disabled');
+            }else{
+                elFormYesTo.attr('disabled', 'disabled');
+                elFormYesTo.addClass('set-none');
+            }
+        })
 
 } );
 

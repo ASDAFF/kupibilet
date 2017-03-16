@@ -1,6 +1,13 @@
 <?
 $aMenuLinks = Array(
 	Array(
+		"Публичная оферта", 
+		"/oferta/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
 		"Возврат билетов", 
 		"/return_ticket/", 
 		Array(), 
@@ -22,18 +29,11 @@ $aMenuLinks = Array(
 		"" 
 	),
 	Array(
-		"Способы оплаты",
-		"/payment/",
-		Array(),
-		Array(),
-		""
-	),
-	Array(
-		"Публичная оферта",
-		"/oferta/",
-		Array(),
-		Array(),
-		""
+		"Способы оплаты", 
+		"/payment/", 
+		Array(), 
+		Array(), 
+		"" 
 	)
 );
 ?>
