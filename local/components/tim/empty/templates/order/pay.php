@@ -2,6 +2,7 @@
 /** @var array $order */
 
 use Voronkovich\SberbankAcquiring\Client;
+use Voronkovich\SberbankAcquiring\OrderStatus;
 
 $host = $_SERVER['HTTP_HOST'];
 
@@ -18,19 +19,28 @@ elseif ($order['STATUS_ID'] == 'O')
 }
 elseif ($order['XML_ID'])
 {
-	header('Location: https://3dsec.sberbank.ru/payment/merchants/kupibilet/payment_ru.html?mdOrder=' .
-		$order['XML_ID']);
-}
-else
-{
-
 	$client = new Client(array(
 		'userName' => 'kupibilet-api',
 		'password' => 'kupibilet',
+		//'password' => 'C~opKB*Q@h',
+		'apiUri' => Client::API_URI_TEST,
+	));
+	$result = $client->getOrderStatus($order['XML_ID']);
+	if (OrderStatus::isCreated($result['OrderStatus']))
+	{
+		header('Location: ' . $order['ADDITIONAL_INFO']);
+	}
+}
+else
+{
+	$client = new Client(array(
+		'userName' => 'kupibilet-api',
+		'password' => 'kupibilet',
+		//'password' => 'C~opKB*Q@h',
 		'apiUri' => Client::API_URI_TEST,
 	));
 
-	$orderId = $order['ID'];
+	$orderId = 16;//$order['ID'];
 	$orderAmount = $order['PRICE'] * 100;
 	$returnUrl = 'http://' . $host . '/personal/order/payment/success/' . $order['ID'] . '/';
 	$params = array();
@@ -53,7 +63,7 @@ else
 	if ($paymentOrderId)
 	{
 		\Local\Sale\Cart::prolongReserve($orderItems['ITEMS']);
-		\Local\Sale\Cart::setSbOrderId($order['ID'], $paymentOrderId);
+		\Local\Sale\Cart::setSbOrderId($order['ID'], $paymentOrderId, $paymentFormUrl);
 		header('Location: ' . $paymentFormUrl);
 	}
 	else

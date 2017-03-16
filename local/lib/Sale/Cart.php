@@ -480,13 +480,14 @@ class Cart
 		));
 	}
 
-	public static function setSbOrderId($id, $sbOrderId)
+	public static function setSbOrderId($id, $sbOrderId, $sbFormUrl)
 	{
 		Loader::IncludeModule('sale');
 
 		$order = new \CSaleOrder();
 		$order->Update($id, array(
 			'XML_ID' => $sbOrderId,
+			'ADDITIONAL_INFO' => $sbFormUrl,
 		));
 	}
 

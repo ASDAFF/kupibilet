@@ -2,39 +2,21 @@
 /** @var array $order */
 /** @var array $orderItems */
 
+\Local\Sale\Cart::prolongReserve($orderItems['ITEMS']);
+
 ?>
 <div class="engBox">
-    <div class="elFormAuth"><?
-
-		if ($order['STATUS_ID'] == 'F')
-		{
-			?>
-			<p>Заказ уже оплачен</p>
-			<p><a href="/personal/order/print/?id=<?= $order['ID'] ?>">Распечатать</a></p><?
-		}
-	    elseif ($order['STATUS_ID'] == 'O')
-	    {
-		    ?>
-		    <p>Заказ просрочен</p><?
-	    }
-		else
-		{
-			\Local\Sale\Cart::prolongReserve($orderItems['ITEMS']);
-
-			?>
-			<p>Заказ №<?= $order['ID'] ?></p>
-			<p>Спасибо, Ваш заказ оформлен и забронирован!</p>
-			<p>Бронь необходимо оплатить в течение 20 минут, по истечении данного времени она аннулируется.</p>
-            <form action="/personal/order/payment/" method="post">
-                <div class="elFormYes">
-                    <label for="elFormYes">С договором оферты согласен</label>
-                    <input type="checkbox" id="elFormYes" name="delivery">
-                </div>
-				<input id="elFormYesTo" type="submit" disabled="false" class="set-none"  value="Оплатить заказ" />
-				<input type="hidden" name="id" value="<?= $order['ID'] ?>" />
-			</form><?
-		}
-
-	    ?>
+    <div class="elFormAuth">
+		<p>Заказ №<?= $order['ID'] ?></p>
+		<p>Спасибо, Ваш заказ оформлен и забронирован!</p>
+		<p>Бронь необходимо оплатить в течение 20 минут, по истечении данного времени она аннулируется.</p>
+        <form action="/personal/order/payment/" method="post">
+            <div class="elFormYes">
+                <label for="elFormYes">С договором оферты согласен</label>
+                <input type="checkbox" id="elFormYes" name="delivery">
+            </div>
+			<input id="elFormYesTo" type="submit" disabled="false" class="set-none"  value="Оплатить заказ" />
+			<input type="hidden" name="id" value="<?= $order['ID'] ?>" />
+		</form>
     </div>
 </div><?
