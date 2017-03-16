@@ -48,9 +48,8 @@ else
 				{
 					$client = new Client(array(
 						'userName' => 'kupibilet-api',
-						'password' => 'kupibilet',
-						//'password' => 'C~opKB*Q@h',
-						'apiUri' => Client::API_URI_TEST,
+						'password' => 'C~opKB*Q@h',
+						//'apiUri' => Client::API_URI_TEST,
 					));
 					$result = $client->getOrderStatus($order['XML_ID']);
 					if (OrderStatus::isCreated($result['OrderStatus']))
@@ -78,9 +77,8 @@ else
 				{
 					$client = new Client(array(
 						'userName' => 'kupibilet-api',
-						'password' => 'kupibilet',
-						//'password' => 'C~opKB*Q@h',
-						'apiUri' => Client::API_URI_TEST,
+						'password' => 'C~opKB*Q@h',
+						//'apiUri' => Client::API_URI_TEST,
 					));
 
 					$host = $_SERVER['HTTP_HOST'];
@@ -121,9 +119,8 @@ else
 			{
 				$client = new Client(array(
 					'userName' => 'kupibilet-api',
-					'password' => 'kupibilet',
-					//'password' => 'C~opKB*Q@h',
-					'apiUri' => Client::API_URI_TEST,
+					'password' => 'C~opKB*Q@h',
+					//'apiUri' => Client::API_URI_TEST,
 				));
 
 				$sbOrderId = $_REQUEST['orderId'];
