@@ -94,6 +94,28 @@ $(function() {
             }
         })
 
+	var sbtn = $('#subscribe-btn');
+	sbtn.click(function() {
+		var email = $('#subscribe-email');
+		$.ajax({
+			type: 'POST',
+			url: '/ajax/subscribe.php',
+			data: 'email=' + email.val(),
+			success: function (data) {
+				if (data.ID) {
+					engLog('Вы успешно подписаны', '');
+					email.closest('.elRight-email').remove();
+				}
+				else {
+					if (data.ERROR = 'ex')
+						engLog('Ошибка', 'Указанный email уже добавлен к подписке');
+					else
+						engLog('Ошибка', 'Не удалось добавить указанный email к подписке');
+				}
+			}
+		});
+	});
+
 } );
 
 

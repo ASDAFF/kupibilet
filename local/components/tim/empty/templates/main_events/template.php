@@ -60,16 +60,9 @@ $dates = \Local\Main\Event::getAllDates();
                     </script>
                 </div>
             </div>
-        </div>
-        <div class="elRight-email">
-            <div class="it-inf">
-                <div class="it-title">Будьте в курсе предстоящих мероприятий</div>
-            </div>
-            <div class="it-form">
-                <input  class="it-form-input cssBorderRadius-left"  type="text" name="email" placeholder="Введите ваш e-mail" autocomplete="off">
-                <button class="it-form-btn cssBorderRadius-right engBtn">ОК</button>
-            </div>
         </div><?
+
+	    $APPLICATION->IncludeComponent('tim:empty', 'subscribe');
 
 	    $APPLICATION->IncludeComponent('tim:empty', 'right_banners');
 	    ?>
