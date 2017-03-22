@@ -410,7 +410,7 @@ class Cart
 				$eventFields['REG_INFO'] .= "Пароль: " . $_SESSION['LOCAL_USER']['PASS'] . "\n";
 				//unset($_SESSION['LOCAL_USER']['PASS']);
 			}
-			\CEvent::Send('ADD_ORDER', 's1', $eventFields);
+			\CEvent::SendImmediate('ADD_ORDER', 's1', $eventFields);
 		}
 
 		return $orderId;
@@ -467,7 +467,7 @@ class Cart
 				    $_SERVER['SERVER_NAME']) . '/personal/order/print/?id=' . $id,
 		    'SECRET' => $secret,
 		);
-		\CEvent::Send('PAY_ORDER', 's1', $eventFields);
+		\CEvent::SendImmediate('PAY_ORDER', 's1', $eventFields);
 	}
 
 	public static function setOrderOverdue($id)
