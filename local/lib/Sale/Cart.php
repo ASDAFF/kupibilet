@@ -3,6 +3,7 @@ namespace Local\Sale;
 
 use Bitrix\Main\Loader;
 use Bitrix\Sale\Compatible\BasketCompatibility;
+use Bitrix\Sale\Order;
 use Local\Main\Event;
 use Local\Main\Hall;
 use Local\Main\Run;
@@ -352,7 +353,7 @@ class Cart
 			'PRICE_DELIVERY' => $deliveryPrice,
 			'CURRENCY' => 'RUB',
 			'USER_ID' => $userId,
-			'PAY_SYSTEM_ID' => 1,
+			'PAY_SYSTEM_ID' => 2,
 		);
 		if ($deliveryPrice)
 			$fields['DELIVERY_ID'] = 2;
@@ -435,6 +436,14 @@ class Cart
 	public static function setOrderPayed($id, $items)
 	{
 		Loader::IncludeModule('sale');
+
+		// Для того, чтоб в админке видели, что заказ оплачен
+		// TODO: объединить с изменением статуса
+		$order = Order::load($id);
+		$paymentCollection = $order->getPaymentCollection();
+		$payment = $paymentCollection[0];
+		$payment->setPaid('Y');
+		$order->save();
 
 		$secret = rand(10, 99) . '-' . rand(10, 99) . '-' . rand(10, 99) . '-' . rand(10, 99);
 
