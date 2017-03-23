@@ -32,7 +32,7 @@ class Subscribe
 
 	    $filter = array();
 	    if ($user['EMAIL'])
-		    $filter['=EMAIL'] = $user['EMAIL'];
+		    $filter['EMAIL'] = $user['EMAIL'];
 	    else
 		    $filter['USER_ID'] = $userId;
 
@@ -50,7 +50,7 @@ class Subscribe
 		Loader::IncludeModule('subscribe');
 
 		$filter = array();
-		$filter['=EMAIL'] = $email;
+		$filter['EMAIL'] = $email;
 
 		return self::getByFilter($filter);
 	}
