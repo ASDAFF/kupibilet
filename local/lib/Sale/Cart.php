@@ -392,31 +392,6 @@ class Cart
 		{
 			$arOrderProps = self::getOrderProps();
 
-			if ($_REQUEST['order_phone'])
-			{
-				$prop = $arOrderProps['PHONE'];
-				$fields = array(
-					'ORDER_ID' => $orderId,
-					'ORDER_PROPS_ID' => $prop['ID'],
-					'NAME' => $prop['NAME'],
-					'CODE' => $prop['CODE'],
-					'VALUE' => htmlspecialchars($_REQUEST['order_phone']),
-				);
-				\CSaleOrderPropsValue::Add($fields);
-			}
-			if ($_REQUEST['order_address'])
-			{
-				$prop = $arOrderProps['ADDRESS'];
-				$fields = array(
-					'ORDER_ID' => $orderId,
-					'ORDER_PROPS_ID' => $prop['ID'],
-					'NAME' => $prop['NAME'],
-					'CODE' => $prop['CODE'],
-					'VALUE' => htmlspecialchars($_REQUEST['order_address']),
-				);
-				\CSaleOrderPropsValue::Add($fields);
-			}
-
 			foreach ($cart['ITEMS'] as $item)
 			{
 				$basket->Update($item['ID'], array(
@@ -444,9 +419,54 @@ class Cart
 				if ($userName)
 					$userName .= ' ';
 				$userName .= $user['LAST_NAME'];
-				if ($userName)
-					$userName = 'Уважаемый ' . $userName . ",";
 			}
+
+			$prop = $arOrderProps['FIO'];
+			$fields = array(
+				'ORDER_ID' => $orderId,
+				'ORDER_PROPS_ID' => $prop['ID'],
+				'NAME' => $prop['NAME'],
+				'CODE' => $prop['CODE'],
+				'VALUE' => $userName,
+			);
+			\CSaleOrderPropsValue::Add($fields);
+			$prop = $arOrderProps['EMAIL'];
+			$fields = array(
+				'ORDER_ID' => $orderId,
+				'ORDER_PROPS_ID' => $prop['ID'],
+				'NAME' => $prop['NAME'],
+				'CODE' => $prop['CODE'],
+				'VALUE' => $user['EMAIL'],
+			);
+			\CSaleOrderPropsValue::Add($fields);
+			if ($_REQUEST['order_phone'])
+			{
+				$prop = $arOrderProps['PHONE'];
+				$fields = array(
+					'ORDER_ID' => $orderId,
+					'ORDER_PROPS_ID' => $prop['ID'],
+					'NAME' => $prop['NAME'],
+					'CODE' => $prop['CODE'],
+					'VALUE' => htmlspecialchars($_REQUEST['order_phone']),
+				);
+				\CSaleOrderPropsValue::Add($fields);
+			}
+			if ($_REQUEST['order_address'])
+			{
+				$prop = $arOrderProps['ADDRESS'];
+				$fields = array(
+					'ORDER_ID' => $orderId,
+					'ORDER_PROPS_ID' => $prop['ID'],
+					'NAME' => $prop['NAME'],
+					'CODE' => $prop['CODE'],
+					'VALUE' => htmlspecialchars($_REQUEST['order_address']),
+				);
+				\CSaleOrderPropsValue::Add($fields);
+			}
+
+			if ($userName)
+				$userName = 'Уважаемый ' . $userName . ",";
+
 			$eventFields = array(
 				'ORDER_ID' => $orderId,
 				'ORDER_DATE' => date('d.m.Y H:i'),
@@ -524,6 +544,11 @@ class Cart
 		$payment = $paymentCollection[0];
 		$payment->setPaid('Y');
 		$order->save();
+		$propertyCollection = $order->getPropertyCollection();
+		$arProps = $propertyCollection->getArray();
+		$props = array();
+		foreach ($arProps['properties'] as $pr)
+			$props[$pr['CODE']] = $pr['VALUE'][0];
 
 		$secret = rand(10, 99) . '-' . rand(10, 99) . '-' . rand(10, 99) . '-' . rand(10, 99);
 
@@ -536,25 +561,16 @@ class Cart
 		foreach ($items as $item)
 			Reserve::pay($item['ID']);
 
-		$user = User::getCurrentUser();
-
-		$userName = $user['NAME'];
-		if ($user['LAST_NAME'])
-		{
-			if ($userName)
-				$userName .= ' ';
-			$userName .= $user['LAST_NAME'];
-			if ($userName)
-				$userName = 'Уважаемый ' . $userName . ",";
-		}
 		$eventFields = array(
 			'ORDER_ID' => $id,
-			'ORDER_USER' => $userName,
-			'EMAIL' => $user['EMAIL'],
+			'ORDER_USER' => $props['FIO'],
+			'EMAIL' => $props['EMAIL'],
 			'SALE_EMAIL' => \COption::GetOptionString('sale', 'order_email', 'order@' . $_SERVER['SERVER_NAME']),
 		    'PRINT' => 'http://' . \COption::GetOptionString('main', 'server_name',
 				    $_SERVER['SERVER_NAME']) . '/personal/order/print/?id=' . $id,
 		    'SECRET' => $secret,
+		    'ADDRESS' => $props['ADDRESS'],
+		    'PHONE' => $props['PHONE'],
 		);
 		\CEvent::SendImmediate('PAY_ORDER', 's1', $eventFields);
 	}
