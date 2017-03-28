@@ -495,10 +495,12 @@ class Cart
 			'ID' => $id,
 		));
 		$order = $rsOrder->Fetch();
+		if (!$order['XML_ID'])
+			return false;
+
 		$client = new Client(array(
-			'userName' => 'kupibilet-api',
-			'password' => 'C~opKB*Q@h',
-			//'apiUri' => Client::API_URI_TEST,
+			'userName' => SB_LOGIN,
+			'password' => SB_PASS,
 		));
 		$result = $client->getOrderStatus($order['XML_ID']);
 		if (OrderStatus::isDeposited($result['OrderStatus']))

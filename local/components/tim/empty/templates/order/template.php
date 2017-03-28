@@ -47,8 +47,8 @@ else
 				try
 				{
 					$client = new Client(array(
-						'userName' => 'kupibilet-api',
-						'password' => 'C~opKB*Q@h',
+						'userName' => SB_LOGIN,
+						'password' => SB_PASS,
 						//'apiUri' => Client::API_URI_TEST,
 					));
 					$result = $client->getOrderStatus($order['XML_ID']);
@@ -76,8 +76,8 @@ else
 				try
 				{
 					$client = new Client(array(
-						'userName' => 'kupibilet-api',
-						'password' => 'C~opKB*Q@h',
+						'userName' => SB_LOGIN,
+						'password' => SB_PASS,
 						//'apiUri' => Client::API_URI_TEST,
 					));
 
