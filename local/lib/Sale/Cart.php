@@ -9,6 +9,8 @@ use Local\Main\Hall;
 use Local\Main\Run;
 use Local\System\User;
 use Local\System\Utils;
+use Voronkovich\SberbankAcquiring\Client;
+use Voronkovich\SberbankAcquiring\OrderStatus;
 
 /**
  * Class Cart Корзина
@@ -318,13 +320,17 @@ class Cart
 			// Если заказ уже создан - удаляем только бронь
 			if ($cartItem['ORDER_ID'] != 'NULL')
 			{
-				$rsCart1 = $basket->GetList(array(), array(
-					'ID' != $cartId,
-					'ORDER_ID' => $cartItem['ORDER_ID'],
-				));
-				while ($item = $rsCart1->Fetch())
-					Reserve::delete($item['ID']);
-				Cart::setOrderOverdue($cartItem['ORDER_ID']);
+				$payed = self::checkOrderPayment($cartItem['ORDER_ID']);
+				if (!$payed)
+				{
+					$rsCart1 = $basket->GetList(array(), array(
+						'ID' != $cartId,
+						'ORDER_ID' => $cartItem['ORDER_ID'],
+					));
+					while ($item = $rsCart1->Fetch())
+						Reserve::delete($item['ID']);
+					Cart::setOrderOverdue($cartItem['ORDER_ID']);
+				}
 			}
 			// Если заказ не создан - удаляем и бронь и позицию
 			else
@@ -333,6 +339,26 @@ class Cart
 				Reserve::delete($cartId);
 			}
 		}
+	}
+
+	public static function getOrderProps()
+	{
+		$return = array();
+		
+		$rsProps = \CSaleOrderProps::GetList(
+			array('SORT' => 'ASC'),
+			array(
+				'PERSON_TYPE_ID' => 1,
+				'ACTIVE' => 'Y',
+			),
+			false,
+			false,
+			array('ID', 'NAME', 'TYPE', 'SORT', 'CODE')
+		);
+		while ($item = $rsProps->Fetch())
+			$return[$item['CODE']] = $item;
+
+		return $return;
 	}
 
 	public static function createOrder($cart, $user, $deliveryPrice)
@@ -364,6 +390,33 @@ class Cart
 
 		if ($orderId)
 		{
+			$arOrderProps = self::getOrderProps();
+
+			if ($_REQUEST['order_phone'])
+			{
+				$prop = $arOrderProps['PHONE'];
+				$fields = array(
+					'ORDER_ID' => $orderId,
+					'ORDER_PROPS_ID' => $prop['ID'],
+					'NAME' => $prop['NAME'],
+					'CODE' => $prop['CODE'],
+					'VALUE' => htmlspecialchars($_REQUEST['order_phone']),
+				);
+				\CSaleOrderPropsValue::Add($fields);
+			}
+			if ($_REQUEST['order_address'])
+			{
+				$prop = $arOrderProps['ADDRESS'];
+				$fields = array(
+					'ORDER_ID' => $orderId,
+					'ORDER_PROPS_ID' => $prop['ID'],
+					'NAME' => $prop['NAME'],
+					'CODE' => $prop['CODE'],
+					'VALUE' => htmlspecialchars($_REQUEST['order_address']),
+				);
+				\CSaleOrderPropsValue::Add($fields);
+			}
+
 			foreach ($cart['ITEMS'] as $item)
 			{
 				$basket->Update($item['ID'], array(
@@ -431,6 +484,31 @@ class Cart
 		$order = $rsOrder->Fetch();
 
 		return $order;
+	}
+
+	public static function checkOrderPayment($id)
+	{
+		Loader::IncludeModule('sale');
+
+		$order = new \CSaleOrder();
+		$rsOrder = $order->GetList(array(), array(
+			'ID' => $id,
+		));
+		$order = $rsOrder->Fetch();
+		$client = new Client(array(
+			'userName' => 'kupibilet-api',
+			'password' => 'C~opKB*Q@h',
+			//'apiUri' => Client::API_URI_TEST,
+		));
+		$result = $client->getOrderStatus($order['XML_ID']);
+		if (OrderStatus::isDeposited($result['OrderStatus']))
+		{
+			$orderItems = self::getOrderItems($order['ID']);
+			self::setOrderPayed($order['ID'], $orderItems['ITEMS']);
+			return true;
+		}
+
+		return false;
 	}
 
 	public static function setOrderPayed($id, $items)

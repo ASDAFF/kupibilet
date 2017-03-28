@@ -164,8 +164,12 @@ class User
 			// Если не авторизован - пробуем найти по email
 			$user = self::getByEmail($email);
 			if (!$user)
+			{
 				// если не найден по email - регистрируем
 				$user = self::register($name, $lastName, $email);
+				if ($user)
+					self::update($name, $lastName, $phone, $address);
+			}
 		}
 
 		return $user;
