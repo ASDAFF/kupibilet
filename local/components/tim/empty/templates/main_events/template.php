@@ -2,8 +2,11 @@
 if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 
 $data = \Local\Main\Event::getDataByFilter(array());
-$events = \Local\Main\Event::getByFilter(array('DATE' => 'asc'), $data['IDS'], array('nPageSize' => 15,
-                                                                                     'iNumPage' => 1));
+$events = \Local\Main\Event::getByFilter(
+	array('DATE' => 'asc'),
+	$data['IDS'],
+	false
+);
 $dates = \Local\Main\Event::getAllDates();
 
 ?>
