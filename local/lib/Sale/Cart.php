@@ -10,6 +10,7 @@ use Local\Main\Run;
 use Local\System\User;
 use Local\System\Utils;
 use Voronkovich\SberbankAcquiring\Client;
+use Voronkovich\SberbankAcquiring\Exception\ActionException;
 use Voronkovich\SberbankAcquiring\OrderStatus;
 
 /**
@@ -518,16 +519,23 @@ class Cart
 		if (!$order['XML_ID'])
 			return false;
 
-		$client = new Client(array(
-			'userName' => SB_LOGIN,
-			'password' => SB_PASS,
-		));
-		$result = $client->getOrderStatus($order['XML_ID']);
-		if (OrderStatus::isDeposited($result['OrderStatus']))
+		try
 		{
-			$orderItems = self::getOrderItems($order['ID']);
-			self::setOrderPayed($order['ID'], $orderItems['ITEMS']);
-			return true;
+			$client = new Client(array(
+				'userName' => SB_LOGIN,
+				'password' => SB_PASS,
+			));
+			$result = $client->getOrderStatus($order['XML_ID']);
+			if (OrderStatus::isDeposited($result['OrderStatus']))
+			{
+				$orderItems = self::getOrderItems($order['ID']);
+				self::setOrderPayed($order['ID'], $orderItems['ITEMS']);
+				return true;
+			}
+		}
+		catch (ActionException $e)
+		{
+			return false;
 		}
 
 		return false;
