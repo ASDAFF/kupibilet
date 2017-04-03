@@ -340,6 +340,8 @@ class Cart
 				Reserve::delete($cartId);
 			}
 		}
+		else
+			Reserve::delete($cartId);
 	}
 
 	public static function getOrderProps()
