@@ -2,7 +2,6 @@
 namespace Local\Sale;
 
 use Bitrix\Highloadblock\HighloadBlockTable;
-use Local\System\ExtCache;
 
 /**
  * Class Reserve Бронирование билетов
