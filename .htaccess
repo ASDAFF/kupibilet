@@ -4,7 +4,6 @@ ErrorDocument 404 /404.php
 <IfModule mod_php5.c>
   php_flag session.use_trans_sid off
   #php_value display_errors 1
-  #php_value mbstring.internal_encoding UTF-8
 </IfModule>
 
 <IfModule mod_rewrite.c>

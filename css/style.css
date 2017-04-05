@@ -667,6 +667,8 @@ footer {clear: both; margin-top: 20px;}
     .elZal-top .it-price {position: relative; top:0 ;left: 0; margin: 20px 0; width: auto; display: block;}
 }
 
+.elZal-top .it-cart-btn {display: inline-block; padding: 5px 10px; background: #901921;
+    color: #ffffff; font-weight: 800; text-transform: uppercase;}
 .elZal-top .it-cart {width: 170px; margin: auto; position: relative;}
 .elZal-top .it-cart-icon {position: absolute; left: 0;}
 .elZal-top .it-cart-title {padding-left: 50px;
@@ -676,6 +678,7 @@ footer {clear: both; margin-top: 20px;}
 .elZal-top .it-cart-inf a {text-decoration: underline; color: #646464;}
 
 @media only screen and (max-width: 500px) {
+	.elZal-top .it-cart-btn {margin: 20px auto;}
     .elZal-top .it-cart {margin: 20px auto;}
 }
 
@@ -1587,3 +1590,26 @@ html .city-select .ui-button.ui-state-disabled:active{
 
 .elFormYes {margin-bottom: 10px; position: relative;}
 .elFormYes input {position: relative; left: 0; top: 6px; width: 18px; height: 18px;}
+
+.ep-form li {margin-bottom: 14px;;}
+
+
+.elCart  {width: 170px; padding: 26px 0; float: right; position: relative;}
+.elCart-icon {position: absolute; left: 0;}
+.elCart-title {padding-left: 50px;
+    font-weight: bold;}
+.elCart-inf {padding-left: 50px;
+    font-size: 11px;}
+.elCart-inf a {text-decoration: underline; color: #646464;}
+
+@media only screen and (max-width: 630px) {
+    .elCart {margin: 0 auto; float: none; padding:0;}
+	.elCart.fixed {position: fixed; top: 0; z-index: 10;
+    width: 100%; padding: 6px;
+    background: #fff;}
+	.elCart.fixed .elCart-icon {display:none;}
+	.elCart.fixed .elCart-title {display: inline-block; padding-left: 20px;}
+	.elCart.fixed .elCart-inf {display: inline-block;padding-left: 20px;}
+
+
+}
