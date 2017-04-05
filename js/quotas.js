@@ -67,7 +67,7 @@ var Quotas = {
 		this.body.on('click', '.del', this.delBtnClick);
 		this.body.on('input', '.price', this.priceChange);
 		this.body.on('input', '.color', this.colorChange);
-		this.body.on('input', '.current', this.currentChange);
+		this.body.on('change', '.current', this.currentChange);
 		this.saveBtn.on('click', this.saveAjax);
 		this.popupCb.on('click', this.popupCbClick);
 		this.backLink.on('click', this.backClick);
@@ -172,7 +172,13 @@ var Quotas = {
 			var row = Quotas.QuotasArray[Quotas.currentRow];
 			point.css({'background-color': row[1]});
 			Quotas.save();
-		}
+		}else{
+            zalItem.splice(6, 1);
+            point.css({'background-color': 'transparent'});
+            Quotas.save();
+        }
+
+
 	},
 	priceChange: function() {
 		var input = $(this);

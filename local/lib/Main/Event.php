@@ -434,16 +434,16 @@ class Event
 
 				// В случае поиска - ручная пагинация
 				$manualSort = false;
-				if ($nav)
-					if ($sort['SEARCH'] == 'asc' || $sort['DATE'] == 'asc')
-					{
-						$l = $nav['nPageSize'];
-						$offset = ($nav['iNumPage'] - 1) * $l;
-						$productIds = array_slice($productIds, $offset, $l);
-						$nav = false;
-						$manualSort = true;
-						$sort = array();
-					}
+				
+                if ($sort['SEARCH'] == 'asc' || $sort['DATE'] == 'asc')
+                {
+                    $l = $nav['nPageSize'];
+                    $offset = ($nav['iNumPage'] - 1) * $l;
+                    $productIds = array_slice($productIds, $offset, $l);
+                    $nav = false;
+                    $manualSort = true;
+                    $sort = array();
+                }
 
 				if (!$manualSort && !isset($sort['ID']))
 					$sort['ID'] = 'DESC';

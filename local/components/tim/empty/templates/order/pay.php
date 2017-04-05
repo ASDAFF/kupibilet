@@ -10,7 +10,10 @@ if ($order['STATUS_ID'] == 'F')
 {
 	?>
 	<p>Заказ уже оплачен</p>
-	<p><a href="/personal/order/print/?id=<?= $order['ID'] ?>">Распечатать</a></p><?
+    <? if((int)$order['PRICE_DELIVERY'] == 0): ?>
+        <p><a href="/personal/order/print/?id=<?= $order['ID'] ?>">Распечатать</a></p>
+    <? endif; ?>
+	<?
 }
 elseif ($order['STATUS_ID'] == 'O')
 {

@@ -571,13 +571,20 @@ class Cart
 		foreach ($items as $item)
 			Reserve::pay($item['ID']);
 
+		$link ='';
+
+		if($order->getDeliveryPrice() == 0){
+            $url = 'http://' . \COption::GetOptionString('main', 'server_name',
+                    $_SERVER['SERVER_NAME']) . '/personal/order/print/?id=' . $id;
+            $link = "<a href='$url'>Распечать билет</a>";
+        }
+        
 		$eventFields = array(
 			'ORDER_ID' => $id,
 			'ORDER_USER' => $props['FIO'],
 			'EMAIL' => $props['EMAIL'],
 			'SALE_EMAIL' => \COption::GetOptionString('sale', 'order_email', 'order@' . $_SERVER['SERVER_NAME']),
-		    'PRINT' => 'http://' . \COption::GetOptionString('main', 'server_name',
-				    $_SERVER['SERVER_NAME']) . '/personal/order/print/?id=' . $id,
+		    'PRINT' => $link,
 		    'SECRET' => $secret,
 		    'ADDRESS' => $props['ADDRESS'],
 		    'PHONE' => $props['PHONE'],
