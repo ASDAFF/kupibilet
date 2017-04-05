@@ -52,13 +52,21 @@ $(function() {
         elZalBtnPlus = $("#elZalBtnPlus"),
         elZalBtnMinus = $("#elZalBtnMinus"),
         zoom = 1,
-        HeightSize = 400;
+        HeightSize = 400,
+
+		elCart = $(".elCart"),
+		HeightSize_cart = 120;
 
         $(window).on('scroll resize load', function() {
             if($(this).scrollTop() > HeightSize)
                 elZalZoom.addClass('fixed');
             else
                 elZalZoom.removeClass('fixed', 600);
+
+			if($(this).scrollTop() > HeightSize_cart)
+                elCart.addClass('fixed');
+            else
+                elCart.removeClass('fixed', 600);
         });
 
 
