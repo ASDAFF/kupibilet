@@ -52,11 +52,14 @@ foreach ($byRun as $runId => $cartIds)
 	foreach ($cartIds as $cartId)
 	{
 		$item = $orderItems['ITEMS'][$cartId];
+		$secret = $item['PROPS']['SECRET'];
+		if (!$secret)
+			$secret = $order['COMMENTS'];
 
 		?>
 		<div class="bilet">
 			<div class="block" style="width: 150px; padding-left: 30px; vertical-align: top;">
-				<div class="line" ><span>№ <b style="font-size: 17px;"><?= $order['COMMENTS'] ?></b></span></div>
+				<div class="line" ><span>№ <b style="font-size: 17px;"><?= $secret ?></b></span></div>
 				<div class="line"><span><b style="font-size: 14px;">KB-<?= $cartId ?></b></span></div>
 			</div>
 			<div class="block css-center" style="width: 230px;">
@@ -73,7 +76,7 @@ foreach ($byRun as $runId => $cartIds)
 				<div class="line"><span class="css-padding">Место: <b><?= $item['PROPS']['NUM'] ?></b></span></div>
 				<div class="line"><span class="css-padding">Цена: <b><?= $item['PRICE'] ?> руб.</b></span></div>
 			</div>
-			<div class="block" style="width: 50px; border-left: 1px dashed #000"><i class="vertikal css-center">КОНТРОЛЬ<br><?= $order['COMMENTS'] ?></i></div>
+			<div class="block" style="width: 50px; border-left: 1px dashed #000"><i class="vertikal css-center">КОНТРОЛЬ<br><?= $secret ?></i></div>
 		</div><?
 	}
 }

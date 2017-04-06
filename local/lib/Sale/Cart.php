@@ -24,6 +24,14 @@ class Cart
 	 */
 	const CACHE_PATH = 'Local/Sale/Cart/';
 
+	private static $propNames = array(
+		'SIT' => 'ID Места',
+		'SECTOR' => 'Сектор',
+		'ROW' => 'Ряд',
+		'NUM' => 'Место',
+		'SECRET' => 'Проверочный код',
+	);
+
 	/**
 	 * Возвращает корзину текущего пользователя или товары заказа
 	 * @param string $orderId
@@ -123,7 +131,8 @@ class Cart
 	{
 		Loader::IncludeModule('sale');
 
-		if (isset($_SESSION['CART_SUMMARY']))
+		// TODO: убрать на следующий день после релиза
+		/*if (isset($_SESSION['CART_SUMMARY']))
 		{
 			// Проверяем, нужно ли обновить кеш корзины
 			$basket = new \CSaleBasket();
@@ -135,7 +144,7 @@ class Cart
 				CartCache::delete($cartCacheId);
 			}
 		}
-		else
+		else*/
 			self::updateSessionCartSummary();
 
 		return $_SESSION['CART_SUMMARY'];
@@ -214,22 +223,22 @@ class Cart
 		
 		$props = array();
 		$props[] = array(
-			'NAME' => 'ID Места',
+			'NAME' => self::$propNames['SIT'],
 			'CODE' => 'SIT',
 			'VALUE' => $sitId,
 		);
 		$props[] = array(
-			'NAME' => 'Сектор',
+			'NAME' => self::$propNames['SECTOR'],
 			'CODE' => 'SECTOR',
 			'VALUE' => $sit[3],
 		);
 		$props[] = array(
-			'NAME' => 'Ряд',
+			'NAME' => self::$propNames['ROW'],
 			'CODE' => 'ROW',
 			'VALUE' => $sit[4],
 		);
 		$props[] = array(
-			'NAME' => 'Место',
+			'NAME' => self::$propNames['NUM'],
 			'CODE' => 'NUM',
 			'VALUE' => $sit[5],
 		);
@@ -619,20 +628,21 @@ class Cart
 		foreach ($arProps['properties'] as $pr)
 			$props[$pr['CODE']] = $pr['VALUE'][0];
 
-		$secret = rand(10, 99) . '-' . rand(10, 99) . '-' . rand(10, 99) . '-' . rand(10, 99);
-
 		$order = new \CSaleOrder();
 		$order->Update($id, array(
 			'STATUS_ID' => 'F',
-		    'COMMENTS' => $secret,
 		));
 
 		foreach ($items as $item)
+		{
 			Reserve::pay($item['ID']);
+			self::addSecretToCartId($item);
+		}
 
 		$link ='';
 
-		if($order->getDeliveryPrice() == 0){
+		if ($order->getDeliveryPrice() == 0)
+		{
             $url = 'http://' . \COption::GetOptionString('main', 'server_name',
                     $_SERVER['SERVER_NAME']) . '/personal/order/print/?id=' . $id;
             $link = "<a href='$url'>Распечать билет</a>";
@@ -644,11 +654,42 @@ class Cart
 			'EMAIL' => $props['EMAIL'],
 			'SALE_EMAIL' => \COption::GetOptionString('sale', 'order_email', 'order@' . $_SERVER['SERVER_NAME']),
 		    'PRINT' => $link,
-		    'SECRET' => $secret,
 		    'ADDRESS' => $props['ADDRESS'],
 		    'PHONE' => $props['PHONE'],
 		);
 		\CEvent::SendImmediate('PAY_ORDER', 's1', $eventFields);
+	}
+
+	/**
+	 * Добавление проверочного кода для позиции заказа
+	 * @param $cartItem
+	 * @return bool
+	 */
+	public static function addSecretToCartId($cartItem)
+	{
+		$secret = rand(10, 99) . '-' . rand(10, 99) . '-' . rand(10, 99) . '-' . rand(10, 99);
+
+		$props = array();
+		foreach ($cartItem['PROPS'] as $code => $value)
+		{
+			$props[] = array(
+				'NAME' => self::$propNames[$code],
+				'CODE' => $code,
+				'VALUE' => $value,
+			);
+			if ($code == 'SECRET')
+				return false;
+		}
+		$props[] = array(
+			'NAME' => self::$propNames['SECRET'],
+			'CODE' => 'SECRET',
+			'VALUE' => $secret,
+		);
+
+		$basket = new \CSaleBasket();
+		$basket->Update($cartItem['ID'], array('PROPS' => $props));
+
+		return true;
 	}
 
 	/**

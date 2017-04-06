@@ -40,6 +40,13 @@ else
 					$href = '/personal/order/payment/?id=' . $order['ID'];
 					$price = $order['PRICE'] . ' руб.';
 				}
+				elseif ($order['STATUS_ID'] == 'RS')
+				{
+					$status = 'Забронирован';
+					$action = 'Оплатить';
+					$href = '/personal/order/payment/?id=' . $order['ID'];
+					$price = $order['PRICE'] . ' руб.';
+				}
 				elseif ($order['STATUS_ID'] == 'F')
 				{
 					$status = 'Оплачен';
