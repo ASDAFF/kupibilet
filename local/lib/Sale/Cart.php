@@ -693,7 +693,7 @@ class Cart
 	}
 
 	/**
-	 * Переводит заказ в статус "Прострочен"
+	 * Переводит заказ в статус "Просрочен"
 	 * @param $id
 	 * @throws \Bitrix\Main\LoaderException
 	 */
