@@ -99,13 +99,12 @@ class Cart
 		$cart = self::getCart();
 		$tickets = Utils::cardinalNumberRus($cart['COUNT'], 'билетов', 'билет', 'билета');
 		$tickets = $cart['COUNT'] . ' ' . $tickets;
-		$time = ($cart['EXPIRED']) ? date('c', $cart['EXPIRED']) : '';
 		return array(
 			'COUNT' => $cart['COUNT'],
 			'TICKETS' => $tickets,
 			'PRICE' => $cart['PRICE'],
 			'SERV_PRICE' => $cart['SERV_PRICE'],
-			'EXPIRED' => $time,
+			'EXPIRED' => intval($cart['EXPIRED']),
 		);
 	}
 

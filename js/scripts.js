@@ -1,7 +1,5 @@
 $(function() {
 
-    //timer
-    //timer();
     // Меню
     var pull 		= $('#engNav-btn');
     menu 		= $('nav ul');

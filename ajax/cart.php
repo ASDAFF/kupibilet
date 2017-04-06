@@ -21,7 +21,16 @@ elseif ($_REQUEST['action'] == 'delete')
 	$result['SUCCESS'] = $res ? 1 : 0;
 }
 
-$result['CART'] = \Local\Sale\Cart::getSummary();
+$cartSummary = \Local\Sale\Cart::getSummary();
+$expired = 0;
+if ($cartSummary['EXPIRED'])
+{
+	$expired = $cartSummary['EXPIRED'] - time();
+	if ($expired < 0)
+		$expired = 0;
+}
+$cartSummary['EXPIRED'] = $expired;
+$result['CART'] = $cartSummary;
 
 header('Content-Type: application/json');
 echo json_encode($result);

@@ -51,6 +51,7 @@ var Cart = {
 					Cart.itemsPrice = data.CART.PRICE + data.CART.SERV_PRICE;
 					var d = Cart.deliveryChecked ? Cart.deliveryPrice : 0;
 					Cart.total.text(data.CART.PRICE + data.CART.SERV_PRICE + d);
+					TopCart.update(data.CART);
 				}
 			}
 		});

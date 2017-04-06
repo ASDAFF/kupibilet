@@ -35,8 +35,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     $assets->addJs('/js/owl/owl.carousel.min.js');
     //	$assets->addJs('/js/masonry.pkgd.min.js');
     $assets->addJs('/js/events.js');
-    $assets->addJs('/js/timer.js');
     $assets->addJs('/js/scripts.js');
+    $assets->addJs('/js/topCart.js');
 
     $APPLICATION->ShowHead();
     ?>
@@ -68,6 +68,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 		<div class="engBox-2 engPl-4 engMb"><?
 
 			$cartSummary = \Local\Sale\Cart::getSummary();
+			$expired = 0;
+			if ($cartSummary['EXPIRED'])
+			{
+				$expired = $cartSummary['EXPIRED'] - time();
+				if ($expired < 0)
+					$expired = 0;
+			}
             ?>
             <div class="elCart">
                 <div class="elCart-icon">
@@ -82,7 +89,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         Сумма: <span id="current_cart_price"><?=$cartSummary['PRICE'];?></span> руб.</a>
                 </div>
 	            <div style="text-align: right;width: 79%;font-size: 11px;line-height: 11px;" id="reserve_timer"
-	                 data-expired="<?= $cartSummary['EXPIRED'] ?>"></div>
+	                 data-expired="<?= $expired ?>"></div>
             </div>
 		</div>
         <div class="engBox-3 engPl-4 engMb">

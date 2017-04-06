@@ -18,9 +18,6 @@ var Run = {
 		this.priceRow = this.ZalInf.find('.priceRow');
 		this.eventId = this.Zal.data('event');
 		this.runId = this.Zal.data('run');
-		this.cartCount = $('#current_cart_count');
-		this.cartPrice = $('#current_cart_price');
-		this.cartTimer = $('#reserve_timer');
 
 		this.ZalBox.on('mouseenter', '.elZal-item', this.hover);
 		this.ZalBox.on('mouseleave', '.elZal-item', this.leave);
@@ -76,12 +73,8 @@ var Run = {
 					if (data.SUCCESS)
 						point.removeClass('order');
 				}
-				if (typeof(data.CART) != 'undefined') {
-					Run.cartCount.text(data.CART.COUNT);
-					Run.cartPrice.text(data.CART.PRICE);
-					Run.cartTimer.data('expired', data.CART.EXPIRED);
-					//timer.update();
-				}
+				if (typeof(data.CART) != 'undefined')
+					TopCart.update(data.CART);
 			}
 		});
 	}
