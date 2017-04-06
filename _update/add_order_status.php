@@ -29,9 +29,3 @@ if (!$arStatuses['RS']) {
 else {
     echo "Статус заказа \"X\" уже существует \n";
 }
-
-$templateTable = 'b_event_message';
-$dbItems = $DB->Query("UPDATE $templateTable SET SUBJECT = '#SITE_NAME#: Заказ N#ORDER_ID# оплачен' WHERE ID = 43");
-if($dbItems){
-    echo "Изменен шаблон \"[PAY_ORDER] Заказ оплачен\" \n";
-}
