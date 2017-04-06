@@ -24,7 +24,8 @@ if (!$console)
 include ('admin_template.php');
 include ('add_quotas.php');
 include ('field_longtext.php');
-include ('change_mail_template_and_add_order_status.php');
+include ('add_order_status.php');
+include ('change_mail_template.php');
 
 if (!$console)
 	echo '</pre>';
