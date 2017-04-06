@@ -1,31 +1,57 @@
-function timer()
-{
-    var my_timer = $('#reserve_timer');
-	if (!my_timer.length)
-		return;
+var Timer = {
+    element: '',
+    time: '',
 
-    var time = my_timer.text();
-    var arr = time.split(":");
-    var h = arr[0];
-    var m = arr[1];
-    var s = arr[2];
-    if (s == 0) {
-        if (m == 0) {
-            if (h == 0) {
-                alert("Время вышло");
-                window.location.reload();
-                return;
-            }
-            h--;
-            m = 60;
-            if (h < 10) h = "0" + h;
+    init: function (element) {
+        this.element = $(element);
+        this.time = this.element.data('expired');
+        if (this.time) {
+            this.run();
         }
-        m--;
-        if (m < 10) m = "0" + m;
-        s = 59;
+    },
+
+    run: function () {
+        var self = this;
+        this.timeinterval = setInterval(function () {
+            var t = self.countDown(self.time);
+            var html = t.hours + ':' + t.minutes + ':' + t.seconds;
+            self.element.html(html);
+            if (t.total <= 0) {
+                self.clear();
+            }
+        }, 1000);
+    },
+
+    clear: function () {
+        clearInterval(this.timeinterval);
+    },
+
+    countDown: function (date) {
+        var t = Date.parse(date) - Date.parse(new Date());
+        var seconds = Math.floor((t / 1000) % 60);
+        var minutes = Math.floor((t / 1000 / 60) % 60);
+        var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+        var days = Math.floor(t / (1000 * 60 * 60 * 24));
+        return {
+            'total': t,
+            'days': (days < 10) ? '0' + days : days,
+            'hours': (hours < 10) ? '0' + hours : hours,
+            'minutes': (minutes < 10) ? '0' + minutes : minutes,
+            'seconds': (seconds<10) ? '0' + seconds : seconds
+        };
+    },
+
+    update: function (time) {
+        if (time == 'undefined') {
+            this.time = this.element.data('expired');
+        }else{
+            this.time = time;
+        }
+
+        this.run();
     }
-    else s--;
-    if (s < 10) s = "0" + s;
-    document.getElementById("reserve_timer").innerHTML = h+":"+m+":"+s;
-    setTimeout(timer, 1000);
-}
+};
+
+$(document).ready(function () {
+    Timer.init('#reserve_timer');
+});

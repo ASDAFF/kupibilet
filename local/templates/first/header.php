@@ -66,6 +66,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             	</div>
         </div>
 		<div class="engBox-2 engPl-4 engMb"><?
+
 			$cartSummary = \Local\Sale\Cart::getSummary();
             ?>
             <div class="elCart">
