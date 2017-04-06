@@ -38,7 +38,8 @@ var Run = {
 		Run.infRow.text(zalItem[4]);
 		Run.infNum.text(zalItem[5]);
 		Run.infPrice.text(price);
-		if (price)
+
+		if (price && !item.find('.elZal-point').hasClass('off'))
 			Run.priceRow.show();
 		else
 			Run.priceRow.hide();

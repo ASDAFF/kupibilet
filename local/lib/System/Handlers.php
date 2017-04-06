@@ -42,6 +42,10 @@ class Handlers
 				array(__NAMESPACE__ . '\Handlers', 'basketDelete'));
 			AddEventHandler('main', 'OnBeforeUserRegister',
 				array(__NAMESPACE__ . '\Handlers', 'beforeUserRegister'));
+            AddEventHandler('main', 'OnAfterUserLogout',
+                array(__NAMESPACE__ . '\Handlers', 'OnAfterUserLogout'));
+            AddEventHandler('main', 'OnAfterUserLogin',
+                array(__NAMESPACE__ . '\Handlers', 'OnAfterUserLogin'));
 		}
 	}
 
@@ -126,10 +130,18 @@ class Handlers
 	 * Логин копируем из email
 	 * @param $arFields
 	 */
-	function beforeUserRegister(&$arFields)
+	public static function  beforeUserRegister(&$arFields)
 	{
 		$arFields['LOGIN'] = $arFields['EMAIL'];
 	}
+
+	public static function OnAfterUserLogout(){
+	    Cart::updateSessionCartSummary();
+    }
+
+    public static function OnAfterUserLogin(){
+        Cart::updateSessionCartSummary();
+    }
 
 
 }

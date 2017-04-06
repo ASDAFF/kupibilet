@@ -47,6 +47,7 @@ class Cart
 			'FUSER_ID' => $basket->GetBasketUserID(),
 		));
 		$ids = array();
+		$return['CART_ID'] = $basket::GetBasketUserID();
 		while ($item = $rsCart->Fetch())
 		{
 			$id = intval($item['ID']);
@@ -364,7 +365,7 @@ class Cart
 		return $return;
 	}
 
-	public static function createOrder($cart, $user, $deliveryPrice)
+	public static function createOrder($cart, $user, $deliveryPrice,$status)
 	{
 		Loader::IncludeModule('sale');
 
@@ -377,7 +378,7 @@ class Cart
 			'PERSON_TYPE_ID' => 1,
 			'PAYED' => 'N',
 			'CANCELED' => 'N',
-			'STATUS_ID' => 'N',
+			'STATUS_ID' => $status,
 			'PRICE' => $cart['PRICE'] + $cart['SERV_PRICE'] + $deliveryPrice,
 			'PRICE_DELIVERY' => $deliveryPrice,
 			'CURRENCY' => 'RUB',
@@ -578,7 +579,7 @@ class Cart
                     $_SERVER['SERVER_NAME']) . '/personal/order/print/?id=' . $id;
             $link = "<a href='$url'>Распечать билет</a>";
         }
-        
+
 		$eventFields = array(
 			'ORDER_ID' => $id,
 			'ORDER_USER' => $props['FIO'],
@@ -613,10 +614,10 @@ class Cart
 		));
 	}
 
-	public static function prolongReserve($items)
+	public static function prolongReserve($items,$time)
 	{
 		foreach ($items as $item)
-			Reserve::prolong($item['ID']);
+			Reserve::prolong($item['ID'],$time);
 	}
 
 	public static function getHistory()

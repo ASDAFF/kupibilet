@@ -9,9 +9,9 @@ $notEmpty = $cart['COUNT'] > 0;
 
 $deliveryPrice = 100;
 $deliveryErrors = '';
-
+$reserve = true;
 /** @var array $arParams */
-if ($notEmpty && isset($_POST['order_create']))
+if ($notEmpty && (isset($_POST['order_create']) || isset($_POST['order_reserve'])))
 {
 	$user = \Local\System\User::checkOrder(
 		$_REQUEST['order_name'],
@@ -29,8 +29,12 @@ if ($notEmpty && isset($_POST['order_create']))
 	}
 	if ($user['ID'] && !$deliveryErrors)
 	{
-		$orderId = \Local\Sale\Cart::createOrder($cart, $user, $_REQUEST['delivery'] ? $deliveryPrice : 0);
-		if ($orderId)
+	    $status = (isset($_POST['order_reserve'])) ? 'RS' : 'N';
+
+		$orderId = \Local\Sale\Cart::createOrder($cart, $user, $_REQUEST['delivery'] ? $deliveryPrice : 0,$status);
+        $reserve_time = (isset($_POST['order_reserve'])) ? RESERVE_TIME_24 : RESERVE_TIME;
+        \Local\Sale\Cart::prolongReserve($orderItems['ITEMS'],$reserve_time);
+        if ($orderId)
 			LocalRedirect('/personal/order/?id=' . $orderId);
 	}
 }
@@ -38,7 +42,7 @@ else
 	$user = \Local\System\User::getCurrentUser();
 
 if ($notEmpty)
-	\Local\Sale\Cart::prolongReserve($cart['ITEMS']);
+	\Local\Sale\Cart::prolongReserve($cart['ITEMS'],RESERVE_TIME);
 
 $emptyStyle = $notEmpty ? ' style="display:none;"' : '';
 
@@ -64,10 +68,20 @@ if ($notEmpty)
 
 		foreach ($byRun as $runId => $cartIds)
 		{
+
 			$run = \Local\Main\Run::getById($runId);
 			$event = \Local\Main\Event::getById($run['EVENT']);
 			$hall = \Local\Main\Hall::getById($event['PRODUCT']['HALL']);
 			$runHref = $event['DETAIL_PAGE_URL'] . $run['FURL'];
+
+			//проверка возможности бронирования
+			$format = "d.m.Y H:i:s";
+			$date = \DateTime::createFromFormat($format,$run['DATE']);
+            $end_reserve_time = $date->getTimestamp() - 60*60*48;
+
+            if(time() >= $end_reserve_time){
+                $reserve = false;
+            }
 
 			?>
 			<div class="js-run">
@@ -225,6 +239,9 @@ if ($notEmpty)
 			<input type="text" name="order_lastname"  placeholder="Фамилия" value="<?= $order_lastname ?>" />
 			<input type="text" name="order_email"  placeholder="E-mail (*)" value="<?= $order_email ?>" />
 			<input type="submit" name="order_create" value="ОФОРМИТЬ ЗАКАЗ">
+            <? if($reserve): ?>
+			<input type="submit" name="order_reserve" value="Забронировать на 24 часа">
+            <? endif; ?>
 		</div>
 		</form>
 	</div>

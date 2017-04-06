@@ -2,14 +2,19 @@
 /** @var array $order */
 /** @var array $orderItems */
 
-\Local\Sale\Cart::prolongReserve($orderItems['ITEMS']);
+$reserved_time = '20 минут';
+
+if($order['STATUS_ID'] == 'RS'){
+    $reserved_time = '24 часов';
+}
 
 ?>
+
 <div class="engBox">
     <div class="elFormAuth">
 		<p>Заказ №<?= $order['ID'] ?></p>
 		<p>Спасибо, Ваш заказ оформлен и забронирован!</p>
-		<p>Бронь необходимо оплатить в течение 20 минут, по истечении данного времени она аннулируется.</p>
+		<p>Бронь необходимо оплатить в течение <?=$reserved_time?>, по истечении данного времени она аннулируется.</p>
         <form action="/personal/order/payment/" method="post">
             <div class="elFormYes">
                 <label for="elFormYes">С договором <a href="/oferta/">оферты</a> согласен</label>
@@ -19,4 +24,6 @@
 			<input type="hidden" name="id" value="<?= $order['ID'] ?>" />
 		</form>
     </div>
-</div><?
+</div>
+
+<?
