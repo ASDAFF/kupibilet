@@ -172,7 +172,8 @@ var Quotas = {
 			var row = Quotas.QuotasArray[Quotas.currentRow];
 			point.css({'background-color': row[1]});
 			Quotas.save();
-		}else{
+		}
+		else {
             zalItem.splice(6, 1);
             point.css({'background-color': 'transparent'});
             Quotas.save();

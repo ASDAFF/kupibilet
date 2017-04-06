@@ -9,11 +9,12 @@ $host = $_SERVER['HTTP_HOST'];
 if ($order['STATUS_ID'] == 'F')
 {
 	?>
-	<p>Заказ уже оплачен</p>
-    <? if((int)$order['PRICE_DELIVERY'] == 0): ?>
-        <p><a href="/personal/order/print/?id=<?= $order['ID'] ?>">Распечатать</a></p>
-    <? endif; ?>
-	<?
+	<p>Заказ успешно оплачен</p><?
+	if (!$order['PRICE_DELIVERY'])
+	{
+		?>
+		<p><a href="/personal/order/print/?id=<?= $order['ID'] ?>">Распечатать</a></p><?
+	}
 }
 elseif ($order['STATUS_ID'] == 'O')
 {
@@ -65,7 +66,7 @@ else
 
 	if ($paymentOrderId)
 	{
-		\Local\Sale\Cart::prolongReserve($orderItems['ITEMS']);
+		\Local\Sale\Cart::prolongReserve($orderItems['ITEMS'], RESERVE_TIME);
 		\Local\Sale\Cart::setSbOrderId($order['ID'], $paymentOrderId, $paymentFormUrl);
 		header('Location: ' . $paymentFormUrl);
 	}

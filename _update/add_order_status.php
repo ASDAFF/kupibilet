@@ -1,14 +1,15 @@
-<?php
+<?
 
-$arStatuses = array();
-$dbRes = CSaleStatus::GetList();
-while ($arItem = $dbRes->Fetch()) {
-    $arStatuses[$arItem['ID']] = true;
-}
-if (!$arStatuses['RS']) {
-    $arStatusFields = array(
+$statuses = array();
+$rsStatuses = CSaleStatus::GetList();
+while ($item = $rsStatuses->Fetch())
+	$statuses[$item['ID']] = true;
+
+if (!$statuses['RS'])
+{
+    $fields = array(
         'ID' => 'RS',
-        'SORT' => 1,
+        'SORT' => 150,
         'LANG' => array(
             array(
                 'LID' => 'ru',
@@ -22,10 +23,12 @@ if (!$arStatuses['RS']) {
             ),
         ),
     );
-    if (CSaleStatus::Add($arStatusFields)) {
+    if (CSaleStatus::Add($fields))
         echo "Добавлен статус заказа \"RS\" - Зарезирвирован \n";
-    }
 }
-else {
-    echo "Статус заказа \"X\" уже существует \n";
+else
+{
+    echo "Статус заказа \"RS\" уже существует \n";
 }
+
+echo "\n";

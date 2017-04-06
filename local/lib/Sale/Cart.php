@@ -47,7 +47,6 @@ class Cart
 			'FUSER_ID' => $basket->GetBasketUserID(),
 		));
 		$ids = array();
-		$return['CART_ID'] = $basket::GetBasketUserID();
 		while ($item = $rsCart->Fetch())
 		{
 			$id = intval($item['ID']);
@@ -78,6 +77,10 @@ class Cart
 				$id = $prop['BASKET_ID'];
 				$return['ITEMS'][$id]['PROPS'][$prop['CODE']] = $prop['VALUE'];
 			}
+
+			$firstId = array_shift($ids);
+			$reserveItem = Reserve::getReservedByCartItemId($firstId);
+			$return['EXPIRED'] = $reserveItem['UF_EXPIRED'];
 		}
 
 		return $return;
@@ -101,6 +104,7 @@ class Cart
 			'TICKETS' => $tickets,
 			'PRICE' => $cart['PRICE'],
 			'SERV_PRICE' => $cart['SERV_PRICE'],
+			'EXPIRED' => date('c', $cart['EXPIRED']),
 		);
 	}
 
@@ -250,6 +254,9 @@ class Cart
 			Reserve::add($runId, $sitId, $cartId);
 			// Корректируем сводку
 			self::updateSessionCartSummary();
+
+			$cart = self::getCart();
+			self::prolongReserve($cart['ITEMS']);
 		}
 
 		return $cartId;
@@ -295,9 +302,7 @@ class Cart
 		Loader::IncludeModule('sale');
 
 		$basket = new \CSaleBasket();
-		$basket->Init();
-		$res = BasketCompatibility::delete($cartId);
-		$return = $res->isSuccess();
+		$return = $basket->delete($cartId);
 
 		if ($return)
 		{
@@ -308,6 +313,11 @@ class Cart
 		return $return;
 	}
 
+	/**
+	 * Устанавливает заказу статус "Просрочен", заказ получаем по позиции в заказе
+	 * @param $cartId
+	 * @throws \Bitrix\Main\LoaderException
+	 */
 	public static function overdueOrderByCartId($cartId)
 	{
 		Loader::IncludeModule('sale');
@@ -337,7 +347,7 @@ class Cart
 			// Если заказ не создан - удаляем и бронь и позицию
 			else
 			{
-				BasketCompatibility::delete($cartId);
+				$basket->Delete($cartId);
 				Reserve::delete($cartId);
 			}
 		}
@@ -345,6 +355,10 @@ class Cart
 			Reserve::delete($cartId);
 	}
 
+	/**
+	 * Возвращает свойства заказа
+	 * @return array
+	 */
 	public static function getOrderProps()
 	{
 		$return = array();
@@ -365,6 +379,15 @@ class Cart
 		return $return;
 	}
 
+	/**
+	 * Создает заказ
+	 * @param $cart array корзина полученная методом getCart
+	 * @param $user
+	 * @param $deliveryPrice
+	 * @param $status
+	 * @return int
+	 * @throws \Bitrix\Main\LoaderException
+	 */
 	public static function createOrder($cart, $user, $deliveryPrice,$status)
 	{
 		Loader::IncludeModule('sale');
@@ -494,6 +517,12 @@ class Cart
 		return $orderId;
 	}
 
+	/**
+	 * Возвращает заказ по ID
+	 * @param $id
+	 * @return array|\CSaleOrder
+	 * @throws \Bitrix\Main\LoaderException
+	 */
 	public static function getOrderById($id)
 	{
 		Loader::IncludeModule('sale');
@@ -510,6 +539,12 @@ class Cart
 		return $order;
 	}
 
+	/**
+	 * Проверяет оплату заказа
+	 * @param $id
+	 * @return bool
+	 * @throws \Bitrix\Main\LoaderException
+	 */
 	public static function checkOrderPayment($id)
 	{
 		Loader::IncludeModule('sale');
@@ -544,6 +579,13 @@ class Cart
 		return false;
 	}
 
+	/**
+	 * Устанавливает флаг оплачен для заказа и переводит его в статус "Выполнен"
+	 * @param $id
+	 * @param $items
+	 * @throws \Bitrix\Main\ArgumentNullException
+	 * @throws \Bitrix\Main\LoaderException
+	 */
 	public static function setOrderPayed($id, $items)
 	{
 		Loader::IncludeModule('sale');
@@ -593,6 +635,11 @@ class Cart
 		\CEvent::SendImmediate('PAY_ORDER', 's1', $eventFields);
 	}
 
+	/**
+	 * Переводит заказ в статус "Прострочен"
+	 * @param $id
+	 * @throws \Bitrix\Main\LoaderException
+	 */
 	public static function setOrderOverdue($id)
 	{
 		Loader::IncludeModule('sale');
@@ -603,6 +650,13 @@ class Cart
 		));
 	}
 
+	/**
+	 * Сохраняет в поля заказа свойства эквайринга
+	 * @param $id
+	 * @param $sbOrderId
+	 * @param $sbFormUrl
+	 * @throws \Bitrix\Main\LoaderException
+	 */
 	public static function setSbOrderId($id, $sbOrderId, $sbFormUrl)
 	{
 		Loader::IncludeModule('sale');
@@ -614,12 +668,24 @@ class Cart
 		));
 	}
 
-	public static function prolongReserve($items,$time)
+	/**
+	 * Продлевает бронь для позиций
+	 * @param $items
+	 * @param bool $time
+	 */
+	public static function prolongReserve($items, $time = false)
 	{
 		foreach ($items as $item)
-			Reserve::prolong($item['ID'],$time);
+			Reserve::prolong($item['ID'], $time);
+
+		self::updateSessionCartSummary();
 	}
 
+	/**
+	 * Возвращает все заказы текущего пользователя
+	 * @return array
+	 * @throws \Bitrix\Main\LoaderException
+	 */
 	public static function getHistory()
 	{
 		$return = array();

@@ -135,7 +135,8 @@ class Reserve
 		}
 	}
 
-	public static function getReservedByCartItemId($itemId){
+	public static function getReservedByCartItemId($itemId)
+	{
         $entityInfo = HighloadBlockTable::getById(static::ENTITY_ID)->Fetch();
         $entity = HighloadBlockTable::compileEntity($entityInfo);
         $dataClass = $entity->getDataClass();
@@ -144,15 +145,13 @@ class Reserve
                 '=UF_CART' => $itemId,
             ),
         ));
-        $res = [];
-        if ($item = $rsItems->Fetch()){
+        if ($item = $rsItems->Fetch())
             return $item;
-        }
 
-
+		return array();
     }
 
-	public static function prolong($cartId,$time)
+	public static function prolong($cartId, $time)
 	{
 		$entityInfo = HighloadBlockTable::getById(static::ENTITY_ID)->Fetch();
 		$entity = HighloadBlockTable::compileEntity($entityInfo);
@@ -164,8 +163,12 @@ class Reserve
 		));
 		if ($item = $rsItems->Fetch())
 		{
+			if ($time === false)
+				$new = time() + RESERVE_TIME;
+			else
+				$new = $item['UF_EXPIRED'] + $time;
 			$dataClass::update($item['ID'], array(
-				'UF_EXPIRED' => $item['UF_EXPIRED'] + $time,
+				'UF_EXPIRED' => $new,
 			));
 		}
 	}

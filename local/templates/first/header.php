@@ -65,17 +65,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 			); ?>
             	</div>
         </div>
-		<div class="engBox-2 engPl-4 engMb">
-            <?  $cartSummary = \Local\Sale\Cart::getCart();
-                foreach ($cartSummary['ITEMS'] as $item){
-                    $cart_item = $item;
-                    break;
-                }
-
-                $reserved = \Local\Sale\Reserve::getReservedByCartItemId($cart_item['ID']);
-                $date1 = new DateTime(date('d.m.Y H:i:s',(int)$reserved['UF_EXPIRED']));
-                $date2 = new DateTime('now');
-                $diff = date_diff($date1,$date2);
+		<div class="engBox-2 engPl-4 engMb"><?
+			$cartSummary = \Local\Sale\Cart::getSummary();
             ?>
             <div class="elCart">
                 <div class="elCart-icon">
@@ -89,9 +80,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <a href="/personal/cart/" title="Перейти в корзину">
                         Сумма: <span id="current_cart_price"><?=$cartSummary['PRICE'];?></span> руб.</a>
                 </div>
-                <? if($cartSummary['COUNT']>0): ?>
-                <div style="text-align: right;width: 79%;font-size: 11px;line-height: 11px;" id="reserve_timer"><?=$diff->h?>:<?=$diff->i?>:<?=$diff->s?></div>
-                <? endif; ?>
+	            <div style="text-align: right;width: 79%;font-size: 11px;line-height: 11px;" id="reserve_timer"
+	                 data-expired="<?= $cartSummary['EXPIRED'] ?>"></div>
             </div>
 		</div>
         <div class="engBox-3 engPl-4 engMb">
@@ -115,14 +105,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 					); ?>
 			</span>
             </div>
-            <div class="elHeader-user cssText-right engPl-cssText-center">
-                <? if (!$USER->IsAuthorized()):?>
-                    <a href="/login/" class="cssBorderRadius">Вход</a>
-                    <a href="/login/?register=yes" class="cssBorderRadius">Регистрация</a>
-                <?else:?>
-                    <a href="/personal/order/history/" class="cssBorderRadius">Заказы</a>
-                    <a href="/?logout=yes" class="cssBorderRadius">Выход</a>
-                <?endif;?>
+            <div class="elHeader-user cssText-right engPl-cssText-center"><?
+	            if ($USER->IsAuthorized())
+	            {
+		            ?>
+		            <a href="/personal/order/history/" class="cssBorderRadius">Заказы</a>
+		            <a href="/?logout=yes" class="cssBorderRadius">Выход</a><?
+	            }
+	            else
+	            {
+		            ?>
+		            <a href="/login/" class="cssBorderRadius">Вход</a>
+		            <a href="/login/?register=yes" class="cssBorderRadius">Регистрация</a><?
+	            }
+	            ?>
             </div>
         </div>
     </div>

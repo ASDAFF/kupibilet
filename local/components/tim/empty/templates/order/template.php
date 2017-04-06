@@ -96,7 +96,7 @@ else
 
 					if ($paymentOrderId)
 					{
-						\Local\Sale\Cart::prolongReserve($orderItems['ITEMS']);
+						\Local\Sale\Cart::prolongReserve($orderItems['ITEMS'], RESERVE_TIME);
 						\Local\Sale\Cart::setSbOrderId($order['ID'], $paymentOrderId, $paymentFormUrl);
 						header('Location: ' . $paymentFormUrl);
 					}

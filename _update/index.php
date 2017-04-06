@@ -21,6 +21,8 @@ if (!$console && !$user->IsAdmin())
 if (!$console)
 	echo '<pre>';
 
+\Bitrix\Main\Loader::includeModule('sale');
+
 include ('admin_template.php');
 include ('add_quotas.php');
 include ('field_longtext.php');

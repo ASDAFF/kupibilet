@@ -1,6 +1,10 @@
-function timer(){
-    var my_timer = document.getElementById("reserve_timer");
-    var time = my_timer.innerHTML;
+function timer()
+{
+    var my_timer = $('#reserve_timer');
+	if (!my_timer.length)
+		return;
+
+    var time = my_timer.text();
     var arr = time.split(":");
     var h = arr[0];
     var m = arr[1];

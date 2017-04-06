@@ -40,6 +40,7 @@ var Cart = {
 							$('.empty-cart').show();
 							$('.elBasket-footer').hide();
 							$('.elBasket-form').hide();
+							$('.elDost').hide();
 						}
 					}
 				}

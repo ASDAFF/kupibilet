@@ -43,9 +43,9 @@ class Handlers
 			AddEventHandler('main', 'OnBeforeUserRegister',
 				array(__NAMESPACE__ . '\Handlers', 'beforeUserRegister'));
             AddEventHandler('main', 'OnAfterUserLogout',
-                array(__NAMESPACE__ . '\Handlers', 'OnAfterUserLogout'));
+                array(__NAMESPACE__ . '\Handlers', 'afterUserLogout'));
             AddEventHandler('main', 'OnAfterUserLogin',
-                array(__NAMESPACE__ . '\Handlers', 'OnAfterUserLogin'));
+                array(__NAMESPACE__ . '\Handlers', 'afterUserLogin'));
 		}
 	}
 
@@ -135,11 +135,19 @@ class Handlers
 		$arFields['LOGIN'] = $arFields['EMAIL'];
 	}
 
-	public static function OnAfterUserLogout(){
+	/**
+	 * Сбрасываем кеш корзины после логаута пользователя
+	 */
+	public static function afterUserLogout()
+	{
 	    Cart::updateSessionCartSummary();
     }
 
-    public static function OnAfterUserLogin(){
+	/**
+	 * Сбрасываем кеш корзины после логина пользователя
+	 */
+    public static function afterUserLogin()
+    {
         Cart::updateSessionCartSummary();
     }
 
