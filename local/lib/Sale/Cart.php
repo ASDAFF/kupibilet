@@ -121,7 +121,21 @@ class Cart
 	 */
 	public static function getSummary()
 	{
-		if (!isset($_SESSION['CART_SUMMARY']))
+		Loader::IncludeModule('sale');
+
+		if (isset($_SESSION['CART_SUMMARY']))
+		{
+			// Проверяем, нужно ли обновить кеш корзины
+			$basket = new \CSaleBasket();
+			$fuserId = $basket->GetBasketUserID();
+			$cartCacheId = CartCache::getByFuserId($fuserId);
+			if ($cartCacheId)
+			{
+				self::updateSessionCartSummary();
+				CartCache::delete($cartCacheId);
+			}
+		}
+		else
 			self::updateSessionCartSummary();
 
 		return $_SESSION['CART_SUMMARY'];
@@ -330,18 +344,19 @@ class Cart
 		if ($cartItem = $rsCart->Fetch())
 		{
 			// Если заказ уже создан - удаляем только бронь
-			if ($cartItem['ORDER_ID'] != 'NULL')
+			$orderId = intval($cartItem['ORDER_ID']);
+			if ($orderId)
 			{
 				$payed = self::checkOrderPayment($cartItem['ORDER_ID']);
 				if (!$payed)
 				{
 					$rsCart1 = $basket->GetList(array(), array(
 						'ID' != $cartId,
-						'ORDER_ID' => $cartItem['ORDER_ID'],
+						'ORDER_ID' => $orderId,
 					));
 					while ($item = $rsCart1->Fetch())
 						Reserve::delete($item['ID']);
-					Cart::setOrderOverdue($cartItem['ORDER_ID']);
+					Cart::setOrderOverdue($orderId);
 				}
 			}
 			// Если заказ не создан - удаляем и бронь и позицию
@@ -350,6 +365,7 @@ class Cart
 				$basket->Delete($cartId);
 				Reserve::delete($cartId);
 			}
+			CartCache::add($cartItem['FUSER_ID']);
 		}
 		else
 			Reserve::delete($cartId);

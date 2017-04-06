@@ -9,10 +9,6 @@ use Bitrix\Highloadblock\HighloadBlockTable;
  */
 class Reserve
 {
-	/**
-	 * Путь для кеширования
-	 */
-	const CACHE_PATH = 'Local/Sale/Reserve/';
 
 	/**
 	 * ID HL-блока
