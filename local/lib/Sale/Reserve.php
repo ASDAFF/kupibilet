@@ -100,8 +100,6 @@ class Reserve
 	 */
 	public static function deleteExpired()
 	{
-		debugmessage(ConvertTimeStamp(time(), "FULL"));
-		debugmessage(ConvertTimeStamp(1491497588, "FULL"));
 		$entityInfo = HighloadBlockTable::getById(static::ENTITY_ID)->Fetch();
 		$entity = HighloadBlockTable::compileEntity($entityInfo);
 		$dataClass = $entity->getDataClass();
@@ -113,9 +111,7 @@ class Reserve
 		));
 		while ($item = $rsItems->Fetch())
 		{
-
-			debugmessage($item);
-			//Cart::overdueOrderByCartId($item['UF_CART']);
+			Cart::overdueOrderByCartId($item['UF_CART']);
 		}
 	}
 
