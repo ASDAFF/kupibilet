@@ -27,7 +27,7 @@ include ('admin_template.php');
 include ('add_quotas.php');
 include ('field_longtext.php');
 include ('add_order_status.php');
-include ('change_mail_template.php');
+//include ('change_mail_template.php');
 include ('cart_cache_hl_block.php');
 
 if (!$console)
