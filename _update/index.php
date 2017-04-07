@@ -29,6 +29,7 @@ include ('field_longtext.php');
 include ('add_order_status.php');
 //include ('change_mail_template.php');
 include ('cart_cache_hl_block.php');
+include ('add_property_hall_to_run.php');
 
 if (!$console)
 	echo '</pre>';

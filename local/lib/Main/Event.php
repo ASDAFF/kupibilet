@@ -2,6 +2,7 @@
 namespace Local\Main;
 
 use Bitrix\Iblock\InheritedProperty\ElementValues;
+use Local\Sale\Reserve;
 use Local\System\ExtCache;
 
 /**
@@ -82,15 +83,23 @@ class Event
 				$runSort = 10000000000; //2286 год
 				foreach ($runs[$id] as $run)
 				{
-					$runSort = $run;
+					$runSort = $run['TS'];
 					break;
 				}
+                $halls = [];
+                $selfHall = intval($item['PROPERTY_HALL_VALUE']);
+
+                foreach ($runs[$id] as $run)
+                {
+                    $h = ($run['HALL']) ? $run['HALL'] : $selfHall;
+                    $halls[$h] = $h;
+                }
 
 				$product = array(
 					'ID' => $id,
 					'NAME' => $item['NAME'],
 					'CODE' => $item['CODE'],
-					'HALL' => intval($item['PROPERTY_HALL_VALUE']),
+					'HALLS' => $halls,
 					'GENRE' => intval($genre['ID']),
 					'PRICE' => intval($item['PROPERTY_PRICE_VALUE']),
                     'PRICE_TO' => intval($item['PROPERTY_PRICE_TO_VALUE']),
@@ -98,6 +107,7 @@ class Event
                     'AGE' => $item['PROPERTY_AGE_VALUE'],
 					'RUNS' => $runs[$id],
 				    'RUN_SORT' => $runSort,
+                    'SELF_HALL' => $selfHall,
 				);
 
 				foreach ($codes as $code)
@@ -199,7 +209,7 @@ class Event
 					}
 					elseif ($key == 'HALL')
 					{
-						if ($product[$key] != $value)
+						if (!$product['HALLS'][$value])
 						{
 							$ok = false;
 							break;
@@ -588,7 +598,7 @@ class Event
 	 */
 	public static function getDetailUrl($item)
 	{
-		$hall = Hall::getById($item['HALL']);
+		$hall = Hall::getById($item['SELF_HALL']);
 		return $hall['DETAIL_PAGE_URL'] . ($item['CODE'] ? $item['CODE'] : $item['ID']) . '/';
 	}
 

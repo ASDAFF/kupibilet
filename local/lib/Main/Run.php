@@ -53,15 +53,18 @@ class Run
 				'ID',
 				'PROPERTY_EVENT',
 				'PROPERTY_DATE',
+                'PROPERTY_HALL',
 			));
 			while ($item = $rsItems->Fetch())
 			{
 				$id = intval($item['ID']);
+
 				$eventId = intval($item['PROPERTY_EVENT_VALUE']);
 				$return[$eventId][$id] = array(
 					'ID' => $id,
 				    'DATE' => $item['PROPERTY_DATE_VALUE'],
 				    'TS' => MakeTimeStamp($item['PROPERTY_DATE_VALUE']),
+                    'HALL' => $item['PROPERTY_HALL_VALUE'],
 				);
 			}
 
@@ -77,7 +80,10 @@ class Run
 		$items = self::getAll($refreshCache);
 		foreach ($items as $eventId => $runs)
 			foreach ($runs as $item)
-				$return[$eventId][$item['ID']] = $item['TS'];
+				$return[$eventId][$item['ID']] = [
+				    'TS' => $item['TS'],
+                    'HALL' => $item['HALL'],
+                ];
 
 		return $return;
 	}
@@ -110,16 +116,19 @@ class Run
 			), false, false, array(
 				'ID',
 				'PROPERTY_DATE',
+                'PROPERTY_HALL',
 			));
 			while ($item = $rsItems->Fetch())
 			{
 				$id = intval($item['ID']);
+
 				$return[$id] = array(
 					'ID' => $id,
 					'DATE' => $item['PROPERTY_DATE_VALUE'],
 					'TS' => MakeTimeStamp($item['PROPERTY_DATE_VALUE']),
 				    'FURL' => ConvertDateTime($item['PROPERTY_DATE_VALUE'], self::URL_FORMAT),
 				    'DATE_S' => ConvertDateTime($item['PROPERTY_DATE_VALUE'], self::S_FORMAT),
+				    'HALL' => $item['PROPERTY_HALL_VALUE']
 				);
 			}
 
@@ -159,6 +168,7 @@ class Run
 				'PROPERTY_EVENT',
 				'PROPERTY_DATE',
 			    'PROPERTY_QUOTAS',
+                'PROPERTY_HALL',
 			));
 			while ($item = $rsItems->Fetch())
 			{
@@ -166,6 +176,7 @@ class Run
 				$quotasEncoded = $item['PROPERTY_QUOTAS_VALUE'];
 				$quotas = json_decode($quotasEncoded, true);
 				$sits = array();
+
 				foreach ($quotas as $quota)
 				{
 					foreach ($quota[2] as $sit)
@@ -180,6 +191,7 @@ class Run
 					'DATE_S' => ConvertDateTime($item['PROPERTY_DATE_VALUE'], self::S_FORMAT),
 					'QUOTAS' => $quotasEncoded,
 				    'PRICES' => $sits,
+                    'HALL' => $item['PROPERTY_HALL_VALUE']
 				);
 			}
 
