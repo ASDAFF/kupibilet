@@ -754,7 +754,7 @@ class Cart
 		Loader::IncludeModule('sale');
 
 		$order = new \CSaleOrder();
-		$rsOrder = $order->GetList(array(), array(
+		$rsOrder = $order->GetList(array('ID' => 'DESC'), array(
 			'USER_ID' => $userId,
 		));
 		while ($order = $rsOrder->Fetch())

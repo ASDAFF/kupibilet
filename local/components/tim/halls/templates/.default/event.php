@@ -5,7 +5,7 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)
 /** @global CMain $APPLICATION */
 /** @var Local\Main\TimHalls $component */
 
-$hall = $component->hall;
+$eventHall = $component->hall;
 $event = $component->event;
 
 $item = $event['PRODUCT'];
@@ -28,14 +28,17 @@ if ($item['PRICE'] != $item['PRICE_TO'])
 	                        foreach ($event['RUNS'] as $run)
 	                        {
 		                        $href = $event['DETAIL_PAGE_URL'] . $run['FURL'];
-		                        $runHall = \Local\Main\Hall::getById($run['HALL']);
-		                        $hall_name = ($runHall) ? $runHall['NAME'] :$hall['NAME'];
-		                        $hall_url = ($runHall) ? $runHall['DETAIL_PAGE_URL'] : $hall['DETAIL_PAGE_URL']
+		                        $hall = \Local\Main\Hall::getById($run['HALL']);
+		                        if ($hall)
+			                        $hall = $eventHall;
+		                        if (!$hall)
+			                        continue;
+
 		                        ?>
                                 <li value="<?=$run['ID']?>">
                                     <?=$run['DATE_S']?>
                                     <span class="run_hall">
-                                        <a href="<?= $hall_url ?>"><?= $hall_name ?></a>
+                                        <a href="<?= $hall['DETAIL_PAGE_URL'] ?>"><?= $hall['NAME'] ?></a>
                                     </span>
                                     <a class="engBtn-kyp" href="<?= $href ?>">Купить билет</a>
                                 </li><?

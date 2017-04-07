@@ -128,7 +128,7 @@ class Run
 					'TS' => MakeTimeStamp($item['PROPERTY_DATE_VALUE']),
 				    'FURL' => ConvertDateTime($item['PROPERTY_DATE_VALUE'], self::URL_FORMAT),
 				    'DATE_S' => ConvertDateTime($item['PROPERTY_DATE_VALUE'], self::S_FORMAT),
-				    'HALL' => $item['PROPERTY_HALL_VALUE']
+				    'HALL' => $item['PROPERTY_HALL_VALUE'],
 				);
 			}
 
@@ -191,7 +191,7 @@ class Run
 					'DATE_S' => ConvertDateTime($item['PROPERTY_DATE_VALUE'], self::S_FORMAT),
 					'QUOTAS' => $quotasEncoded,
 				    'PRICES' => $sits,
-                    'HALL' => $item['PROPERTY_HALL_VALUE']
+                    'HALL' => $item['PROPERTY_HALL_VALUE'],
 				);
 			}
 
