@@ -621,6 +621,7 @@ class Cart
 		$paymentCollection = $order->getPaymentCollection();
 		$payment = $paymentCollection[0];
 		$payment->setPaid('Y');
+		$deliveryPrice = $order->getDeliveryPrice();
 		$order->save();
 		$propertyCollection = $order->getPropertyCollection();
 		$arProps = $propertyCollection->getArray();
@@ -641,7 +642,7 @@ class Cart
 
 		$link ='';
 
-		if ($order->getDeliveryPrice() == 0)
+		if (!$deliveryPrice)
 		{
             $url = 'http://' . \COption::GetOptionString('main', 'server_name',
                     $_SERVER['SERVER_NAME']) . '/personal/order/print/?id=' . $id;
