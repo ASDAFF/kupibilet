@@ -118,14 +118,23 @@
         </div>
     </div>
     <div class="elFooter-down-full">
-        <div class="engBox cssText-center">© 2017 ООО «KupiBilet» | 
-        	<?$APPLICATION->IncludeFile(
-				SITE_DIR."/include/main/mail.php",
-				array(),
-				array(
-					"MODE" => "text"
-				)
-			); ?>
+        <div class="engBox">
+			<div class="engBox-4 engMb"></div>
+			<div class="engBox-4 engMb cssText-center">
+				© 2017 ООО «KupiBilet» | 
+				<?$APPLICATION->IncludeFile(
+					SITE_DIR."/include/main/mail.php",
+					array(),
+					array(
+						"MODE" => "text"
+					)
+				); ?>
+			</div>
+			<div class="engBox-4 engMb cssText-right">
+				<a href="http://www.web-kmv.ru/" target="_blank" style="color: #a8a8a8;">
+					<img src="/images/wkmv.png" ><br>
+					Разработка студии Вебмастер КМВ</a>
+			</div>
         </div>
     </div>
 </footer>

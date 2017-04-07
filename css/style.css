@@ -436,7 +436,7 @@ footer {clear: both; margin-top: 20px;}
 .elFooter .it-menu.set-soc li {display: inline-block; width: 49%;}
 .elFooter .it-menu.set-cart li {display: inline-block;}
 
-.elFooter-down-full {clear: both; padding: 20px;
+.elFooter-down-full {clear: both; padding: 20px; overflow: hidden;
     background: #1f1e1e; color: #ffffff;}
 
 @media only screen and (max-width: 1200px) {

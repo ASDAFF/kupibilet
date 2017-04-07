@@ -50,7 +50,7 @@ else
 				elseif ($order['STATUS_ID'] == 'F')
 				{
 					$status = 'Оплачен';
-					$action = 'Респечатать';
+					$action = 'Распечатать';
 					$href = '/personal/order/print/?id=' . $order['ID'];
 					$price = $order['PRICE'] . ' руб.';
 				}
