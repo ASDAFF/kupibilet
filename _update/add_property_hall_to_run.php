@@ -11,7 +11,7 @@ $rsProps = CIBlockProperty::GetList([], [
     'CODE' => $sCode,
 ]);
 if ($arProp = $rsProps->Fetch()) {
-    ?><p>Свойство "<?= $sName ?>" уже существует</p><?
+    echo "Свойство \"$sName\" уже существует";
 } else {
     $arFields = [
         'MULTIPLE' => 'N',
