@@ -26,8 +26,8 @@ if ($arProp = $rsProps->Fetch()) {
 
     $iPropId = $oCIBlockProperty->Add($arFields);
     if ($iPropId) {
-        ?><p>Добавлено свойство "<?= $sName ?>"</p><?
+        echo "Добавлено свойство \"$sName\"";
     } else {
-        ?><p>Ошибка добавления свойства "<?= $sName ?>"</p><?
+        echo "Ошибка добавления свойства \"$sName\"";
     }
 }
