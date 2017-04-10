@@ -174,7 +174,7 @@ var Quotas = {
 			Quotas.save();
 		}
 		else {
-            zalItem.splice(6, 1);
+            zalItem[6] = null;
             point.css({'background-color': 'transparent'});
             Quotas.save();
         }
@@ -222,6 +222,15 @@ var Quotas = {
 		delete Quotas.QuotasArray[id];
 		tr.remove();
 		Quotas.correctMargin();
+
+		for(var i in Quotas.ZalArray){
+			var item = Quotas.ZalArray[i];
+            if(item[6] == id){
+                item[6] = null;
+                $('.elZal-item#'+i+' div').css({'background-color': 'transparent'});
+			}
+		}
+
 		Quotas.save();
 	},
 	clearCurrent: function() {
