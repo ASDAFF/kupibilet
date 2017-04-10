@@ -134,9 +134,9 @@ class Event
 		$return = array();
 		$items = self::getAll($refreshCache);
 		foreach ($items as $eventId => $event)
-			foreach ($event['RUNS'] as $ts)
+			foreach ($event['RUNS'] as $run)
 			{
-				$date = ConvertTimeStamp($ts);
+				$date = ConvertTimeStamp($run['TS']);
 				$return[$date] = $date;
 			}
 
