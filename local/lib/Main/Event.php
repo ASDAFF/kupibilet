@@ -229,8 +229,9 @@ class Event
 						if (isset($value['FROM']) || isset($value['TO']) || isset($value['DAY']))
 						{
 							$ex = false;
-							foreach ($product['RUNS'] as $ts)
+							foreach ($product['RUNS'] as $run)
 							{
+								$ts = $run['TS'];
 								if (isset($value['DAY']))
 								{
 									if ($ts >= $value['DAY'] && $ts <= $value['DAY'] + 86400)
