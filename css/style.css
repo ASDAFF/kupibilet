@@ -185,7 +185,9 @@ button.engInputYa {height: 36px;}
     color: #ffffff;
     font-weight: 800;
     position: absolute; z-index: 1;
-    right: 10px; bottom: 0;}
+    right: 10px;}
+.engBtn-kup.set1 {top: 0;}
+
 .engBtn-kyp:hover {background: #fc2f2f;}
 
 .engBtn {display: inline-block; background: #ecdf39;
@@ -1138,7 +1140,7 @@ html .ep-form .ui-button.ui-state-disabled:active{
     margin-top: 35px;
 }
 .ep-form li {position: relative;}
-.ep-form .engBtn-kyp {position: absolute; right: 0;}
+.ep-form .engBtn-kyp {position: absolute; right: 0; }
 @media only screen and (max-width: 1200px) {
     .ep-form .engBtn-kyp {position: relative; margin-left: 10px;}
 }
@@ -1591,8 +1593,9 @@ html .city-select .ui-button.ui-state-disabled:active{
 .elFormYes {margin-bottom: 10px; position: relative;}
 .elFormYes input {position: relative; left: 0; top: 6px; width: 18px; height: 18px;}
 
-.ep-form li {margin-bottom: 14px;;}
-
+.ep-form li {margin-bottom: 14px; padding-right: 150px;}
+@media only screen and (max-width: 750px) {
+	.ep-form li {padding-right: 0;}}
 
 .elCart  {width: 170px; padding: 26px 0; float: right; position: relative;}
 .elCart-icon {position: absolute; left: 0;}
