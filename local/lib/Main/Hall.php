@@ -44,7 +44,7 @@ class Hall
 			    'ACTIVE' => 'Y',
 			), false, false, array(
 				'ID', 'NAME', 'CODE', 'DETAIL_TEXT', 'DETAIL_PICTURE', 'IBLOCK_SECTION_ID',
-                'PROPERTY_SCHEME', 'PROPERTY_ADDRESS',
+                'PROPERTY_SCHEME', 'PROPERTY_ADDRESS', 'PROPERTY_ZONE',
 			));
 			while ($item = $rsItems->Fetch())
 			{
@@ -60,6 +60,7 @@ class Hall
 				    'DETAIL_PAGE_URL' => self::DIR . ($item['CODE'] ? $item['CODE'] : $item['ID']) . '/',
 				    'SCHEME' => $item['PROPERTY_SCHEME_VALUE'],
                     'ADDRESS' => $item['PROPERTY_ADDRESS_VALUE'],
+                    'ZONE' => $item['PROPERTY_ZONE_VALUE']['TEXT'],
 				    'CITY' => $city['NAME'],
 				);
 				if ($item['CODE'])

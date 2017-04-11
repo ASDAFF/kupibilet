@@ -85,7 +85,21 @@ $reserved = \Local\Sale\Reserve::getByRun($run['ID'])
 				</div>
 			</div>
 		</div>
-	</div>
+	</div><?
+
+	if ($hall['ZONE'])
+	{
+		?>
+		<div class="engBox">
+			<div class="elZalScen">
+				<div class="it-title"><span>Сцена</span></div>
+				<?= $hall['ZONE'] ?>
+			</div>
+		</div>
+		<?
+	}
+
+	?>
 	<div class="engBox">
         <div class="elZalZoom">
                 <span id="elZalBtnPlus" class="cssBorderRadius set-100">
