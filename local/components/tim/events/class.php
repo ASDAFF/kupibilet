@@ -8,10 +8,6 @@ use Bitrix\Main\Loader;
  */
 class TimEvents extends \CBitrixComponent
 {
-	/**
-	 * Количество элементов на странице
-	 */
-	const PAGE_SIZE = 12;
 
 	/**
 	 * @var array параметры сортировки
@@ -44,11 +40,6 @@ class TimEvents extends \CBitrixComponent
 	 * @var array текущая сортировка
 	 */
 	private $sort;
-
-	/**
-	 * @var array параметры постранички
-	 */
-	public $navParams;
 
 	/**
 	 * @var string поисковый запрос
@@ -107,8 +98,7 @@ class TimEvents extends \CBitrixComponent
 		if (!$empty)
 		{
 			$this->filter = Filter::getData($this->searchIds, $this->searchQuery, $this->urlParams);
-			$this->products = Event::getByFilter($this->sort['QUERY'], $this->filter['PRODUCTS_IDS'],
-				$this->navParams);
+			$this->products = Event::getByFilter($this->sort['QUERY'], $this->filter['PRODUCTS_IDS']);
 		}
 
 		$this->SetPageProperties();
@@ -204,17 +194,6 @@ class TimEvents extends \CBitrixComponent
 			$this->sortParams[$this->sort['KEY']]['ORDER'] = $this->sort['ORDER'];
 		}
 		$this->sort['QUERY'] = $sortQuery;
-
-		//
-		// Постраничная навигация
-		//
-		$page = $this->urlParams['page'];
-		if (intval($page) <= 0)
-			$page = 1;
-		$this->navParams = array(
-			'iNumPage' => $page,
-			'nPageSize' => self::PAGE_SIZE,
-		);
 	}
 
 	/**

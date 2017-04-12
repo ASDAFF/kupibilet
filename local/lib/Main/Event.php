@@ -417,7 +417,7 @@ class Event
 	 * @param bool|false $refreshCache
 	 * @return array
 	 */
-	public static function getByFilter($sort, $productIds, $nav, $refreshCache = false)
+	public static function getByFilter($sort, $productIds, $nav = false, $refreshCache = false)
 	{
 		$return = array();
 
