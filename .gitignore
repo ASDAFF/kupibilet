@@ -26,3 +26,4 @@ google*.html
 .idea
 .DS_Store
 Thumbs.db
+!/bitrix/admin/info.php

@@ -32,7 +32,7 @@ class Reserve
 	 * @throws \Bitrix\Main\ArgumentException
 	 * @throws \Bitrix\Main\SystemException
 	 */
-	public static function getByRun($runId)
+	public static function getByRun($runId,$full=false)
 	{
 		$entityInfo = HighloadBlockTable::getById(static::ENTITY_ID)->Fetch();
 		$entity = HighloadBlockTable::compileEntity($entityInfo);
@@ -45,8 +45,32 @@ class Reserve
 		$return = array();
 		while ($item = $rsItems->Fetch())
 		{
+			if(!$full){
+				$sit = intval($item['UF_SIT']);
+				$return[$sit] = intval($item['UF_CART']);
+			}else{
+				$return[] = $item;
+			}
+
+		}
+
+		return $return;
+	}
+
+	public static function getByFilter($filter = [])
+	{
+		$entityInfo = HighloadBlockTable::getById(static::ENTITY_ID)->Fetch();
+		$entity = HighloadBlockTable::compileEntity($entityInfo);
+		$dataClass = $entity->getDataClass();
+		$rsItems = $dataClass::getList(array(
+			'filter' => $filter,
+		));
+		$return = array();
+		while ($item = $rsItems->Fetch())
+		{
 			$sit = intval($item['UF_SIT']);
 			$return[$sit] = intval($item['UF_CART']);
+
 		}
 
 		return $return;
