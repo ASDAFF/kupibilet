@@ -46,6 +46,8 @@ class Handlers
                 array(__NAMESPACE__ . '\Handlers', 'afterUserLogout'));
             AddEventHandler('main', 'OnAfterUserLogin',
                 array(__NAMESPACE__ . '\Handlers', 'afterUserLogin'));
+			AddEventHandler('main', 'OnBuildGlobalMenu',
+				array(__NAMESPACE__ . '\Handlers', 'buildGlobalMenu'));
 		}
 	}
 
@@ -150,6 +152,20 @@ class Handlers
     {
         Cart::updateSessionCartSummary();
     }
+
+	public static function buildGlobalMenu(&$adminMenu, &$moduleMenu) {
+		// Добавляем пункты меню в админку
+		$moduleMenu[] = array(
+			'parent_menu' => 'global_menu_content',
+			'section' => 'chat',
+			'sort' => 60,
+			'text' => 'Информация',
+			'title' => 'Информация о проданных билетах',
+			'url' => 'info.php',
+			'icon' => 'statistic_icon_summary',
+			'items_id' => 'info',
+		);
+	}
 
 
 }

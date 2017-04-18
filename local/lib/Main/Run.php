@@ -51,6 +51,7 @@ class Run
 				'IBLOCK_ID' => self::IBLOCK_ID,
 			), false, false, array(
 				'ID',
+				'NAME',
 				'PROPERTY_EVENT',
 				'PROPERTY_DATE',
                 'PROPERTY_HALL',
@@ -62,6 +63,7 @@ class Run
 				$eventId = intval($item['PROPERTY_EVENT_VALUE']);
 				$return[$eventId][$id] = array(
 					'ID' => $id,
+					'NAME' => $item['NAME'],
 				    'DATE' => $item['PROPERTY_DATE_VALUE'],
 				    'TS' => MakeTimeStamp($item['PROPERTY_DATE_VALUE']),
                     'HALL' => $item['PROPERTY_HALL_VALUE'],
