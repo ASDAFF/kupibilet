@@ -147,9 +147,6 @@ $dates = \Local\Main\Event::getAllDates();
 foreach ($filter['BC'] as $i => $item)
     $APPLICATION->AddChainItem($item['NAME'], $item['HREF']);
 
-if ($component->navParams['iNumPage'] > 1)
-    $component->seo['TITLE'] .= ' - страница ' . $component->navParams['iNumPage'];
-
 if ($component->seo['H1'])
     $APPLICATION->SetTitle($component->seo['H1']);
 if ($component->seo['TITLE'])

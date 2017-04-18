@@ -25,7 +25,6 @@ $events = \Local\Main\Event::getByHall($hall['ID']);
         <div class='up-events-list'><?
 	        foreach ($events as $event)
 	        {
-
 		        $run = \Local\Main\Run::getClosest($event['RUNS']);
 		        $price = $event['PRICE'];
 		        if ($event['PRICE'] != $event['PRICE_TO'])

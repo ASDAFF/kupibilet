@@ -134,9 +134,9 @@ class Event
 		$return = array();
 		$items = self::getAll($refreshCache);
 		foreach ($items as $eventId => $event)
-			foreach ($event['RUNS'] as $ts)
+			foreach ($event['RUNS'] as $run)
 			{
-				$date = ConvertTimeStamp($ts);
+				$date = ConvertTimeStamp($run['TS']);
 				$return[$date] = $date;
 			}
 
@@ -229,8 +229,9 @@ class Event
 						if (isset($value['FROM']) || isset($value['TO']) || isset($value['DAY']))
 						{
 							$ex = false;
-							foreach ($product['RUNS'] as $ts)
+							foreach ($product['RUNS'] as $run)
 							{
+								$ts = $run['TS'];
 								if (isset($value['DAY']))
 								{
 									if ($ts >= $value['DAY'] && $ts <= $value['DAY'] + 86400)
@@ -416,7 +417,7 @@ class Event
 	 * @param bool|false $refreshCache
 	 * @return array
 	 */
-	public static function getByFilter($sort, $productIds, $nav, $refreshCache = false)
+	public static function getByFilter($sort, $productIds, $nav = false, $refreshCache = false)
 	{
 		$return = array();
 

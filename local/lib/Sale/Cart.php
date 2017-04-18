@@ -203,7 +203,10 @@ class Cart
 		if (!$price)
 			return false;
 
-		$hall = Hall::getById($event['PRODUCT']['HALL']);
+		$h = $run['HALL'];
+		if (!$h)
+			$h = $event['PRODUCT']['SELF_HALL'];
+		$hall = Hall::getById($h);
 
 		$scheme = json_decode($hall['SCHEME'], true);
 		$sit = $scheme[$sitId];

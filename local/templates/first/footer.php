@@ -131,9 +131,8 @@
 				); ?>
 			</div>
 			<div class="engBox-4 engMb cssText-right">
-				<a href="http://www.web-kmv.ru/" target="_blank" style="color: #a8a8a8;">
-					<img src="/images/wkmv.png" ><br>
-					Разработка студии Вебмастер КМВ</a>
+				<a href="http://www.web-kmv.ru/" target="_blank" style="color: #a8a8a8; position: relative; top: -11px;">
+					<img src="/images/wkmv.png" ></a>
 			</div>
         </div>
     </div>

@@ -185,7 +185,9 @@ button.engInputYa {height: 36px;}
     color: #ffffff;
     font-weight: 800;
     position: absolute; z-index: 1;
-    right: 10px; bottom: 0;}
+    right: 10px;}
+.engBtn-kup.set1 {top: 0;}
+
 .engBtn-kyp:hover {background: #fc2f2f;}
 
 .engBtn {display: inline-block; background: #ecdf39;
@@ -1138,7 +1140,7 @@ html .ep-form .ui-button.ui-state-disabled:active{
     margin-top: 35px;
 }
 .ep-form li {position: relative;}
-.ep-form .engBtn-kyp {position: absolute; right: 0;}
+.ep-form .engBtn-kyp {position: absolute; right: 0; }
 @media only screen and (max-width: 1200px) {
     .ep-form .engBtn-kyp {position: relative; margin-left: 10px;}
 }
@@ -1591,8 +1593,9 @@ html .city-select .ui-button.ui-state-disabled:active{
 .elFormYes {margin-bottom: 10px; position: relative;}
 .elFormYes input {position: relative; left: 0; top: 6px; width: 18px; height: 18px;}
 
-.ep-form li {margin-bottom: 14px;;}
-
+.ep-form li {margin-bottom: 14px; padding-right: 150px;}
+@media only screen and (max-width: 750px) {
+	.ep-form li {padding-right: 0;}}
 
 .elCart  {width: 170px; padding: 26px 0; float: right; position: relative;}
 .elCart-icon {position: absolute; left: 0;}
@@ -1613,3 +1616,260 @@ html .city-select .ui-button.ui-state-disabled:active{
 
 
 }
+
+/* Выбор зоны */
+.elZal-box {margin: 30px auto;}
+
+
+.elZalScen {overflow: hidden; margin: 20px auto; width: auto; }
+.elZalScen.set-rot-180,
+.elZalScen div.set-rot-180,
+.elZalScen span.set-rot-180{
+    -moz-transform: rotate(180deg); /* Для Firefox */
+    -ms-transform: rotate(180deg); /* Для IE */
+    -webkit-transform: rotate(180deg); /* Для Safari, Chrome, iOS */
+    -o-transform: rotate(180deg); /* Для Opera */
+    transform: rotate(180deg);}
+
+
+.elZalScen .it-title {margin-top: 20px; margin-bottom: 20px;
+    background: #e3e2e2; color: #fd7878;
+    font-size: 17px; text-transform: uppercase; font-weight: 900;}
+.elZalScen .it-title span {margin: 0 auto; display: block;
+    width: 80px; text-align: center;
+    background: #fff;}
+.elZalScenBox {position: relative; margin: auto; margin-top: 35px;}
+.elZalScenBox .it-item {position: absolute; cursor: pointer;
+    background-repeat: no-repeat;}
+.elZalScenBox .it-item span {display: block; margin: 10px;
+    text-align: center; color: #fff;
+    font-size: 11px; font-weight: 600;}
+.elZalScenBox .it-item-text {position: absolute; z-index: 10;}
+.elZalScenBox .it-item-text span {display: block; margin: 10px;
+    text-align: center; color: #7f7e7c;
+    font-size: 12px; font-weight: 800;}
+/* Зал 1 Камертон*/
+.elZalScenBox.set-zal-1 {width: 399px; height: 104px;}
+
+@media only screen and (max-width: 500px) {.elZalScenBox.set-zal-1{zoom: 0.9;}}
+@media only screen and (max-width: 400px) {.elZalScenBox.set-zal-1{zoom: 0.8;}}
+@media only screen and (max-width: 350px) {.elZalScenBox.set-zal-1{zoom: 0.6;}}
+@media only screen and (max-width: 200px) {.elZalScenBox.set-zal-1{zoom: 0.5;}}
+
+.elZalScenBox .set-zal-1-1 {width: 117px; height: 66px; left: 0; top: 0;
+    background: url('../images/zal/1-1.png');
+    -webkit-transform: rotate(30deg); -moz-transform: rotate(30deg); -ms-transform: rotate(30deg);
+    -o-transform: rotate(30deg); transform: rotate(30deg);}
+.elZalScenBox .set-zal-1-1.active,
+.elZalScenBox .set-zal-1-1:hover {background-position: 0 -70px;}
+
+.elZalScenBox .set-zal-1-2 {width: 172px; height: 67px; left: 109px; top: 33px;
+    background: url('../images/zal/1-2.png');}
+.elZalScenBox .set-zal-1-2.active,
+.elZalScenBox .set-zal-1-2:hover {background-position: 0 -70px;}
+
+.elZalScenBox .set-zal-1-3 {width: 121px; height: 67px; left: 276px; top: 0;
+    background: url('../images/zal/1-3.png');
+    -webkit-transform: rotate(-30deg); -moz-transform: rotate(-30deg); -ms-transform: rotate(-30deg);
+    -o-transform: rotate(-30deg); transform: rotate(-30deg);}
+.elZalScenBox .set-zal-1-3.active,
+.elZalScenBox .set-zal-1-3:hover {background-position: 0 -70px;}
+
+/* Зал 2 Шаляпин*/
+.elZalScenBox.set-zal-2 {width: 235px; height: 295px;}
+
+@media only screen and (max-width: 400px) {.elZalScenBox.set-zal-2{zoom: 0.9;}}
+@media only screen and (max-width: 350px) {.elZalScenBox.set-zal-2{zoom: 0.8;}}
+@media only screen and (max-width: 200px) {.elZalScenBox.set-zal-2{zoom: 0.6;}}
+@media only screen and (max-width: 150px) {.elZalScenBox.set-zal-2{zoom: 0.5;}}
+
+.elZalScenBox .set-text-2-1 {left: 71px; top: 68px;}
+.elZalScenBox .set-text-2-2 {left: 85px; top: 97px;}
+
+.elZalScenBox .set-zal-2-1 {width: 80px; height: 136px; left: 0; top: 0;
+    background: url('../images/zal/2-1.png');
+    background-position: 0 -150px;}
+.elZalScenBox .set-zal-2-1.active,
+.elZalScenBox .set-zal-2-1:hover {background-position: 0 0;}
+
+.elZalScenBox .set-zal-2-2 {width: 112px; height: 84px; left: 62px; top: -10px;
+    background: url('../images/zal/2-2.png');
+    background-position: 0 -95px;}
+.elZalScenBox .set-zal-2-2.active,
+.elZalScenBox .set-zal-2-2:hover {background-position: 0 0;}
+
+.elZalScenBox .set-zal-2-3 {width: 71px; height: 132px; left: 159px; top: 2px;
+    background: url('../images/zal/2-3.png');
+    background-position: 0 -150px;}
+.elZalScenBox .set-zal-2-3.active,
+.elZalScenBox .set-zal-2-3:hover {background-position: 0 0;}
+
+.elZalScenBox .set-zal-2-4 {width: 61px; height: 152px; left: 17px; top: 136px;
+    background: url('../images/zal/2-4.png');
+    background-position: 0 -159px;}
+.elZalScenBox .set-zal-2-4.active,
+.elZalScenBox .set-zal-2-4:hover {background-position: 0 0;}
+
+.elZalScenBox .set-zal-2-5 {width: 95px; height: 147px; left: 70px; top: 127px;
+    background: url('../images/zal/2-5.png');
+    background-position: 0 -150px;}
+.elZalScenBox .set-zal-2-5.active,
+.elZalScenBox .set-zal-2-5:hover {background-position: 0 0;}
+
+.elZalScenBox .set-zal-2-6 {width: 61px; height: 152px; left: 153px; top: 135px;
+    background: url('../images/zal/2-6.png');
+    background-position: 0 -156px;}
+.elZalScenBox .set-zal-2-6.active,
+.elZalScenBox .set-zal-2-6:hover {background-position: 0 0;}
+
+
+/* Зал 3 Скрябина*/
+.elZalScenBox.set-zal-3 {width: 330px; height: 185px;}
+
+@media only screen and (max-width: 400px) {.elZalScenBox.set-zal-3{zoom: 0.9;}}
+@media only screen and (max-width: 350px) {.elZalScenBox.set-zal-3{zoom: 0.8;}}
+@media only screen and (max-width: 200px) {.elZalScenBox.set-zal-3{zoom: 0.6;}}
+@media only screen and (max-width: 150px) {.elZalScenBox.set-zal-3{zoom: 0.5;}}
+
+
+
+.elZalScenBox .set-zal-3-1 {width: 35px; height: 140px; left: 0; top: 0;
+    background: url('../images/zal/3-1.png');}
+.elZalScenBox .set-zal-3-1.active,
+.elZalScenBox .set-zal-3-1:hover {background-position: 0 -141px;}
+.elZalScenBox .set-zal-3-1 span {margin: 52px 0;
+    -webkit-transform: rotate(90deg); transform: rotate(90deg); white-space: nowrap;}
+
+.elZalScenBox .set-zal-3-2 {width: 70px; height: 190px; left: 30px; top: -10px;
+    background: url('../images/zal/3-2.png');}
+.elZalScenBox .set-zal-3-2.active,
+.elZalScenBox .set-zal-3-2:hover {background-position: 0 -199px;}
+
+.elZalScenBox .set-zal-3-3 {width: 142px; height: 185px; left: 95px; top: -10px;
+    background: url('../images/zal/3-3.png');}
+.elZalScenBox .set-zal-3-3.active,
+.elZalScenBox .set-zal-3-3:hover {background-position: 0 -199px;}
+
+.elZalScenBox .set-zal-3-4 {width: 70px; height: 190px; left: 232px; top: -10px;
+    background: url('../images/zal/3-4.png');}
+.elZalScenBox .set-zal-3-4.active,
+.elZalScenBox .set-zal-3-4:hover {background-position: 0 -199px;}
+
+.elZalScenBox .set-zal-3-5 {width: 25px; height: 130px; left: 300px; top: 2px;
+    background: url('../images/zal/3-5.png');}
+.elZalScenBox .set-zal-3-5.active,
+.elZalScenBox .set-zal-3-5:hover {background-position: 0 -136px;}
+.elZalScenBox .set-zal-3-5 span {margin: 44px 0;
+    -webkit-transform: rotate(90deg); transform: rotate(90deg); white-space: nowrap;}
+
+/* Зал 4 Лермонтов 2*/
+.elZalScenBox.set-zal-4 {width: 200px; height: 300px;}
+
+@media only screen and (max-width: 400px) {.elZalScenBox.set-zal-4{zoom: 0.9;}}
+@media only screen and (max-width: 350px) {.elZalScenBox.set-zal-4{zoom: 0.8;}}
+@media only screen and (max-width: 200px) {.elZalScenBox.set-zal-4{zoom: 0.6;}}
+@media only screen and (max-width: 150px) {.elZalScenBox.set-zal-4{zoom: 0.5;}}
+
+
+
+.elZalScenBox .set-zal-4-1 {width: 95px; height: 190px; left: 0; top: 0;
+    background: url('../images/zal/4-1.png');}
+.elZalScenBox .set-zal-4-1.active,
+.elZalScenBox .set-zal-4-1:hover {background-position: 0 -244px;}
+
+.elZalScenBox .set-zal-4-2 {width: 99px; height: 30px; left: 0; top: 209px;
+    background: url('../images/zal/4-2.png');}
+.elZalScenBox .set-zal-4-2.active,
+.elZalScenBox .set-zal-4-2:hover {background-position: 0 -31px;}
+
+.elZalScenBox .set-zal-4-3 {width: 99px; height: 43px; left: 0; top: 250px;
+    background: url('../images/zal/4-3.png');}
+.elZalScenBox .set-zal-4-3.active,
+.elZalScenBox .set-zal-4-3:hover {background-position: 0 -220px;}
+
+.elZalScenBox .set-zal-4-4 {width: 95px; height: 65px; left: 110px; top: 0;
+    background: url('../images/zal/4-4.png');}
+.elZalScenBox .set-zal-4-4.active,
+.elZalScenBox .set-zal-4-4:hover {background-position: 0 -200px;}
+
+.elZalScenBox .set-zal-4-5 {width: 95px; height: 85px; left: 110px; top: 70px;
+    background: url('../images/zal/4-5.png');
+    background-position: 0 -4px;}
+.elZalScenBox .set-zal-4-5.active,
+.elZalScenBox .set-zal-4-5:hover {background-position: 0 -90px;}
+
+.elZalScenBox .set-zal-4-6 {width: 65px; height: 73px; left: 114px; top: 160px;
+    background: url('../images/zal/4-6.png');}
+.elZalScenBox .set-zal-4-6.active,
+.elZalScenBox .set-zal-4-6:hover {background-position: 0 -86px;}
+
+.elZalScenBox .set-zal-4-7 {width: 51px; height: 42px; left: 116px; top: 249px;
+    background: url('../images/zal/4-7.png');}
+.elZalScenBox .set-zal-4-7.active,
+.elZalScenBox .set-zal-4-7:hover {background-position: 0 -42px;}
+
+/* Зал 5 Лермонтов 1*/
+.elZalScenBox.set-zal-5 {width: 225px; height: 277px;}
+
+@media only screen and (max-width: 400px) {.elZalScenBox.set-zal-5{zoom: 0.9;}}
+@media only screen and (max-width: 350px) {.elZalScenBox.set-zal-5{zoom: 0.8;}}
+@media only screen and (max-width: 200px) {.elZalScenBox.set-zal-5{zoom: 0.6;}}
+@media only screen and (max-width: 150px) {.elZalScenBox.set-zal-5{zoom: 0.5;}}
+
+
+
+.elZalScenBox .set-zal-5-1 {width: 104px; height: 52px; left: 0; top: 0;
+    background: url('../images/zal/5-1.png');}
+.elZalScenBox .set-zal-5-1.active,
+.elZalScenBox .set-zal-5-1:hover {background-position: 0 -267px;}
+
+.elZalScenBox .set-zal-5-2 {width: 104px; height: 85px; left: 0; top: 60px;
+    background: url('../images/zal/5-2.png');}
+.elZalScenBox .set-zal-5-2.active,
+.elZalScenBox .set-zal-5-2:hover {background-position: 0 -84px;}
+
+.elZalScenBox .set-zal-5-3 {width: 83px; height: 103px; left: 0; top: 150px;
+    background: url('../images/zal/5-3.png');}
+.elZalScenBox .set-zal-5-3.active,
+.elZalScenBox .set-zal-5-3:hover {background-position: 0 -107px;}
+
+.elZalScenBox .set-zal-5-4 {width: 113px; height: 275px; left: 110px; top: 0;
+    background: url('../images/zal/5-4.png');}
+.elZalScenBox .set-zal-5-4.active,
+.elZalScenBox .set-zal-5-4:hover {background-position: 0 -284px;}
+
+/* Зал 6 Сафонов*/
+.elZalScenBox.set-zal-6 {width: 365px; height: 222px;}
+
+@media only screen and (max-width: 400px) {.elZalScenBox.set-zal-6{zoom: 0.9;}}
+@media only screen and (max-width: 350px) {.elZalScenBox.set-zal-6{zoom: 0.8;}}
+@media only screen and (max-width: 200px) {.elZalScenBox.set-zal-6{zoom: 0.6;}}
+@media only screen and (max-width: 150px) {.elZalScenBox.set-zal-6{zoom: 0.5;}}
+
+
+
+.elZalScenBox .set-zal-6-1 {width: 28px; height: 221px; left: 0; top: 0;
+    background: url('../images/zal/6-1.png');}
+.elZalScenBox .set-zal-6-1.active,
+.elZalScenBox .set-zal-6-1:hover {background-position: 0 -228px;}
+.elZalScenBox .set-zal-6-1 span {margin: 85px 0;
+    -webkit-transform: rotate(90deg); transform: rotate(90deg); white-space: nowrap;}
+
+.elZalScenBox .set-zal-6-2 {width: 238px; height: 35px; left: 72px; top: 0;
+    background: url('../images/zal/6-2.png');}
+.elZalScenBox .set-zal-6-2.active,
+.elZalScenBox .set-zal-6-2:hover {background-position: 0 -112px;}
+.elZalScenBox .set-zal-6-2 span {margin: 8px 0; white-space: nowrap;}
+
+.elZalScenBox .set-zal-6-3 {width: 278px; height: 157px; left: 45px; top: 45px;
+    background: url('../images/zal/6-3.png');}
+.elZalScenBox .set-zal-6-3.active,
+.elZalScenBox .set-zal-6-3:hover {background-position: 0 -158px;}
+.elZalScenBox .set-zal-6-3 span {margin: 75px 0;  white-space: nowrap;}
+
+.elZalScenBox .set-zal-6-4 {width: 26px; height: 219px; left: 340px; top: 0;
+    background: url('../images/zal/6-4.png');}
+.elZalScenBox .set-zal-6-4.active,
+.elZalScenBox .set-zal-6-4:hover {background-position: 0 -225px;}
+.elZalScenBox .set-zal-6-4 span {margin: 75px 0;
+    -webkit-transform: rotate(90deg); transform: rotate(90deg); white-space: nowrap;}

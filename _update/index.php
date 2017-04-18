@@ -30,6 +30,7 @@ include ('add_order_status.php');
 //include ('change_mail_template.php');
 include ('cart_cache_hl_block.php');
 include ('add_property_hall_to_run.php');
+include ('add_property_zone.php');
 
 if (!$console)
 	echo '</pre>';

@@ -43,7 +43,8 @@ var Quotas = {
 				//newTr.find('.current').val(row[2]);
 				var l = row[2].length;
 				for (var i1 = 0; i1 < l; i1++) {
-					this.ZalArray[row[2][i1]][6] = j;
+					if (this.ZalArray[row[2][i1]])
+						this.ZalArray[row[2][i1]][6] = j;
 				}
 				Quotas.tbody.append(newTr);
 				ex = true;

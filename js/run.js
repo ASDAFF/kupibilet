@@ -18,10 +18,12 @@ var Run = {
 		this.priceRow = this.ZalInf.find('.priceRow');
 		this.eventId = this.Zal.data('event');
 		this.runId = this.Zal.data('run');
+		this.elZalScenBox = $('.elZalScenBox');
 
 		this.ZalBox.on('mouseenter', '.elZal-item', this.hover);
 		this.ZalBox.on('mouseleave', '.elZal-item', this.leave);
 		this.ZalBox.on('click', '.elZal-point.on', this.click);
+		this.elZalScenBox.find('.it-item').on('click', this.itClick);
 	},
 	hover: function() {
 		var item = $(this);
@@ -77,6 +79,52 @@ var Run = {
 					TopCart.update(data.CART);
 			}
 		});
+	},
+	itClick: function() {
+		Run.tZalMin_top = 99999;
+		Run.tZalMin_left = 99999;
+		Run.tZalMax_top = 0;
+		Run.tZalMax_left = 0;
+
+		Run.itUpdate($(this));
+		Run.ZalBox.css("max-width", Run.tZalMax_left - Run.tZalMin_left + 50);
+		Run.ZalBox.css("max-height", Run.tZalMax_top - Run.tZalMin_top + 50);
+
+		// Двигаемся к залам
+		$('html , body').animate({scrollTop: $(Run.elZalScenBox).offset().top}, 1000);
+	},
+	itUpdate: function(item) {
+		Run.zoneName = item.attr('data-zal');
+		Run.elZalScenBox.find('.it-item').removeClass('active');
+		item.addClass('active');
+
+		Run.ZalBox.children().hide();
+		// Перебераем массив и определяем сколько нужно порезать cлева и справа
+		for (var i in Run.ZalArray) {
+			if (Run.ZalArray[i][3] === Run.zoneName) {
+				if (Run.tZalMin_top > Run.ZalArray[i][1])
+					Run.tZalMin_top = Run.ZalArray[i][1];
+				if (Run.tZalMin_left > Run.ZalArray[i][0])
+					Run.tZalMin_left = Run.ZalArray[i][0];
+				if (Run.tZalMax_top < Run.ZalArray[i][1])
+					Run.tZalMax_top = Run.ZalArray[i][1];
+				if (Run.tZalMax_left < Run.ZalArray[i][0])
+					Run.tZalMax_left = Run.ZalArray[i][0];
+			}
+		}
+
+		// Перебераем массив
+		for (var i in Run.ZalArray) {
+			if (Run.ZalArray[i][3] === Run.zoneName) {
+				var tmp = Run.ZalBox.children('#' + i);
+				tmp.css({
+					top: '' + (Run.ZalArray[i][1] - Run.tZalMin_top) + 'px',
+					left: '' + (Run.ZalArray[i][0] - Run.tZalMin_left) + 'px'
+				});
+				tmp.show();
+			}
+		}
+
 	}
 };
 
