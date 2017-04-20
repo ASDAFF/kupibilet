@@ -34,15 +34,14 @@ if ($_REQUEST['find_id'])
 	while ($cart = $carts->Fetch())
 	{
 		$cartIds[] = $cart['ID'];
-		$orderObj = $order->GetList([],['ID' => $ordersIds])->Fetch();
+		$arOrder = $order->GetByID($cart['ORDER_ID']);
+		$cart['DELIVERY'] = ($arOrder['PRICE_DELIVERY']) ? 'Да' : 'Нет';
 		$res[$cart['ID']] = $cart;
-		$res[$cart['ID']]['DELIVERY'] = ($orderObj['ALLOW_DELIVERY'] == 'Y') ? 'Да' : 'Нет';
 	}
 
 	if ($res)
 	{
 		$items = $baskets->GetPropsList([], ['@BASKET_ID' => $cartIds]);
-
 		while ($item = $items->Fetch())
 		{
 			$res[$item['BASKET_ID']][$item['CODE']] = $item['VALUE'];
