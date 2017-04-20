@@ -159,7 +159,7 @@ class Handlers
 			'parent_menu' => 'global_menu_content',
 			'section' => 'chat',
 			'sort' => 60,
-			'text' => 'Информация',
+			'text' => 'Отчеты о показах',
 			'title' => 'Информация о проданных билетах',
 			'url' => 'info.php',
 			'icon' => 'statistic_icon_summary',

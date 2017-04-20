@@ -28,27 +28,31 @@ class Reserve
 	/**
 	 * Получает забронированные билеты для показа
 	 * @param $runId
+	 * @param bool $full
 	 * @return array
 	 * @throws \Bitrix\Main\ArgumentException
 	 * @throws \Bitrix\Main\SystemException
 	 */
-	public static function getByRun($runId,$full=false)
+	public static function getByRun($runId, $full = false)
 	{
 		$entityInfo = HighloadBlockTable::getById(static::ENTITY_ID)->Fetch();
 		$entity = HighloadBlockTable::compileEntity($entityInfo);
 		$dataClass = $entity->getDataClass();
-		$rsItems = $dataClass::getList(array(
-			'filter' => array(
+		$rsItems = $dataClass::getList([
+			'filter' => [
 				'UF_RUN' => $runId,
-			),
-		));
-		$return = array();
+			],
+		]);
+		$return = [];
 		while ($item = $rsItems->Fetch())
 		{
-			if(!$full){
+			if (!$full)
+			{
 				$sit = intval($item['UF_SIT']);
 				$return[$sit] = intval($item['UF_CART']);
-			}else{
+			}
+			else
+			{
 				$return[] = $item;
 			}
 
@@ -62,15 +66,14 @@ class Reserve
 		$entityInfo = HighloadBlockTable::getById(static::ENTITY_ID)->Fetch();
 		$entity = HighloadBlockTable::compileEntity($entityInfo);
 		$dataClass = $entity->getDataClass();
-		$rsItems = $dataClass::getList(array(
+		$rsItems = $dataClass::getList([
 			'filter' => $filter,
-		));
-		$return = array();
+		]);
+		$return = [];
 		while ($item = $rsItems->Fetch())
 		{
 			$sit = intval($item['UF_SIT']);
 			$return[$sit] = intval($item['UF_CART']);
-
 		}
 
 		return $return;
@@ -102,7 +105,7 @@ class Reserve
 	 */
 	public static function add($runId, $sitId, $cartId)
 	{
-		$data = array();
+		$data = [];
 		$data['UF_SIT'] = $sitId;
 		$data['UF_RUN'] = $runId;
 		$data['UF_EXPIRED'] = time() + RESERVE_TIME;
@@ -127,12 +130,12 @@ class Reserve
 		$entityInfo = HighloadBlockTable::getById(static::ENTITY_ID)->Fetch();
 		$entity = HighloadBlockTable::compileEntity($entityInfo);
 		$dataClass = $entity->getDataClass();
-		$rsItems = $dataClass::getList(array(
-			'filter' => array(
+		$rsItems = $dataClass::getList([
+			'filter' => [
 				'UF_PAYED' => 0,
 			    '<UF_EXPIRED' => time(),
-			),
-		));
+			],
+		]);
 		while ($item = $rsItems->Fetch())
 		{
 			Cart::overdueOrderByCartId($item['UF_CART']);
@@ -144,11 +147,11 @@ class Reserve
 		$entityInfo = HighloadBlockTable::getById(static::ENTITY_ID)->Fetch();
 		$entity = HighloadBlockTable::compileEntity($entityInfo);
 		$dataClass = $entity->getDataClass();
-		$rsItems = $dataClass::getList(array(
-			'filter' => array(
+		$rsItems = $dataClass::getList([
+			'filter' => [
 				'=UF_CART' => $cartId,
-			),
-		));
+			],
+		]);
 		if ($item = $rsItems->Fetch())
 		{
 			$dataClass::delete($item['ID']);
@@ -160,15 +163,15 @@ class Reserve
         $entityInfo = HighloadBlockTable::getById(static::ENTITY_ID)->Fetch();
         $entity = HighloadBlockTable::compileEntity($entityInfo);
         $dataClass = $entity->getDataClass();
-        $rsItems = $dataClass::getList(array(
-            'filter' => array(
+        $rsItems = $dataClass::getList([
+            'filter' => [
                 '=UF_CART' => $itemId,
-            ),
-        ));
+            ],
+        ]);
         if ($item = $rsItems->Fetch())
             return $item;
 
-		return array();
+		return [];
     }
 
 	public static function prolong($cartId, $time)
@@ -176,20 +179,20 @@ class Reserve
 		$entityInfo = HighloadBlockTable::getById(static::ENTITY_ID)->Fetch();
 		$entity = HighloadBlockTable::compileEntity($entityInfo);
 		$dataClass = $entity->getDataClass();
-		$rsItems = $dataClass::getList(array(
-			'filter' => array(
+		$rsItems = $dataClass::getList([
+			'filter' => [
 				'=UF_CART' => $cartId,
-			),
-		));
+			],
+		]);
 		if ($item = $rsItems->Fetch())
 		{
 			if ($time === false)
 				$new = time() + RESERVE_TIME;
 			else
 				$new = $item['UF_EXPIRED'] + $time;
-			$dataClass::update($item['ID'], array(
+			$dataClass::update($item['ID'], [
 				'UF_EXPIRED' => $new,
-			));
+			]);
 		}
 	}
 
@@ -198,16 +201,16 @@ class Reserve
 		$entityInfo = HighloadBlockTable::getById(static::ENTITY_ID)->Fetch();
 		$entity = HighloadBlockTable::compileEntity($entityInfo);
 		$dataClass = $entity->getDataClass();
-		$rsItems = $dataClass::getList(array(
-			'filter' => array(
+		$rsItems = $dataClass::getList([
+			'filter' => [
 				'=UF_CART' => $cartId,
-			),
-		));
+			],
+		]);
 		if ($item = $rsItems->Fetch())
 		{
-			$dataClass::update($item['ID'], array(
+			$dataClass::update($item['ID'], [
 				'UF_PAYED' => 1,
-			));
+			]);
 		}
 	}
 

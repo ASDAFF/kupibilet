@@ -53,9 +53,8 @@ else
 					$action = 'Распечатать';
 					$href = '/personal/order/print/?id=' . $order['ID'];
 					$price = $order['PRICE'] . ' руб.';
-					if($order['ALLOW_DELIVERY'] == 'Y'){
+					if ($order['ALLOW_DELIVERY'] == 'Y')
 					    $href = '';
-                    }
 				}
 				elseif ($order['STATUS_ID'] == 'O')
 				{

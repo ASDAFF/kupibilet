@@ -4,7 +4,6 @@ require_once($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_ad
 require_once($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/sale/prolog.php");
 require_once($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/sale/include.php");
 
-
 // получим права доступа текущего пользователя на модуль
 $POST_RIGHT = $APPLICATION->GetGroupRight("sale");
 // если нет прав - отправим к форме авторизации с сообщением об ошибке
@@ -124,9 +123,9 @@ $lAdmin->AddHeaders([
 		"default" => true,
 	],
 	[
-		"id" => "QUANTITY",
-		"content" => 'Количество',
-		"sort" => "quantity",
+		"id" => "ORDER_ID",
+		"content" => "ID заказа",
+		"sort" => "order_id",
 		"default" => true,
 	],
 	[
@@ -149,7 +148,7 @@ $lAdmin->AddHeaders([
 	],
 	[
 		"id" => "PRICE",
-		"content" => 'Цена за билет',
+		"content" => 'Цена билета, руб.',
 		"sort" => "price",
 		"default" => true,
 	],
@@ -161,13 +160,19 @@ $lAdmin->AddHeaders([
 	],
 ]);
 
-while ($arRes = $rsData->NavNext(true, "f_")):
-
+while ($arRes = $rsData->NavNext(true, "f_"))
+{
 	// создаем строку. результат - экземпляр класса CAdminListRow
 	$row =& $lAdmin->AddRow($f_ID, $arRes);
 
+	$row->AddViewField("PRICE", number_format($arRes['PRICE'], 0, '', ' '));
 
-endwhile;
+	if (intval($arRes['ORDER_ID']))
+	{
+		$url = '/bitrix/admin/sale_order_view.php?ID=' . intval($arRes['ORDER_ID']) . '&filter=Y&set_filter=Y&lang=ru';
+		$row->AddViewField("ORDER_ID", '<a href="' . $url . '">' . $arRes['ORDER_ID'] . '</a>');
+	}
+}
 
 $lAdmin->AddAdminContextMenu();
 
@@ -178,11 +183,10 @@ $lAdmin->AddAdminContextMenu();
 // альтернативный вывод
 $lAdmin->CheckListMode();
 
-// установим заголовок страницы
-$APPLICATION->SetTitle(GetMessage("rub_title"));
-
 // не забудем разделить подготовку данных и вывод
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_admin_after.php");
+
+$APPLICATION->SetTitle('Отчеты о показах');
 
 // ******************************************************************** //
 //                ВЫВОД ФИЛЬТРА                                         //
@@ -217,9 +221,8 @@ $oFilter = new CAdminFilter(
 <?
 // выведем таблицу списка элементов
 $lAdmin->DisplayList();
-?>
 
-<?
+
 // завершение страницы
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/epilog_admin.php");
 ?>
