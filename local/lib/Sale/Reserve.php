@@ -28,37 +28,15 @@ class Reserve
 	/**
 	 * Получает забронированные билеты для показа
 	 * @param $runId
-	 * @param bool $full
 	 * @return array
 	 * @throws \Bitrix\Main\ArgumentException
 	 * @throws \Bitrix\Main\SystemException
 	 */
-	public static function getByRun($runId, $full = false)
+	public static function getByRun($runId)
 	{
-		$entityInfo = HighloadBlockTable::getById(static::ENTITY_ID)->Fetch();
-		$entity = HighloadBlockTable::compileEntity($entityInfo);
-		$dataClass = $entity->getDataClass();
-		$rsItems = $dataClass::getList([
-			'filter' => [
-				'UF_RUN' => $runId,
-			],
+		return self::getByFilter([
+			'UF_RUN' => $runId,
 		]);
-		$return = [];
-		while ($item = $rsItems->Fetch())
-		{
-			if (!$full)
-			{
-				$sit = intval($item['UF_SIT']);
-				$return[$sit] = intval($item['UF_CART']);
-			}
-			else
-			{
-				$return[] = $item;
-			}
-
-		}
-
-		return $return;
 	}
 
 	public static function getByFilter($filter = [])
