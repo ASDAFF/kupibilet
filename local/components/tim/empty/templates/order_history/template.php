@@ -53,6 +53,9 @@ else
 					$action = 'Распечатать';
 					$href = '/personal/order/print/?id=' . $order['ID'];
 					$price = $order['PRICE'] . ' руб.';
+					if($order['ALLOW_DELIVERY'] == 'Y'){
+					    $href = '';
+                    }
 				}
 				elseif ($order['STATUS_ID'] == 'O')
 				{
@@ -60,6 +63,8 @@ else
 					$action = '';
 					$href = '';
 				}
+
+
 				?>
 				<div class="it-block">
 				<div class="it-sec"><?= $order['ID'] ?></div>
