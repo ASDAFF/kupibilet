@@ -1833,10 +1833,15 @@ html .city-select .ui-button.ui-state-disabled:active{
 .elZalScenBox .set-zal-5-3.active,
 .elZalScenBox .set-zal-5-3:hover {background-position: 0 -107px;}
 
-.elZalScenBox .set-zal-5-4 {width: 113px; height: 275px; left: 110px; top: 0;
+.elZalScenBox .set-zal-5-4 {width: 113px; height: 140px; left: 110px; top: 0;
     background: url('../images/zal/5-4.png');}
 .elZalScenBox .set-zal-5-4.active,
 .elZalScenBox .set-zal-5-4:hover {background-position: 0 -284px;}
+
+.elZalScenBox .set-zal-5-5 {width: 91px; height: 108px; left: 130px; top: 145px;
+    background: url('../images/zal/5-4.png');}
+.elZalScenBox .set-zal-5-5.active,
+.elZalScenBox .set-zal-5-5:hover {background-position: 0 -284px;}
 
 /* Зал 6 Сафонов*/
 .elZalScenBox.set-zal-6 {width: 365px; height: 222px;}
@@ -1873,3 +1878,68 @@ html .city-select .ui-button.ui-state-disabled:active{
 .elZalScenBox .set-zal-6-4:hover {background-position: 0 -225px;}
 .elZalScenBox .set-zal-6-4 span {margin: 75px 0;
     -webkit-transform: rotate(90deg); transform: rotate(90deg); white-space: nowrap;}
+
+
+
+.elOrder {}
+.elOrder .it-item {display: table; width: 100%;
+    border-bottom: 1px solid #ebebeb; padding: 4px 0;}
+.elOrder .it-item>div {display: table-cell; padding: 7px;
+    vertical-align: middle; text-align: center;}
+.elOrder .it-item:first-child {background: #efefef; border-bottom: 1px solid #ebebeb;}
+.elOrder .it-item:first-child>div {color: #7c7c7c;}
+
+.elOrder .it-item .it-number {width: 5%;}
+.elOrder .it-item .it-number span {font-size: 15px;}
+
+.elOrder .it-item .it-img {width: 10%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;}
+
+.elOrder .it-item .it-name {width: 35%; padding-left: 15px;
+    text-align: left;}
+.elOrder .it-item .it-name-title {font-size: 14px;
+    font-weight: 600; text-decoration: underline;}
+.elOrder .it-item .it-name-inf {font-size: 12px; color: #797979;}
+.elOrder .it-item .it-name-inf b {padding: 0 3px; color: #6f6f6f;}
+
+.elOrder .it-item .it-price {width: 10%;}
+.elOrder .it-item .it-price span {font-size: 17px;}
+
+.elOrder .it-item .it-status {width: 10%;}
+.elOrder .it-item .it-status span {position: relative;
+    font-weight: 600; text-transform: uppercase; font-size: 15px;}
+.elOrder .it-item .it-status span:before {content: ""; display: inline-block;
+    width: 5px; height: 5px;
+    position: absolute; bottom: 6px; left: -14px;
+    border-radius: 100%;}
+.elOrder .it-item .it-status span.set-red:before {box-shadow: 0 0 11px 3px #ff1a1a;}
+.elOrder .it-item .it-status span.set-green:before {box-shadow: 0 0 11px 3px #4CAF50;}
+
+.elOrder .it-item .it-status .set-red {color: red;}
+.elOrder .it-item .it-status .set-green {color: green;}
+
+.elOrder .it-item .it-time {width: 15%;}
+.elOrder .it-item .it-time b {font-weight: 600;}
+.elOrder .it-item .it-time span {font-size: 11px;}
+.elOrder .it-item .it-actions {width: 10%;}
+.elOrder .it-item .it-delete {width: 5%;}
+.elOrder .it-item .it-delete .delete:hover {color: red; cursor: pointer;}
+
+.elOrder .it-item a:hover {color: #901921; }
+
+@media only screen and (max-width: 900px) {
+    .elOrder .it-item {display: block; width: 100%; clear: both; overflow: hidden;}
+    .elOrder .it-item>div {display: inline-block; float: left;}
+    .elOrder .it-item:first-child {display: none;}
+
+    .elOrder .it-item .it-number {width: 10%;}
+    .elOrder .it-item .it-img {width: 10%; height: 80px;}
+    .elOrder .it-item .it-name {width: 60%; }
+    .elOrder .it-item .it-price {width: 110px;}
+    .elOrder .it-item .it-status {width: 110px;}
+    .elOrder .it-item .it-time {width: 100px;}
+    .elOrder .it-item .it-actions {width: 100px;}
+    .elOrder .it-item .it-delete {width: 20px; text-align: center;}
+}
