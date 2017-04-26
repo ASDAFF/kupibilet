@@ -1057,6 +1057,7 @@ footer {clear: both; margin-top: 20px;}
     background-position:top center !important;
 }
 .up-events-item{
+    vertical-align: top;
     /*width:20%;*/
     width:244px;
     display:inline-block;
@@ -1620,6 +1621,12 @@ html .city-select .ui-button.ui-state-disabled:active{
 /* Выбор зоны */
 .elZal-box {margin: 30px auto;}
 
+@media only screen and (max-width: 900px) {
+	.elZal {zoom: 0.7;}
+}
+@media only screen and (max-width: 600px) {
+	.elZal {zoom: 0.5}
+}
 
 .elZalScen {overflow: hidden; margin: 20px auto; width: auto; }
 .elZalScen.set-rot-180,
@@ -1881,10 +1888,7 @@ html .city-select .ui-button.ui-state-disabled:active{
 
 
 
-.elOrder {}
-.elOrder .it-item {display: table; width: 100%;
-    border-bottom: 1px solid #ebebeb; padding: 4px 0;}
-.elOrder .it-item>div {display: table-cell; padding: 7px;
+.elOrder .it-item>div{display: table-cell; padding: 7px;
     vertical-align: middle; text-align: center;}
 .elOrder .it-item:first-child {background: #efefef; border-bottom: 1px solid #ebebeb;}
 .elOrder .it-item:first-child>div {color: #7c7c7c;}
@@ -1898,11 +1902,15 @@ html .city-select .ui-button.ui-state-disabled:active{
     background-repeat: no-repeat;}
 
 .elOrder .it-item .it-name {width: 35%; padding-left: 15px;
-    text-align: left;}
+    text-align: left!important;}
 .elOrder .it-item .it-name-title {font-size: 14px;
     font-weight: 600; text-decoration: underline;}
-.elOrder .it-item .it-name-inf {font-size: 12px; color: #797979;}
+.elOrder .it-item .it-name-inf {display: inline-block;
+    font-size: 12px; color: #797979;}
 .elOrder .it-item .it-name-inf b {padding: 0 3px; color: #6f6f6f;}
+.elOrder .it-item .it-name span {margin-right: 10px;
+    text-decoration: underline; color: #568eff; cursor: pointer; display: inline-block;}
+.elOrder .it-item .it-name span:hover {color: #ff1a1a;}
 
 .elOrder .it-item .it-price {width: 10%;}
 .elOrder .it-item .it-price span {font-size: 17px;}
@@ -1927,12 +1935,15 @@ html .city-select .ui-button.ui-state-disabled:active{
 .elOrder .it-item .it-delete {width: 5%;}
 .elOrder .it-item .it-delete .delete:hover {color: red; cursor: pointer;}
 
+.elOrder .it-item .it-detail-list {display: table-row;}
+
 .elOrder .it-item a:hover {color: #901921; }
 
 @media only screen and (max-width: 900px) {
-    .elOrder .it-item {display: block; width: 100%; clear: both; overflow: hidden;}
+    .elOrder .it-item {display: none; width: 100%; clear: both; overflow: hidden;}
     .elOrder .it-item>div {display: inline-block; float: left;}
     .elOrder .it-item:first-child {display: none;}
+    .elOrder .it-item.set-zakaz {display: block;}
 
     .elOrder .it-item .it-number {width: 10%;}
     .elOrder .it-item .it-img {width: 10%; height: 80px;}
