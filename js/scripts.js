@@ -192,6 +192,12 @@ $(document).ready(function() {
         itemsTablet: false,
         itemsMobile : false
     });
+	// Заказы открытие подробее 
+	$(".it-item.set-zakaz").on('click', function(e) {
+		zakaz_id = $(this).attr('zakaz_id');
+
+		$("[zakaz_list_id = "+zakaz_id+"]").toggleClass('set-active');
+	});
 });
 
 function engLog(title,text){
