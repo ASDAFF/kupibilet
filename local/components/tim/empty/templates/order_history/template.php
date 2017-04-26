@@ -26,13 +26,13 @@ while ($item = $carts->Fetch())
 
 // Бронь
 $reserved = \Local\Sale\Reserve::getByFilter(['UF_CART' => $cartsIds], true);
-foreach ($orders as $order)
+foreach ($orders as $key => $order)
 {
 	foreach ($order['ITEMS'] as $item)
 	{
 		if ($reserved[$item['ID']])
 		{
-			$order['EXPIRED'] = $reserved[$item['ID']]['UF_EXPIRED'];
+			$orders[$key]['EXPIRED'] = $reserved[$item['ID']]['UF_EXPIRED'];
 			break;
 		}
 	}
@@ -43,6 +43,7 @@ $info = $cart->GetPropsList([], ['@BASKET_ID' => $cartsIds]);
 $infoItems = [];
 while ($infoItem = $info->Fetch())
 	$infoItems[$infoItem['BASKET_ID']][$infoItem['CODE']] = $infoItem['VALUE'];
+
 
 ?>
 <div class="elOrder"><?
@@ -112,13 +113,13 @@ while ($infoItem = $info->Fetch())
 			}
 
 			?>
-            <div class="it-item set-zakaz" zakaz_id="<?= $order['ID'] ?>">
+            <div class="it-item set-zakaz" id="order-<?= $order['ID'] ?>" zakaz_id="<?= $order['ID'] ?>">
                 <div class="it-number">№ <span><?= $order['ID'] ?></span></div>
                 <div class="it-img"></div>
                 <div class="it-name">
                     <span>Подробнее</span>
                     <div class="it-name-inf">
-                        17.04.2017 11:52:48
+                        <?= $order['DATE_INSERT'] ?>
                     </div>
                 </div>
                 <div class="it-price"><span><?= $order['PRICE'] ?> руб.</span></div>
@@ -143,7 +144,7 @@ while ($infoItem = $info->Fetch())
 	                if ($order['STATUS_ID'] == 'RS')
 					{
 						?>
-                        <span class="delete">
+                        <span class="delete" data-id="<?= $order['ID'] ?>">
 	                        <svg class="engSvg" xmlns="http://www.w3.org/2000/svg" width="26" height="26"
 	                             viewBox="0 0 26 26">
 	                            <path d="M21.736,19.64l-2.098,2.096c-0.383,0.386-1.011,0.386-1.396,0l-5.241-5.239L7.76,21.735 c-0.385,0.386-1.014,0.386-1.397-0.002L4.264,19.64c-0.385-0.386-0.385-1.011,0-1.398L9.505,13l-5.24-5.24 c-0.384-0.387-0.384-1.016,0-1.398l2.098-2.097c0.384-0.388,1.013-0.388,1.397,0L13,9.506l5.242-5.241 c0.386-0.388,1.014-0.388,1.396,0l2.098,2.094c0.386,0.386,0.386,1.015,0.001,1.401L16.496,13l5.24,5.241 C22.121,18.629,22.121,19.254,21.736,19.64z"></path>
@@ -164,7 +165,7 @@ while ($infoItem = $info->Fetch())
 				$pic = $event['PREVIEW_PICTURE'];
 
 				?>
-	            <div class="it-item" zakaz_list_id="<?= $order['ID'] ?>">
+	            <div class="it-item" id="item-order-<?= $order['ID'] ?>" zakaz_list_id="<?= $order['ID'] ?>">
 	                <div class="it-number">№ <span><?= $item['ID'] ?></span></div>
 	                <div class="it-img" style="
 	                        background-image: url(<?= $pic ?>);

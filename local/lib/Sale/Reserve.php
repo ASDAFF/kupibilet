@@ -139,7 +139,7 @@ class Reserve
 		]);
 		if ($item = $rsItems->Fetch())
 		{
-			$dataClass::delete($item['ID']);
+			return $dataClass::delete($item['ID']);
 		}
 	}
 

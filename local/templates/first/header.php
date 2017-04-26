@@ -38,6 +38,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     $assets->addJs('/js/scripts.js');
     $assets->addJs('/js/topCart.js');
     $assets->addJs('/js/timer.js');
+    $assets->addJs('/js/history.js');
 
     $APPLICATION->ShowHead();
     ?>
