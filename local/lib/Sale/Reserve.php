@@ -39,7 +39,7 @@ class Reserve
 		]);
 	}
 
-	public static function getByFilter($filter = [])
+	public static function getByFilter($filter = [],$full = false)
 	{
 		$entityInfo = HighloadBlockTable::getById(static::ENTITY_ID)->Fetch();
 		$entity = HighloadBlockTable::compileEntity($entityInfo);
@@ -50,8 +50,12 @@ class Reserve
 		$return = [];
 		while ($item = $rsItems->Fetch())
 		{
-			$sit = intval($item['UF_SIT']);
-			$return[$sit] = intval($item['UF_CART']);
+			if($full){
+				$return[$item['UF_CART']][] = $item;
+			}else{
+				$sit = intval($item['UF_SIT']);
+				$return[$sit] = intval($item['UF_CART']);
+			}
 		}
 
 		return $return;
