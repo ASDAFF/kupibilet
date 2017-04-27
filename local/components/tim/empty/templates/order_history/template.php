@@ -175,7 +175,7 @@ while ($infoItem = $info->Fetch())
 	                        background-image: url(<?= $pic ?>);
 	                        filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='<?= $pic ?>');"></div>
 	                <div class="it-name">
-	                    <a href="<?= $run['DETAIL_PAGE_URL'] ?>" class="it-name-title"><?= $event['NAME'] ?></a>
+	                    <a href="<?= $event['DETAIL_PAGE_URL'] ?>" class="it-name-title"><?= $event['NAME'] ?></a>
 		                <br />
 	                    <div class="it-name-inf">
 	                        Секция: <?= $info['SECTOR'] ?><br>

@@ -778,6 +778,9 @@ class Cart
 		if (!$order)
 			return false;
 
+		if ($order['STATUS_ID'] != 'RS' && $order['STATUS_ID'] != 'N')
+			return false;
+
 		$cart = new \CSaleBasket();
 		$carts = $cart->GetList([], ['ORDER_ID' => $id]);
 
