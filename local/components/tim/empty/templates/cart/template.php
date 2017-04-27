@@ -34,16 +34,17 @@ if ($notEmpty && (isset($_POST['order_create']) || isset($_POST['order_reserve']
 
 		$orderId = \Local\Sale\Cart::createOrder($cart, $user, $_REQUEST['delivery'] ? $deliveryPrice : 0, $status);
         $reserve_time = (isset($_POST['order_reserve'])) ? RESERVE_TIME_24 : RESERVE_TIME;
-        \Local\Sale\Cart::prolongReserve($orderItems['ITEMS'], $reserve_time);
+        \Local\Sale\Cart::prolongReserve($cart['ITEMS'], $reserve_time);
         if ($orderId)
 			LocalRedirect('/personal/order/?id=' . $orderId);
 	}
 }
 else
+{
 	$user = \Local\System\User::getCurrentUser();
-
-if ($notEmpty)
-	\Local\Sale\Cart::prolongReserve($cart['ITEMS']);
+	if ($notEmpty)
+		\Local\Sale\Cart::prolongReserve($cart['ITEMS']);
+}
 
 $emptyStyle = $notEmpty ? ' style="display:none;"' : '';
 
@@ -57,7 +58,7 @@ $emptyStyle = $notEmpty ? ' style="display:none;"' : '';
 if ($notEmpty)
 {
 	// Распределяем билеты по показам
-	$byRun = array();
+	$byRun = [];
 	foreach ($cart['ITEMS'] as $item)
 	{
 		$byRun[$item['RUN']][] = $item['ID'];
