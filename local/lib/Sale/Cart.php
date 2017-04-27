@@ -769,4 +769,27 @@ class Cart
 
 		return $return;
 	}
+
+	public static function deleteOrder($id)
+	{
+		Loader::IncludeModule('sale');
+
+		$order = self::getOrderById($id);
+		if (!$order)
+			return false;
+
+		$cart = new \CSaleBasket();
+		$carts = $cart->GetList([], ['ORDER_ID' => $id]);
+
+		while ($item = $carts->Fetch())
+		{
+			$cart->Delete($item['ID']);
+			Reserve::delete($item['ID']);
+		}
+
+		$order = new \CSaleOrder();
+		$order->Delete($id);
+
+		return true;
+	}
 }
