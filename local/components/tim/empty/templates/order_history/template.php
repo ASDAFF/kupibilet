@@ -45,7 +45,7 @@ while ($infoItem = $info->Fetch())
 	$infoItems[$infoItem['BASKET_ID']][$infoItem['CODE']] = $infoItem['VALUE'];
 
 
-?>
+?><div class="engBox engContent">
 <div class="elOrder"><?
 
 	if (!count($orders))
@@ -117,10 +117,11 @@ while ($infoItem = $info->Fetch())
                 <div class="it-number">№ <span><?= $order['ID'] ?></span></div>
                 <div class="it-img"></div>
                 <div class="it-name">
-                    <span>Подробнее</span>
-                    <div class="it-name-inf">
+					<div class="it-name-inf">
                         <?= $order['DATE_INSERT'] ?>
                     </div>
+                    <span>Подробнее</span>
+
                 </div>
                 <div class="it-price"><span><?= $order['PRICE'] ?> руб.</span></div>
                 <div class="it-status">
@@ -189,4 +190,5 @@ while ($infoItem = $info->Fetch())
 		}
 	}
 	?>
+</div>
 </div>

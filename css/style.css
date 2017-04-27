@@ -1886,7 +1886,14 @@ html .city-select .ui-button.ui-state-disabled:active{
 .elZalScenBox .set-zal-6-4 span {margin: 75px 0;
     -webkit-transform: rotate(90deg); transform: rotate(90deg); white-space: nowrap;}
 
-
+.elOrder {}
+.elOrder .it-item {display: table; width: 100%;
+    border-bottom: 1px solid #ebebeb; padding: 4px 0;}
+.elOrder .it-item.set-zakaz {display: table;}
+.elOrder .it-item {display: none;}
+.elOrder .it-item.set-active,
+.elOrder .it-item.set-top-inf
+{display: table;}
 
 .elOrder .it-item>div{display: table-cell; padding: 7px;
     vertical-align: middle; text-align: center;}
@@ -1901,21 +1908,21 @@ html .city-select .ui-button.ui-state-disabled:active{
     background-position: center;
     background-repeat: no-repeat;}
 
-.elOrder .it-item .it-name {width: 35%; padding-left: 15px;
+.elOrder .it-item .it-name {width: 30%; padding-left: 15px;
     text-align: left!important;}
 .elOrder .it-item .it-name-title {font-size: 14px;
     font-weight: 600; text-decoration: underline;}
 .elOrder .it-item .it-name-inf {display: inline-block;
     font-size: 12px; color: #797979;}
 .elOrder .it-item .it-name-inf b {padding: 0 3px; color: #6f6f6f;}
-.elOrder .it-item .it-name span {margin-right: 10px;
+.elOrder .it-item .it-name span {margin-left: 10px;
     text-decoration: underline; color: #568eff; cursor: pointer; display: inline-block;}
 .elOrder .it-item .it-name span:hover {color: #ff1a1a;}
 
 .elOrder .it-item .it-price {width: 10%;}
 .elOrder .it-item .it-price span {font-size: 17px;}
 
-.elOrder .it-item .it-status {width: 10%;}
+.elOrder .it-item .it-status {width: 15%; text-align: left;}
 .elOrder .it-item .it-status span {position: relative;
     font-weight: 600; text-transform: uppercase; font-size: 15px;}
 .elOrder .it-item .it-status span:before {content: ""; display: inline-block;
