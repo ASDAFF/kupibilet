@@ -130,10 +130,15 @@ $reserved = \Local\Sale\Reserve::getByRun($run['ID'])
 							'-o-transform:' . $rotate . ';' .
 							'transform:' . $rotate . ';';
 					}
-					if ($reserved[$itemId] && !$sits[$itemId] || !$item[6])
+					if (!$item[6])
 					{
 						$pointStyle .= 'background-color:#d7d7d7;';
 						$pointClass .= ' off';
+					}
+					elseif ($reserved[$itemId] && !$sits[$itemId])
+					{
+						$pointStyle .= '';
+						$pointClass .= ' ser';
 					}
 					else
 					{
