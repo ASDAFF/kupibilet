@@ -77,12 +77,14 @@ while ($infoItem = $info->Fetch())
 			$href = '';
 			$price = '';
 			$status_class = '';
+			$delPossible = false;
 			if ($order['STATUS_ID'] == 'N')
 			{
 				$status = 'Ожидает оплаты';
 				$action = 'Оплатить';
 				$href = '/personal/order/payment/?id=' . $order['ID'];
 				$price = $order['PRICE'] . ' руб.';
+				$delPossible = true;
 			}
 			elseif ($order['STATUS_ID'] == 'RS')
 			{
@@ -90,6 +92,7 @@ while ($infoItem = $info->Fetch())
 				$action = 'Оплатить';
 				$href = '/personal/order/payment/?id=' . $order['ID'];
 				$price = $order['PRICE'] . ' руб.';
+				$delPossible = true;
 			}
 			elseif ($order['STATUS_ID'] == 'F')
 			{
@@ -142,7 +145,7 @@ while ($infoItem = $info->Fetch())
                     <a href="<?= $href ?>" target="_blank"><?= $action ?></a>
                 </div>
                 <div class="it-delete"><?
-	                if ($order['STATUS_ID'] == 'RS')
+	                if ($delPossible)
 					{
 						?>
                         <span class="delete" data-id="<?= $order['ID'] ?>">
