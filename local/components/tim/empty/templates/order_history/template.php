@@ -167,7 +167,7 @@ while ($infoItem = $info->Fetch())
 
 				?>
 	            <div class="it-item" id="item-order-<?= $order['ID'] ?>" zakaz_list_id="<?= $order['ID'] ?>">
-	                <div class="it-number">№ <span><?= $item['ID'] ?></span></div>
+	                <div class="it-number"></div>
 	                <div class="it-img" style="
 	                        background-image: url(<?= $pic ?>);
 	                        filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='<?= $pic ?>');"></div>
