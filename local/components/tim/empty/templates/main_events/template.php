@@ -4,22 +4,13 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 
 $selectedCity = \Local\Main\City::getSelected();
 
-if($selectedCity == '')
-{
-	$data = \Local\Main\Event::getDataByFilter(array());
-	$eventsIds = $data['IDS'];
-}
-else
-{
-    $eventsIds = \Local\Main\Event::getByCityId($selectedCity);
-}
+$data = \Local\Main\Event::getDataByFilter(array('CITY' => $selectedCity));
 
 $events = \Local\Main\Event::getByFilter(
 	array('DATE' => 'asc'),
-	$eventsIds,
+	$data['IDS'],
 	false
 );
-
 $dates = \Local\Main\Event::getAllDates();
 
 ?>

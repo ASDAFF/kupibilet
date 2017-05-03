@@ -6,15 +6,23 @@ if ($_REQUEST['action'] == 'set_city')
 {
 	$cityId = $_REQUEST['id'];
 	\Local\Main\City::selectCity($cityId);
-
-	$eventsIds = \Local\Main\Event::getByCityId($cityId);
+	$data = \Local\Main\Event::getDataByFilter(array('CITY' => $cityId));
 	$events = \Local\Main\Event::getByFilter(
-		['DATE' => 'asc'],
-		$eventsIds,
+		array('DATE' => 'asc'),
+		$data['IDS'],
 		false
 	);
 
-	?>
+	if(isset($_REQUEST['get_count']))
+	{
+		$eventsCount = count($events['ITEMS']);
+		$eventsText = \Local\System\Utils::cardinalNumberRus($eventsCount, ' мероприятий', ' мероприятие', ' мероприятия');
+		$eventsText = $eventsCount . $eventsText;
+
+		echo $eventsText;
+    }
+    else
+    {?>
     <div class="grid-sizer"></div><?
 
 	foreach ($events['ITEMS'] as $item)
@@ -52,8 +60,10 @@ if ($_REQUEST['action'] == 'set_city')
             <div class="it-money"><i class="engIcon setIcon-price-black"></i><?= $price ?> руб.</div>
         </div>
         </div><?
-	}
+	}?>
 
-}
+<?}?>
+
+<?}
 
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/epilog_after.php");

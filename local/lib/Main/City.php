@@ -68,7 +68,14 @@ class City
 	public static function getSelected()
 	{
 		global $APPLICATION;
-		return $APPLICATION->get_cookie('SELECTED_CITY');
+		$cityID = $APPLICATION->get_cookie('SELECTED_CITY');
+		if($cityID == ''){
+			$cities = City::getAll();
+			$city = array_shift($cities);
+			$cityID = $city['ID'];
+		}
+
+		return $cityID;
 	}
 
 }

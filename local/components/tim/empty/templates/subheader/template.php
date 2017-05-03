@@ -1,9 +1,16 @@
 <?
-$events = \Local\Main\Event::getAll();
 $cities = \Local\Main\City::getAll();
+$selectedCity = \Local\Main\City::getSelected();
+$data = \Local\Main\Event::getDataByFilter(array('CITY' => $selectedCity));
 
-$eventsCount = count($events);
-$eventsText = \Local\System\Utils::cardinalNumberRus($eventsCount, ' мероприятий', 'мероприятие', 'мероприятия');
+$events = \Local\Main\Event::getByFilter(
+	array('DATE' => 'asc'),
+	$data['IDS'],
+	false
+);
+
+$eventsCount = count($events['ITEMS']);
+$eventsText = \Local\System\Utils::cardinalNumberRus($eventsCount, ' мероприятий', ' мероприятие', ' мероприятия');
 $eventsText = $eventsCount . $eventsText;
 ?>
 <div class="engRow">

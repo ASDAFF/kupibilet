@@ -87,14 +87,16 @@ class Event
 					break;
 				}
                 $halls = [];
+				$cities = [];
                 $selfHall = intval($item['PROPERTY_HALL_VALUE']);
 
                 foreach ($runs[$id] as $run)
                 {
-                    $h = ($run['HALL']) ? $run['HALL'] : $selfHall;
-                    $hl = Hall::getById($h);
-                    $halls[$h]['CITY_NAME'] = $hl['CITY'];
-                    $halls[$h]['CITY_ID'] = $hl['CITY_ID'];
+	                $h = ($run['HALL']) ? $run['HALL'] : $selfHall;
+	                $halls[$h] = $h;
+
+	                $hall = Hall::getById($h);
+	                $cities[$hall['CITY_ID']] = $hall['CITY'];
                 }
 
 				$product = array(
@@ -102,6 +104,7 @@ class Event
 					'NAME' => $item['NAME'],
 					'CODE' => $item['CODE'],
 					'HALLS' => $halls,
+					'CITIES' => $cities,
 					'GENRE' => intval($genre['ID']),
 					'PRICE' => intval($item['PROPERTY_PRICE_VALUE']),
                     'PRICE_TO' => intval($item['PROPERTY_PRICE_TO_VALUE']),
@@ -254,6 +257,14 @@ class Event
 								$ok = false;
 								break;
 							}
+						}
+					}
+					elseif ($key == 'CITY')
+					{
+						if (!$product['CITIES'][$value])
+						{
+							$ok = false;
+							break;
 						}
 					}
 					elseif ($key == 'GENRE')
@@ -736,27 +747,6 @@ class Event
 		$phpCache->CleanDir(static::CACHE_PATH . 'getById');
 	}
 
-	/**
-	 * @param integer $id
-	 * @return array $events
-	 */
-	public static function getByCityId($id)
-	{
-		$eventsRes = [];
-
-		$events = self::getAll();
-
-		foreach ($events as $event){
-			foreach ($event['HALLS'] as $hall){
-				if($hall['CITY_ID'] == $id){
-					$eventsRes[] = $event['ID'];
-				}
-			}
-
-		}
-
-		return $eventsRes;
-	}
 
 }
 
