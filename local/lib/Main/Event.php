@@ -92,7 +92,9 @@ class Event
                 foreach ($runs[$id] as $run)
                 {
                     $h = ($run['HALL']) ? $run['HALL'] : $selfHall;
-                    $halls[$h] = $h;
+                    $hl = Hall::getById($h);
+                    $halls[$h]['CITY_NAME'] = $hl['CITY'];
+                    $halls[$h]['CITY_ID'] = $hl['CITY_ID'];
                 }
 
 				$product = array(
@@ -732,6 +734,28 @@ class Event
 		$phpCache->CleanDir(static::CACHE_PATH . 'getDataByFilter');
 		$phpCache->CleanDir(static::CACHE_PATH . 'get');
 		$phpCache->CleanDir(static::CACHE_PATH . 'getById');
+	}
+
+	/**
+	 * @param integer $id
+	 * @return array $events
+	 */
+	public static function getByCityId($id)
+	{
+		$eventsRes = [];
+
+		$events = self::getAll();
+
+		foreach ($events as $event){
+			foreach ($event['HALLS'] as $hall){
+				if($hall['CITY_ID'] == $id){
+					$eventsRes[] = $event['ID'];
+				}
+			}
+
+		}
+
+		return $eventsRes;
 	}
 
 }

@@ -1,15 +1,30 @@
 <?
 if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 
-$data = \Local\Main\Event::getDataByFilter(array());
+
+$selectedCity = \Local\Main\City::getSelected();
+
+if($selectedCity == '')
+{
+	$data = \Local\Main\Event::getDataByFilter(array());
+	$eventsIds = $data['IDS'];
+}
+else
+{
+    $eventsIds = \Local\Main\Event::getByCityId($selectedCity);
+}
+
 $events = \Local\Main\Event::getByFilter(
 	array('DATE' => 'asc'),
-	$data['IDS'],
+	$eventsIds,
 	false
 );
+
 $dates = \Local\Main\Event::getAllDates();
 
 ?>
+
+
 <div class="engBox engContent">
     <div class="engBox-content">
 		<div class="elList">

@@ -164,35 +164,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	            <?$APPLICATION->IncludeComponent('tim:empty', 'main_banners');?>
 	        </div>
 	    </div><?
-	}
+	}?>
 
-	$halls = \Local\Main\Hall::getAll();
-	$hallsCount = count($halls['ITEMS']);
-	$hallsText = \Local\System\Utils::cardinalNumberRus($hallsCount, 'залов', 'зал', 'зала');
-	$hallsText = $hallsCount . ' концертных ' . $hallsText;
-
-	$events = \Local\Main\Event::getAll();
-	$eventsCount = count($events);
-	$eventsText = \Local\System\Utils::cardinalNumberRus($eventsCount, ' мероприятий', 'мероприятие', 'мероприятия');
-	$eventsText = $eventsCount . $eventsText;
-	?>
-    <div class="engRow">
-        <div class="elHeader-2 cssBg-red">
-            <div class="engBox ">
-                <div class="elHeader-search engBox-8 engPl">
-                    <form id="elSearch" action="/event/">
-                        <input id="elSearch-pole" class="cssBorderRadius-left cssLeft" type="text" name="q"
-                               placeholder="Поиск концертов, мероприятий ..." autocomplete="off"
-                               value="<?= $_REQUEST['q'] ?>" />
-                        <button id="elSearch-btn" class="cssBorderRadius-right engBtn cssLeft">Найти</button>
-                    </form>
-                </div>
-                <div class="elHeader-btn engBox-4 engPl cssText-center">
-                    <a href="/halls/"><?= $hallsText ?></a>|
-                    <a href="/event/"><?= $eventsText ?></a>
-                </div>
-            </div>
-        </div>
-    </div>
+	<?$APPLICATION->IncludeComponent('tim:empty', 'subheader');?>
 </div>
 </header>

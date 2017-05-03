@@ -125,6 +125,25 @@ $(function() {
 		});
 	});
 
+    var elCityTitle = $("#elCityList-title"),
+        elCityList = $(".elCityList"),
+        elCityList_menu = $(".elCityList-list");
+
+    elCityList.find('span').on('click', function () {
+        var span = $(this);
+        var elCityTitleText = elCityTitle.text();
+        var cityId = span.data('id');
+        $.post('/ajax/events.php',{
+            action: 'set_city',
+            id: cityId
+        },function(data){
+            elCityTitle.html(span.text());
+            span.text(elCityTitleText);
+            elCityList_menu.css('display','none');
+            $('.elList').html(data);
+        });
+    });
+
 } );
 
 

@@ -381,8 +381,8 @@ button.engInputYa {height: 36px;}
 .elHeader-2>div {padding: 5px 0;}
 
 .elHeader-btn {position: relative; color: #ffffff;}
-.elHeader-btn:before {content: ""; position: absolute; top: -5px;
-    height: 53px; width: 3px; background: #ffffff;}
+/*.elHeader-btn:before {content: ""; position: absolute; top: -5px;
+    height: 53px; width: 3px; background: #ffffff;}*/
 .elHeader-btn a {padding: 12px 16px; display: inline-block;
     color: #ffffff; text-decoration: underline;}
 .elHeader-btn a:hover {color: #dbdbdb;}
@@ -1960,4 +1960,26 @@ html .city-select .ui-button.ui-state-disabled:active{
     .elOrder .it-item .it-time {width: 100px;}
     .elOrder .it-item .it-actions {width: 100px;}
     .elOrder .it-item .it-delete {width: 20px; text-align: center;}
+}
+
+/* Subheader */
+.elCityList {}
+.elCityList-title {display: inline-block; padding: 18px 40px; cursor: pointer; position: relative; top:-4px;
+    font-size: 13px; line-height: 15px; font-weight: 800;
+    text-transform: uppercase;}
+.elCityList-title:hover { background: #77171e;}
+.elCityList-title:hover .elCityList-list {display: block!important;}
+.elCityList-title svg {margin-left: 10px;}
+.elCityList-list {display: none; position: absolute; z-index: 10;
+    top: 52px; left: 0; right: 0; width: 100%; margin: auto;
+    background: #77171e;}
+.elCityList-list span,
+.elCityList-list a {display: block; padding: 12px 16px;
+    color: #ffffff; text-decoration: underline;}
+.elCityList-list span:hover,
+.elCityList-list a:hover {
+    background: #a7373f;
+    color: #e6e6e6;}
+@media only screen and (max-width: 1200px) {
+    .elCityList-title{top:0;}
 }
