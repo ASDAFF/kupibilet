@@ -140,14 +140,8 @@ $(function() {
             elCityTitle.html(span.text());
             span.text(elCityTitleText);
             elCityList_menu.css('display','none');
-            $('.elList').html(data);
-        });
-        $.post('/ajax/events.php',{
-            action: 'set_city',
-            id: cityId,
-            get_count: '1'
-        },function(data){
-            $('.elCityList a').text(data);
+            $('.elList').html(data.HTML);
+            $('.elCityList a').text(data.COUNT);
         });
     });
 
