@@ -1,6 +1,7 @@
 <?
 if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 
+/** @global CMain $APPLICATION */
 
 $selectedCity = \Local\Main\City::getSelected();
 
@@ -14,8 +15,6 @@ $events = \Local\Main\Event::getByFilter(
 $dates = [];
 
 ?>
-
-
 <div class="engBox engContent">
     <div class="engBox-content">
 		<div class="elList">
@@ -44,8 +43,6 @@ $dates = [];
 
 						if ($run)
 						{
-							$date = ConvertTimeStamp($run['TS']);
-							$dates[$date] = $date;
 							$href = $item['DETAIL_PAGE_URL'] . $run['FURL'];
 							?>
 							<div class="it-date"><i class="engIcon setIcon-date-black"></i><?= $run['DATE_S'] ?></div>
@@ -57,6 +54,12 @@ $dates = [];
 						<div class="it-money"><i class="engIcon setIcon-price-black"></i><?= $price ?> руб.</div>
 					</div>
 				</div><?
+
+				foreach ($item['RUNS'] as $run)
+				{
+					$date = ConvertTimeStamp($run['TS']);
+					$dates[$date] = $date;
+				}
 			}
 			?>
 		</div>
@@ -66,9 +69,8 @@ $dates = [];
             <div class="it-item">
                 <div class="it-date-form">
                     <div id="engDate-picter"></div>
-
                     <script>
-	                    var picterDates = <?= json_encode($dates)?>;
+	                    var picterDates = <?= json_encode(array_values($dates))?>;
                     </script>
                 </div>
             </div>
