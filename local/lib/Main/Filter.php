@@ -115,6 +115,12 @@ class Filter
 			'TYPE' => 'date',
 		);
 
+		$return[] = array(
+			'NAME' => 'Города',
+			'TYPE' => 'cities',
+			'ITEMS' => City::getGroup(),
+		);
+
 		return $return;
 	}
 
@@ -135,6 +141,7 @@ class Filter
 			foreach ($parts as $part)
 				$urlCodes[$part] = true;
 		}
+
 
 		$allCnt = 0;
 		foreach (self::$GROUPS as &$group)
@@ -283,7 +290,7 @@ class Filter
 
 						if ($item['CHECKED'])
 						{
-							if ($item['CODE'] == 'GENRE')
+							if ($item['CODE'] == 'GENRE' || $item['CODE'] == 'CITIES')
 							{
 								$filters[$code]['DATA'][$item['CODE']][$item['ID']] = $item['ID'];
 								$filters[$code]['KEY'] .= '|' . $item['ID'];
@@ -321,7 +328,7 @@ class Filter
 			}
 		}
 		unset($group);
-
+		//debugmessage(self::$FILTER_BY_KEY);
 		// Общий фильтр
 		self::$PRODUCTS_KEY = $filters['_PRODUCTS']['KEY'];
 	}
@@ -334,6 +341,7 @@ class Filter
 		self::$DATA_BY_KEY = array();
 		foreach (self::$FILTER_BY_KEY as $key => $filter)
 			self::$DATA_BY_KEY[$key] = Event::getDataByFilter($filter);
+
 	}
 
 	/**
@@ -367,16 +375,22 @@ class Filter
 				foreach ($group['ITEMS'] as &$item)
 				{
 					$data = self::$DATA_BY_KEY[$item['KEY']];
-					if ($item['CODE'] == 'GENRE')
+					if ($item['CODE'] == 'GENRE' || $item['CODE'] == 'CITIES')
 						$item['CNT'] = intval($data[$item['CODE']][$item['ID']]);
 					else
 						$item['CNT'] = intval($data[$item['CODE']]);
 
+
+
 					$data = self::$DATA_BY_KEY[''];
-					if ($item['CODE'] == 'GENRE')
+
+					if ($item['CODE'] == 'GENRE' || $item['CODE'] == 'CITIES')
 						$item['ALL_CNT'] = intval($data[$item['CODE']][$item['ID']]);
 					else
 						$item['ALL_CNT'] = intval($data[$item['CODE']]);
+
+
+
 
 					$cntGroup += $item['CNT'];
 				}

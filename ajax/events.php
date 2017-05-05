@@ -6,7 +6,7 @@ if ($_REQUEST['action'] == 'set_city')
 {
 	$cityId = $_REQUEST['id'];
 	\Local\Main\City::selectCity($cityId);
-	$data = \Local\Main\Event::getDataByFilter(array('CITY' => $cityId));
+	$data = \Local\Main\Event::getDataByFilter(array('CITIES' => array($cityId => $cityId)));
 	$events = \Local\Main\Event::getByFilter(
 		array('DATE' => 'asc'),
 		$data['IDS'],

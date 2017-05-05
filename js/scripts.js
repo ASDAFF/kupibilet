@@ -125,20 +125,27 @@ $(function() {
 		});
 	});
 
-    var elCityTitle = $("#elCityList-title"),
-        elCityList = $(".elCityList"),
+    var elCityList = $(".elCityList"),
         elCityList_menu = $(".elCityList-list");
 
     elCityList.find('span').on('click', function () {
-        var span = $(this);
-        var elCityTitleText = elCityTitle.text();
-        var cityId = span.data('id');
+        var span = $(this),
+            elCityTitle = $("#elCityList-title"),
+            elCityTitleText = elCityTitle.text(),
+            cityId = span.data('id'),
+            cityCode = span.data('code'),
+            dataId = elCityTitle.data('id'),
+            dataCode = elCityTitle.data('code');
         $.post('/ajax/events.php',{
             action: 'set_city',
             id: cityId
         },function(data){
             elCityTitle.html(span.text());
+            elCityTitle.data('id',cityId);
+            elCityTitle.data('code',cityCode);
             span.text(elCityTitleText);
+            span.data('id',dataId);
+            span.data('code',dataCode);
             elCityList_menu.css('display','none');
             $('.elList').html(data.HTML);
             $('.elCityList a').text(data.COUNT);

@@ -35,7 +35,7 @@ class City
 			$rsItems = $iblockSection->GetList(["NAME" => "ASC"], [
 				'IBLOCK_ID' => Hall::IBLOCK_ID,
 			], false, [
-				'ID', 'NAME',
+				'ID', 'NAME', 'CODE',
 			]);
 			while ($item = $rsItems->Fetch())
 			{
@@ -43,6 +43,7 @@ class City
 				$return[$id] = [
 					'ID' => $id,
 					'NAME' => $item['NAME'],
+				    'CODE' => $item['CODE'],
 				];
 			}
 
@@ -76,6 +77,21 @@ class City
 		}
 
 		return $cityID;
+	}
+
+	public static function getGroup()
+	{
+		$return = array();
+
+		$all = self::getAll();
+		foreach ($all as $item)
+			$return[$item['CODE']] = array(
+				'ID' => $item['ID'],
+				'CODE' => 'CITIES',
+				'NAME' => $item['NAME'],
+			);
+
+		return $return;
 	}
 
 }

@@ -4,14 +4,14 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 
 $selectedCity = \Local\Main\City::getSelected();
 
-$data = \Local\Main\Event::getDataByFilter(array('CITY' => $selectedCity));
+$data = \Local\Main\Event::getDataByFilter(array('CITIES' => array($selectedCity => $selectedCity)));
 
 $events = \Local\Main\Event::getByFilter(
 	array('DATE' => 'asc'),
 	$data['IDS'],
 	false
 );
-$dates = \Local\Main\Event::getAllDates();
+$dates = [];
 
 ?>
 
@@ -44,6 +44,7 @@ $dates = \Local\Main\Event::getAllDates();
 
 						if ($run)
 						{
+							$dates[] = ConvertTimeStamp($run['TS']);
 							$href = $item['DETAIL_PAGE_URL'] . $run['FURL'];
 							?>
 							<div class="it-date"><i class="engIcon setIcon-date-black"></i><?= $run['DATE_S'] ?></div>
@@ -64,8 +65,9 @@ $dates = \Local\Main\Event::getAllDates();
             <div class="it-item">
                 <div class="it-date-form">
                     <div id="engDate-picter"></div>
+
                     <script>
-	                    var picterDates = <?= json_encode(array_values($dates)) ?>;
+	                    var picterDates = <?= json_encode($dates)?>;
                     </script>
                 </div>
             </div>

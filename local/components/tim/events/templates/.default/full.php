@@ -12,7 +12,7 @@ $filter = $component->filter;
 $products = $component->products['ITEMS'];
 
 $dates = \Local\Main\Event::getAllDates();
-
+//debugmessage(\Local\Main\Event::getAll());
 ?>
 
 <div id="catalog-wrap">
@@ -59,9 +59,11 @@ $dates = \Local\Main\Event::getAllDates();
                 <?
                 $closed = array();
                 $i = 0;
-
+                //debugmessage($filter['GROUPS']);
                 foreach ($filter['GROUPS'] as $group) {
                     $style = $closed[$i] ? ' style="display:none;"' : '';
+                    if($group['TYPE'] == 'cities')
+                        $style = ' style="display:none;"';
                     $class = $closed[$i] ? ' closed' : '';
                     ?>
 
@@ -103,7 +105,12 @@ $dates = \Local\Main\Event::getAllDates();
                             </div>
                         <? } else { ?>
                             <div<?= $style ?>>
-                                <ul>
+                                <?
+                                $id ='';
+                                if($group['TYPE'] == 'cities')
+	                                $id = ' id="city-filter"';
+                                ?>
+                                <ul <?= $id?>>
                                     <? foreach ($group['ITEMS'] as $code => $item) { ?>
                                         <?
                                         $style = $item['ALL_CNT'] ? '' : ' style="display:none;"';
@@ -119,9 +126,19 @@ $dates = \Local\Main\Event::getAllDates();
                                         ?>
 
                                         <li<?= $class ?><?= $style ?>>
-                                            <b></b><label>
-                                                <input type="checkbox"
-                                                       name="<?= $code ?>"<?= $checked ?><?= $disabled ?> />
+                                            <label>
+                                                <?
+                                                    $type = 'checkbox';
+                                                    $name = $code;
+                                                    $value = '';
+                                                    if($group['TYPE'] == 'cities') {
+                                                        $type = 'radio';
+                                                        $name = 'city';
+                                                        $value = "value='$code'";
+                                                    }
+                                                ?>
+                                                <input type="<?= $type ?>" <?= $value ?>
+                                                       name="<?= $name ?>"<?= $checked ?><?= $disabled ?> />
                                                 <?= $item['NAME'] ?> (<i><?= $item['CNT'] ?></i>)
                                             </label>
                                         </li>

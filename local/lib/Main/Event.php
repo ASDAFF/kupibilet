@@ -180,6 +180,7 @@ class Event
 	 */
 	public static function getDataByFilter($filter, $refreshCache = false)
 	{
+		//debugmessage($filter);
 		$return = array(
 			'COUNT' => 0,
 		);
@@ -259,9 +260,18 @@ class Event
 							}
 						}
 					}
-					elseif ($key == 'CITY')
+					elseif ($key == 'CITIES')
 					{
-						if (!$product['CITIES'][$value])
+						$ex = false;
+						foreach ($product['CITIES'] as $cityId => $city)
+						{
+							if ($value[$cityId])
+							{
+								$ex = true;
+								break;
+							}
+						}
+						if (!$ex)
 						{
 							$ok = false;
 							break;
@@ -303,6 +313,13 @@ class Event
 						if (!isset($return['DATE']['MAX']) || $return['DATE']['MAX'] < $ts)
 							$return['DATE']['MAX'] = $ts;
 					}
+
+					foreach ($product['CITIES'] as $cityId => $city){
+						if (!isset($return['CITIES'][$cityId]))
+							$return['CITIES'][$cityId] = 0;
+						$return['CITIES'][$cityId]++;
+					}
+
 
 					if (!isset($return['GENRE'][$product['GENRE']]))
 						$return['GENRE'][$product['GENRE']] = 0;
