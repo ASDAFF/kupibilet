@@ -12,7 +12,7 @@ $filter = $component->filter;
 $products = $component->products['ITEMS'];
 
 $dates = \Local\Main\Event::getAllDates();
-
+//debugmessage(\Local\Main\Event::getAll());
 ?>
 
 <div id="catalog-wrap">
@@ -59,8 +59,11 @@ $dates = \Local\Main\Event::getAllDates();
                 <?
                 $closed = array();
                 $i = 0;
+                foreach ($filter['GROUPS'] as $group)
+                {
+	                if ($group['TYPE'] == 'cities')
+		                continue;
 
-                foreach ($filter['GROUPS'] as $group) {
                     $style = $closed[$i] ? ' style="display:none;"' : '';
                     $class = $closed[$i] ? ' closed' : '';
                     ?>
@@ -68,8 +71,8 @@ $dates = \Local\Main\Event::getAllDates();
                     <div class="filter-group<?= $class ?>">
                         <? /*<h3><?= $group['NAME'] ?><s></s></h3>*/ ?>
 
-                        <? if ($group['TYPE'] == 'price') { ?>
-                            <?
+                        <? if ($group['TYPE'] == 'price')
+                        {
                             $from = $group['FROM'] ? $group['FROM'] : $group['MIN'];
                             $to = $group['TO'] ? $group['TO'] : $group['MAX'];
                             ?>
@@ -87,48 +90,55 @@ $dates = \Local\Main\Event::getAllDates();
                                     <i class="slider-range-value" id="slider-range-value2"
                                        style="left: 100%"><b><?= $to ?></b></i>
                                 </div>
-                            </div>
-                        <? } elseif ($group['TYPE'] == 'date') { ?>
-                            <?
+                            </div><?
+                        }
+                        elseif ($group['TYPE'] == 'date')
+                        {
                             $min = ConvertTimeStamp($group['MIN']);
                             $max = ConvertTimeStamp($group['MAX']);
                             $from = $group['FROM'] ? $group['FROM'] : $min;
                             $to = $group['TO'] ? $group['TO'] : $max;
+
                             ?>
                             <div style="display:none;" class="date-group"<?= $style ?> data-min="<?= $min ?>" data-max="<?= $max ?>">
                                 <div class="inputs ">
                                     <div class="l">от <input name="startDate" type="text" class="from" value="<?= $from ?>"/></div>
                                     <div class="r">до <input name="endDate" type="text" class="to" value="<?= $to ?>"/></div>
                                 </div>
-                            </div>
-                        <? } else { ?>
+                            </div><?
+                        }
+                        else
+                        {
+	                        ?>
                             <div<?= $style ?>>
-                                <ul>
-                                    <? foreach ($group['ITEMS'] as $code => $item) { ?>
-                                        <?
-                                        $style = $item['ALL_CNT'] ? '' : ' style="display:none;"';
-                                        $class = '';
-                                        if (!$item['CNT'] && $item['CHECKED'])
-                                            $class = ' class="checked disabled"'; elseif ($item['CHECKED'])
-                                            $class = ' class="checked"';
-                                        elseif (!$item['CNT'])
-                                            $class = ' class="disabled"';
-                                        $checked = $item['CHECKED'] ? ' checked' : '';
-                                        $disabled = $item['CNT'] ? '' : ' disabled';
+	                            <ul>
+		                            <? foreach ($group['ITEMS'] as $code => $item) { ?>
+			                            <?
+			                            $style = $item['ALL_CNT'] ? '' : ' style="display:none;"';
+			                            $class = '';
+			                            if (!$item['CNT'] && $item['CHECKED'])
+				                            $class = ' class="checked disabled"'; elseif ($item['CHECKED'])
+				                            $class = ' class="checked"';
+			                            elseif (!$item['CNT'])
+				                            $class = ' class="disabled"';
+			                            $checked = $item['CHECKED'] ? ' checked' : '';
+			                            $disabled = $item['CNT'] ? '' : ' disabled';
 
-                                        ?>
+			                            ?>
 
-                                        <li<?= $class ?><?= $style ?>>
-                                            <b></b><label>
-                                                <input type="checkbox"
-                                                       name="<?= $code ?>"<?= $checked ?><?= $disabled ?> />
-                                                <?= $item['NAME'] ?> (<i><?= $item['CNT'] ?></i>)
-                                            </label>
-                                        </li>
-                                    <? } ?>
-                                </ul>
-                            </div>
-                        <? } ?>
+			                            <li<?= $class ?><?= $style ?>>
+				                            <b></b><label>
+					                            <input type="checkbox"
+					                                   name="<?= $code ?>"<?= $checked ?><?= $disabled ?> />
+					                            <?= $item['NAME'] ?> (<i><?= $item['CNT'] ?></i>)
+				                            </label>
+			                            </li>
+		                            <? } ?>
+	                            </ul>
+                            </div><?
+                        }
+
+                        ?>
                     </div>
 
                     <? $i++; ?>

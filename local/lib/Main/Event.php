@@ -87,12 +87,16 @@ class Event
 					break;
 				}
                 $halls = [];
+				$cities = [];
                 $selfHall = intval($item['PROPERTY_HALL_VALUE']);
 
                 foreach ($runs[$id] as $run)
                 {
-                    $h = ($run['HALL']) ? $run['HALL'] : $selfHall;
-                    $halls[$h] = $h;
+	                $h = ($run['HALL']) ? $run['HALL'] : $selfHall;
+	                $halls[$h] = $h;
+
+	                $hall = Hall::getById($h);
+	                $cities[$hall['CITY_ID']] = $hall['CITY'];
                 }
 
 				$product = array(
@@ -100,6 +104,7 @@ class Event
 					'NAME' => $item['NAME'],
 					'CODE' => $item['CODE'],
 					'HALLS' => $halls,
+					'CITIES' => $cities,
 					'GENRE' => intval($genre['ID']),
 					'PRICE' => intval($item['PROPERTY_PRICE_VALUE']),
                     'PRICE_TO' => intval($item['PROPERTY_PRICE_TO_VALUE']),
@@ -175,6 +180,7 @@ class Event
 	 */
 	public static function getDataByFilter($filter, $refreshCache = false)
 	{
+		//debugmessage($filter);
 		$return = array(
 			'COUNT' => 0,
 		);
@@ -254,6 +260,23 @@ class Event
 							}
 						}
 					}
+					elseif ($key == 'CITIES')
+					{
+						$ex = false;
+						foreach ($product['CITIES'] as $cityId => $city)
+						{
+							if ($value[$cityId])
+							{
+								$ex = true;
+								break;
+							}
+						}
+						if (!$ex)
+						{
+							$ok = false;
+							break;
+						}
+					}
 					elseif ($key == 'GENRE')
 					{
 						if (!$value[$product['GENRE']])
@@ -290,6 +313,13 @@ class Event
 						if (!isset($return['DATE']['MAX']) || $return['DATE']['MAX'] < $ts)
 							$return['DATE']['MAX'] = $ts;
 					}
+
+					foreach ($product['CITIES'] as $cityId => $city){
+						if (!isset($return['CITIES'][$cityId]))
+							$return['CITIES'][$cityId] = 0;
+						$return['CITIES'][$cityId]++;
+					}
+
 
 					if (!isset($return['GENRE'][$product['GENRE']]))
 						$return['GENRE'][$product['GENRE']] = 0;
@@ -733,6 +763,7 @@ class Event
 		$phpCache->CleanDir(static::CACHE_PATH . 'get');
 		$phpCache->CleanDir(static::CACHE_PATH . 'getById');
 	}
+
 
 }
 

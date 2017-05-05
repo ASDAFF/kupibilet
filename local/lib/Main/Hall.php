@@ -62,6 +62,7 @@ class Hall
                     'ADDRESS' => $item['PROPERTY_ADDRESS_VALUE'],
                     'ZONE' => $item['PROPERTY_ZONE_VALUE']['TEXT'],
 				    'CITY' => $city['NAME'],
+					'CITY_ID' => $city['ID'],
 				);
 				if ($item['CODE'])
 					$return['BY_CODE'][$item['CODE']] = $id;
