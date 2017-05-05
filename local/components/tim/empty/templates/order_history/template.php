@@ -101,7 +101,7 @@ while ($infoItem = $info->Fetch())
 				$action = 'Распечатать';
 				$href = '/personal/order/print/?id=' . $order['ID'];
 				$price = $order['PRICE'] . ' руб.';
-				if ($order['ALLOW_DELIVERY'] == 'Y')
+				if (!$order['PRICE_DELIVERY'])
 				{
 					$href = '';
 					$action = '';

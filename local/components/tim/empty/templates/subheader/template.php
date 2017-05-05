@@ -27,18 +27,20 @@ $eventsText = $eventsCount . $eventsText;
             <div class="elHeader-btn engBox-4 engPl cssText-center">
                 <div class="elCityList">
 					<?
-					$selectedCity = \Local\Main\City::getSelected();
-					if ($selectedCity != '')
+					$selectedCityId = \Local\Main\City::getSelected();
+					if ($selectedCityId)
 					{
-						$firstCity = $cities[$selectedCity];
-						unset($cities[$selectedCity]);
+						$selectedCity = $cities[$selectedCityId];
+						unset($cities[$selectedCityId]);
 					}
 					else
 					{
-						$firstCity = array_shift($cities);
+						$selectedCity = array_shift($cities);
 					}
 					?>
-                    <div class="elCityList-title"><span data-code="<?= $firstCity['CODE'] ?>" data-id="<?= $firstCity['ID']?>" id="elCityList-title"> <?= $firstCity['NAME'] ?> </span>
+                    <div class="elCityList-title"><span data-code="<?= $selectedCity['CODE'] ?>"
+                                                        data-id="<?= $selectedCity['ID']?>"
+                                                        id="elCityList-title"> <?= $selectedCity['NAME'] ?> </span>
                         <svg class="engSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26">
                             <path d="M 6.4140625 7.5859375 L 3.5859375 10.414062 L 13 19.828125 L 22.414062 10.414062 L 19.585938 7.5859375 L 13 14.171875 L 6.4140625 7.5859375 z"></path>
                         </svg>

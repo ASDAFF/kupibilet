@@ -24,6 +24,12 @@ var Run = {
 		this.ZalBox.on('mouseleave', '.elZal-item', this.leave);
 		this.ZalBox.on('click', '.elZal-point.on', this.click);
 		this.elZalScenBox.find('.it-item').on('click', this.itClick);
+
+		var parter = this.elZalScenBox.find('.it-item[data-zal="Партер"]');
+		if (!parter.length)
+			parter = this.elZalScenBox.find('.it-item[data-zal="Партер средний"]');
+		if (parter.length)
+			parter.click();
 	},
 	hover: function() {
 		var item = $(this);

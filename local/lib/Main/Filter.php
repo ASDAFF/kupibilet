@@ -193,6 +193,20 @@ class Filter
 				}
 				unset($item);
 			}
+
+			if ($group['TYPE'] == 'cities' && !$cnt)
+			{
+				$selectedCityId = City::getSelected();
+				foreach ($group['ITEMS'] as $code => &$item)
+				{
+					if ($item['ID'] == $selectedCityId)
+					{
+						$item['CHECKED'] = true;
+						$cnt++;
+					}
+				}
+			}
+
 			$group['CHECKED_CNT'] = $cnt;
 			$allCnt += $cnt;
 		}
@@ -380,17 +394,11 @@ class Filter
 					else
 						$item['CNT'] = intval($data[$item['CODE']]);
 
-
-
 					$data = self::$DATA_BY_KEY[''];
-
 					if ($item['CODE'] == 'GENRE' || $item['CODE'] == 'CITIES')
 						$item['ALL_CNT'] = intval($data[$item['CODE']][$item['ID']]);
 					else
 						$item['ALL_CNT'] = intval($data[$item['CODE']]);
-
-
-
 
 					$cntGroup += $item['CNT'];
 				}
@@ -553,6 +561,8 @@ class Filter
 		foreach (self::$GROUPS as $key => $group)
 		{
 			if (!$group['CNT'])
+				continue;
+			if ($group['TYPE'] == 'cities')
 				continue;
 
 			$name = '';
