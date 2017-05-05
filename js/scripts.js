@@ -155,6 +155,10 @@ $(function() {
 				elCityList_menu.css('display', 'none');
 				$('.elList').html(data.HTML);
 				$('.elCityList a').text(data.COUNT);
+				if (DP.length) {
+					picterDates = data.DATES;
+					DP.datepicker("refresh");
+				}
 			}
 		});
 	});

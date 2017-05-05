@@ -16,9 +16,9 @@ if ($_REQUEST['action'] == 'set_city')
 	$eventsText = \Local\System\Utils::cardinalNumberRus($eventsCount, ' мероприятий', ' мероприятие', ' мероприятия');
 	$eventsText = $eventsCount . $eventsText;
 	$html = '';
-	
     $html .= "<div class='grid-sizer'></div>";
 
+	$dates = [];
 	foreach ($events['ITEMS'] as $item)
 	{
 		$hall = \Local\Main\Hall::getById($item['HALL']);
@@ -51,10 +51,16 @@ if ($_REQUEST['action'] == 'set_city')
             <div class='it-money'><i class='engIcon setIcon-price-black'></i>$price руб.</div>
         </div>
         </div>";
+
+		foreach ($item['RUNS'] as $run)
+		{
+			$date = ConvertTimeStamp($run['TS']);
+			$dates[$date] = $date;
+		}
 	}
 
 	header('Content-Type: application/json');
-	echo json_encode(['COUNT' => $eventsText, 'HTML' => $html]);
+	echo json_encode(['COUNT' => $eventsText, 'HTML' => $html, 'DATES' => array_values($dates)]);
 
 }
 
