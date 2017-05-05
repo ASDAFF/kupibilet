@@ -91,7 +91,7 @@ var Run = {
 		Run.ZalBox.css("max-height", Run.tZalMax_top - Run.tZalMin_top + 50);
 
 		// Двигаемся к залам
-		$('html , body').animate({scrollTop: $(Run.elZalScenBox).offset().top}, 1000);
+		$('html , body').animate({scrollTop: ($(Run.elZalScenBox).offset().top)-50}, 1000);
 	},
 	itUpdate: function(item) {
 		Run.zoneName = item.attr('data-zal');

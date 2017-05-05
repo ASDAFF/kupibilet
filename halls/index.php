@@ -3,7 +3,14 @@
 /** @global CMain $APPLICATION */
 $APPLICATION->SetTitle("Концертные залы");
 
-$APPLICATION->IncludeComponent('tim:halls', '');
+$APPLICATION->IncludeComponent(
+	"tim:halls", 
+	".default", 
+	array(
+		
+	),
+	false
+);
 
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");
 die();

@@ -708,7 +708,7 @@ footer {clear: both; margin-top: 20px;}
 }
 
 .elZal {overflow: auto;  margin: 20px auto;}
-.elZal-box {max-height: 350px; min-height: 300px; position: relative; margin: 30px;}
+.elZal-box {max-height: 350px; min-height: 400px; position: relative; margin: 30px;}
 .elZal-set {height: 22px; width: 100%; white-space: nowrap;}
 
 .elZal-item {width: 20px; height: 20px; position: absolute;
@@ -787,7 +787,8 @@ footer {clear: both; margin-top: 20px;}
     border-top: 10px solid #000000;
     border-bottom: none;}
 
-
+@media only screen and (max-width: 900px) {
+.elZal-box {min-height: 250px;}}
 
 @media only screen and (max-width: 400px) {
     .elZal-number:nth-child(1n+6) .elZal-inf {left: -140px;}
