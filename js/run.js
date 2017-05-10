@@ -24,6 +24,12 @@ var Run = {
 		this.ZalBox.on('mouseleave', '.elZal-item', this.leave);
 		this.ZalBox.on('click', '.elZal-point.on', this.click);
 		this.elZalScenBox.find('.it-item').on('click', this.itClick);
+
+		var parter = this.elZalScenBox.find('.it-item[data-zal="Партер"]');
+		if (!parter.length)
+			parter = this.elZalScenBox.find('.it-item[data-zal="Партер средний"]');
+		if (parter.length)
+			parter.click();
 	},
 	hover: function() {
 		var item = $(this);
@@ -91,7 +97,7 @@ var Run = {
 		Run.ZalBox.css("max-height", Run.tZalMax_top - Run.tZalMin_top + 50);
 
 		// Двигаемся к залам
-		$('html , body').animate({scrollTop: $(Run.elZalScenBox).offset().top}, 1000);
+		$('html , body').animate({scrollTop: ($(Run.elZalScenBox).offset().top)-50}, 1000);
 	},
 	itUpdate: function(item) {
 		Run.zoneName = item.attr('data-zal');

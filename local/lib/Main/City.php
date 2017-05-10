@@ -35,7 +35,9 @@ class City
 			$rsItems = $iblockSection->GetList(["NAME" => "ASC"], [
 				'IBLOCK_ID' => Hall::IBLOCK_ID,
 			], false, [
-				'ID', 'NAME', 'CODE',
+				'ID',
+				'NAME',
+				'CODE',
 			]);
 			while ($item = $rsItems->Fetch())
 			{
@@ -43,7 +45,7 @@ class City
 				$return[$id] = [
 					'ID' => $id,
 					'NAME' => $item['NAME'],
-				    'CODE' => $item['CODE'],
+					'CODE' => $item['CODE'],
 				];
 			}
 
@@ -63,14 +65,15 @@ class City
 	public static function selectCity($id)
 	{
 		global $APPLICATION;
-		$APPLICATION->set_cookie('SELECTED_CITY', $id, time()+60*60*24*365);
+		$APPLICATION->set_cookie('SELECTED_CITY', $id, time() + 60 * 60 * 24 * 365);
 	}
 
 	public static function getSelected()
 	{
 		global $APPLICATION;
 		$cityID = $APPLICATION->get_cookie('SELECTED_CITY');
-		if($cityID == ''){
+		if ($cityID == '')
+		{
 			$cities = City::getAll();
 			$city = array_shift($cities);
 			$cityID = $city['ID'];
@@ -81,15 +84,15 @@ class City
 
 	public static function getGroup()
 	{
-		$return = array();
+		$return = [];
 
 		$all = self::getAll();
 		foreach ($all as $item)
-			$return[$item['CODE']] = array(
+			$return[$item['CODE']] = [
 				'ID' => $item['ID'],
 				'CODE' => 'CITIES',
 				'NAME' => $item['NAME'],
-			);
+			];
 
 		return $return;
 	}

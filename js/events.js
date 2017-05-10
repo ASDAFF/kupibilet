@@ -27,6 +27,7 @@ var Filters = {
 		this.bcCont = $('#bc');
 		this.h1Cont = $('#h1');
 		this.clearBtn = $('.filter-clear');
+		this.selectedCityCode = $('#elCityList-title').data('code');
 
 		this.priceInit();
 
@@ -40,6 +41,13 @@ var Filters = {
 			var url = e.target.location;
 			Filters.loadProducts(url, false);
 		});
+	},
+	changeCity: function(code) {
+		if (!this.panel.length)
+			return;
+
+		Filters.selectedCityCode = code;
+		Filters.updateProducts();
 	},
 	dateClick: function(date) {
 		Filters.date = date;
@@ -109,6 +117,8 @@ var Filters = {
 	},
 	updateProducts: function() {
 		var url = Filters.catalogPath;
+		if (Filters.selectedCityCode)
+			url += Filters.selectedCityCode + '/';
 		Filters.groups.each(function() {
 			var cb = $(this).find('input[type=checkbox]:checked');
 			var part = '';

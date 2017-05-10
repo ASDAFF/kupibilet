@@ -34,7 +34,7 @@ if ($notEmpty && (isset($_POST['order_create']) || isset($_POST['order_reserve']
 
 		$orderId = \Local\Sale\Cart::createOrder($cart, $user, $_REQUEST['delivery'] ? $deliveryPrice : 0, $status);
         $reserve_time = (isset($_POST['order_reserve'])) ? RESERVE_TIME_24 : RESERVE_TIME;
-        \Local\Sale\Cart::prolongReserve($cart['ITEMS'], $reserve_time);
+		\Local\Sale\Cart::prolongReserve($cart['ITEMS'], $reserve_time);
         if ($orderId)
 			LocalRedirect('/personal/order/?id=' . $orderId);
 	}

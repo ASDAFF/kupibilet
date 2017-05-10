@@ -126,31 +126,42 @@ $(function() {
 	});
 
     var elCityList = $(".elCityList"),
-        elCityList_menu = $(".elCityList-list");
+        elCityList_menu = $(".elCityList-list"),
+		filtersPanel = $('#filters-panel');
 
-    elCityList.find('span').on('click', function () {
-        var span = $(this),
-            elCityTitle = $("#elCityList-title"),
-            elCityTitleText = elCityTitle.text(),
-            cityId = span.data('id'),
-            cityCode = span.data('code'),
-            dataId = elCityTitle.data('id'),
-            dataCode = elCityTitle.data('code');
-        $.post('/ajax/events.php',{
-            action: 'set_city',
-            id: cityId
-        },function(data){
-            elCityTitle.html(span.text());
-            elCityTitle.data('id',cityId);
-            elCityTitle.data('code',cityCode);
-            span.text(elCityTitleText);
-            span.data('id',dataId);
-            span.data('code',dataCode);
-            elCityList_menu.css('display','none');
-            $('.elList').html(data.HTML);
-            $('.elCityList a').text(data.COUNT);
-        });
-    });
+	elCityList.find('span').on('click', function () {
+		var span = $(this),
+			elCityTitle = $("#elCityList-title"),
+			elCityTitleText = elCityTitle.text(),
+			cityId = span.data('id'),
+			cityCode = span.data('code'),
+			dataId = elCityTitle.data('id'),
+			dataCode = elCityTitle.data('code');
+		$.post('/ajax/events.php', {
+			action: 'set_city',
+			id: cityId
+		}, function (data) {
+			elCityTitle.html(span.text());
+			elCityTitle.data('id', cityId);
+			elCityTitle.data('code', cityCode);
+			span.text(elCityTitleText);
+			span.data('id', dataId);
+			span.data('code', dataCode);
+			// В каталоге свой обработчик
+			if (filtersPanel.length) {
+				Filters.changeCity(cityCode);
+			}
+			else {
+				elCityList_menu.css('display', 'none');
+				$('.elList').html(data.HTML);
+				$('.elCityList a').text(data.COUNT).attr('href', '/event/' + cityCode + '/');
+				if (DP.length) {
+					picterDates = data.DATES;
+					DP.datepicker("refresh");
+				}
+			}
+		});
+	});
 
 } );
 
