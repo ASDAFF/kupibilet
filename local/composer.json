@@ -1,5 +1,7 @@
 {
-    "require": {},
+    "require": {
+        "dompdf/dompdf": "^0.8.0"
+    },
 	"autoload": {
 		"psr-4" : {
 			"Local\\":"lib"

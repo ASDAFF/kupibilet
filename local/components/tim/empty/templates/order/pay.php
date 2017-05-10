@@ -44,7 +44,7 @@ else
 		'apiUri' => Client::API_URI_TEST,
 	));
 
-	$orderId = 16;//$order['ID'];
+	$orderId = $order['ID'];
 	$orderAmount = $order['PRICE'] * 100;
 	$returnUrl = 'http://' . $host . '/personal/order/payment/success/' . $order['ID'] . '/';
 	$params = array();

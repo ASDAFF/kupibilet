@@ -8,4 +8,6 @@ $baseDir = dirname($vendorDir);
 return array(
     'Voronkovich\\SberbankAcquiring\\' => array($vendorDir . '/voronkovich/sberbank-acquiring-client/src'),
     'Local\\' => array($baseDir . '/lib'),
+    'FontLib\\' => array($vendorDir . '/phenx/php-font-lib/src/FontLib'),
+    'Dompdf\\' => array($vendorDir . '/dompdf/dompdf/src'),
 );

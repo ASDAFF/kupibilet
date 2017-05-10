@@ -7,6 +7,7 @@ use Bitrix\Sale\Order;
 use Local\Main\Event;
 use Local\Main\Hall;
 use Local\Main\Run;
+use Local\System\Pdf;
 use Local\System\User;
 use Local\System\Utils;
 use Voronkovich\SberbankAcquiring\Client;
@@ -621,6 +622,7 @@ class Cart
 		// Для того, чтоб в админке видели, что заказ оплачен
 		// TODO: объединить с изменением статуса
 		$order = Order::load($id);
+		$orderItems = [];
 		$paymentCollection = $order->getPaymentCollection();
 		$payment = $paymentCollection[0];
 		$payment->setPaid('Y');
@@ -641,6 +643,7 @@ class Cart
 		{
 			Reserve::pay($item['ID']);
 			self::addSecretToCartId($item);
+			$orderItems['ITEMS'][] = $item;
 		}
 
 		$link ='';
@@ -661,7 +664,10 @@ class Cart
 		    'ADDRESS' => $props['ADDRESS'],
 		    'PHONE' => $props['PHONE'],
 		);
-		\CEvent::SendImmediate('PAY_ORDER', 's1', $eventFields);
+
+		$ordr = Cart::getOrderById($id);
+		$file = Pdf::create($_SERVER['DOCUMENT_ROOT'].'/_pdf/order-'.$id . '.pdf',$ordr,$orderItems);
+		\CEvent::SendImmediate('PAY_ORDER', 's1', $eventFields,'Y','',[$file]);
 	}
 
 	/**
