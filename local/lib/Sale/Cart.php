@@ -643,7 +643,7 @@ class Cart
 		{
 			Reserve::pay($item['ID']);
 			self::addSecretToCartId($item);
-			$orderItems['ITEMS'][] = $item;
+
 		}
 
 		$link ='';
@@ -665,8 +665,8 @@ class Cart
 		    'PHONE' => $props['PHONE'],
 		);
 
-		$ordr = Cart::getOrderById($id);
-		$file = Pdf::create($_SERVER['DOCUMENT_ROOT'].'/_pdf/order-'.$id . '.pdf',$ordr,$orderItems);
+
+		$file = Pdf::create($_SERVER['DOCUMENT_ROOT'].'/_pdf/order-'. $id . '.pdf', $id, $items);
 		\CEvent::SendImmediate('PAY_ORDER', 's1', $eventFields,'Y','',[$file]);
 	}
 
