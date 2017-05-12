@@ -51,10 +51,15 @@ class Cart
 
 		$basket = new \CSaleBasket();
 		$basket->Init();
-		$rsCart = $basket->GetList(array(), array(
-			'ORDER_ID' => $orderId,
-			'FUSER_ID' => $basket->GetBasketUserID(),
-		));
+		if ($orderId)
+			$filter = array(
+				'ORDER_ID' => $orderId,
+			);
+		else
+			$filter = array(
+				'FUSER_ID' => $basket->GetBasketUserID(),
+			);
+		$rsCart = $basket->GetList(array(), $filter);
 		$ids = array();
 		while ($item = $rsCart->Fetch())
 		{
@@ -561,7 +566,7 @@ class Cart
 		$order = new \CSaleOrder();
 		$rsOrder = $order->GetList(array(), array(
 			'ID' => $id,
-			'USER_ID' => $userId,
+			//'USER_ID' => $userId,
 		));
 		$order = $rsOrder->Fetch();
 
@@ -622,7 +627,6 @@ class Cart
 		// Для того, чтоб в админке видели, что заказ оплачен
 		// TODO: объединить с изменением статуса
 		$order = Order::load($id);
-		$orderItems = [];
 		$paymentCollection = $order->getPaymentCollection();
 		$payment = $paymentCollection[0];
 		$payment->setPaid('Y');
@@ -630,32 +634,36 @@ class Cart
 		$order->save();
 		$propertyCollection = $order->getPropertyCollection();
 		$arProps = $propertyCollection->getArray();
-		$props = array();
+		$props = [];
 		foreach ($arProps['properties'] as $pr)
 			$props[$pr['CODE']] = $pr['VALUE'][0];
 
 		$order = new \CSaleOrder();
-		$order->Update($id, array(
+		$order->Update($id, [
 			'STATUS_ID' => 'F',
-		));
+		]);
 
 		foreach ($items as $item)
 		{
 			Reserve::pay($item['ID']);
 			self::addSecretToCartId($item);
-
 		}
 
-		$link ='';
-
+		$link = '';
+		$files = [];
 		if (!$deliveryPrice)
 		{
-            $url = 'http://' . \COption::GetOptionString('main', 'server_name',
+            /*$url = 'http://' . \COption::GetOptionString('main', 'server_name',
                     $_SERVER['SERVER_NAME']) . '/personal/order/print/?id=' . $id;
-            $link = "<a href='$url'>Распечать билет</a>";
+            $link = "<a href='$url'>Распечать билет</a>";*/
+
+			$file = Pdf::create($id, $items);
+			$fileArray = \CFile::MakeFileArray($file);
+			$fileArray['MODULE_ID'] = 'pdf';
+			$files[] = \CFile::SaveFile($fileArray, 'pdf');
         }
 
-		$eventFields = array(
+		$eventFields = [
 			'ORDER_ID' => $id,
 			'ORDER_USER' => $props['FIO'],
 			'EMAIL' => $props['EMAIL'],
@@ -663,11 +671,9 @@ class Cart
 		    'PRINT' => $link,
 		    'ADDRESS' => $props['ADDRESS'],
 		    'PHONE' => $props['PHONE'],
-		);
+		];
 
-
-		$file = Pdf::create($_SERVER['DOCUMENT_ROOT'].'/_pdf/order-'. $id . '.pdf', $id, $items);
-		\CEvent::SendImmediate('PAY_ORDER', 's1', $eventFields,'Y','',[$file]);
+		\CEvent::SendImmediate('PAY_ORDER', 's1', $eventFields, 'Y', '', $files);
 	}
 
 	/**

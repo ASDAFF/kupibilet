@@ -25,8 +25,8 @@ $eventsText = $eventsCount . $eventsText;
                 </form>
             </div>
             <div class="elHeader-btn engBox-4 engPl cssText-center">
-                <div class="elCityList">
-					<?
+                <div class="elCityList"><?
+
 					$selectedCityId = \Local\Main\City::getSelected();
 					if ($selectedCityId)
 					{
@@ -37,6 +37,7 @@ $eventsText = $eventsCount . $eventsText;
 					{
 						$selectedCity = array_shift($cities);
 					}
+
 					?>
                     <div class="elCityList-title"><span data-code="<?= $selectedCity['CODE'] ?>"
                                                         data-id="<?= $selectedCity['ID']?>"
@@ -44,15 +45,18 @@ $eventsText = $eventsCount . $eventsText;
                         <svg class="engSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26">
                             <path d="M 6.4140625 7.5859375 L 3.5859375 10.414062 L 13 19.828125 L 22.414062 10.414062 L 19.585938 7.5859375 L 13 14.171875 L 6.4140625 7.5859375 z"></path>
                         </svg>
-                        <div class="elCityList-list">
-							<? foreach ($cities as $city)
+                        <div class="elCityList-list"><?
+
+	                        foreach ($cities as $city)
 							{
 								?>
-                                <span class="select-city" data-code="<?= $city['CODE'] ?>" data-id="<?= $city['ID'] ?>"><?= $city['NAME'] ?></span>
-							<? } ?>
+                                <span class="select-city" data-code="<?= $city['CODE'] ?>" data-id="<?= $city['ID'] ?>"><?= $city['NAME'] ?></span><?
+							}
+
+	                        ?>
                         </div>
                     </div>
-                    <a href="/event/"><?= $eventsText ?></a>
+                    <a href="/event/<?= $selectedCity['CODE'] ?>/"><?= $eventsText ?></a>
                 </div>
             </div>
         </div>
