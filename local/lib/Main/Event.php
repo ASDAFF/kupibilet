@@ -86,6 +86,7 @@ class Event
 					$runSort = $run['TS'];
 					break;
 				}
+
                 $halls = [];
 				$cities = [];
                 $selfHall = intval($item['PROPERTY_HALL_VALUE']);
@@ -98,6 +99,13 @@ class Event
 	                $hall = Hall::getById($h);
 	                $cities[$hall['CITY_ID']] = $hall['CITY'];
                 }
+
+				if (!$halls)
+				{
+					$halls[$selfHall] = $selfHall;
+					$hall = Hall::getById($selfHall);
+					$cities[$hall['CITY_ID']] = $hall['CITY'];
+				}
 
 				$product = array(
 					'ID' => $id,
