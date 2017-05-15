@@ -643,10 +643,11 @@ class Cart
 			'STATUS_ID' => 'F',
 		]);
 
-		foreach ($items as $item)
+		foreach ($items as $k => $item)
 		{
 			Reserve::pay($item['ID']);
-			self::addSecretToCartId($item);
+			$secret = self::addSecretToCartId($item);
+			$items[$k]['PROPS']['SECRET'] = $secret;
 		}
 
 		$link = '';
@@ -705,7 +706,7 @@ class Cart
 		$basket = new \CSaleBasket();
 		$basket->Update($cartItem['ID'], array('PROPS' => $props));
 
-		return true;
+		return $secret;
 	}
 
 	/**
