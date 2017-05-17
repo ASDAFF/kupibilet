@@ -51,7 +51,7 @@ class Cart
 
 		$basket = new \CSaleBasket();
 		$basket->Init();
-		if ($orderId)
+		if ($orderId && $orderId != 'NULL')
 			$filter = array(
 				'ORDER_ID' => $orderId,
 			);
