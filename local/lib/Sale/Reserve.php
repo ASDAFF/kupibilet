@@ -186,6 +186,8 @@ class Reserve
 		{
 			if ($time === false)
 				$new = time() + RESERVE_TIME;
+			elseif ($time == RESERVE_TIME_24)
+				$new = time() + RESERVE_TIME_24;
 			else
 				$new = $item['UF_EXPIRED'] + $time;
 			$dataClass::update($item['ID'], [
