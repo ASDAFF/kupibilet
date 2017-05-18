@@ -385,7 +385,7 @@ class Cart
 			}
 			CartCache::add($cartItem['FUSER_ID']);
 
-			/*$suser = new \CSaleUser();
+			$suser = new \CSaleUser();
 			$userId = $suser->GetUserID($cartItem['FUSER_ID']);
 			if ($userId)
 			{
@@ -408,7 +408,7 @@ class Cart
 
 					\CEvent::Send('RESERVE_OVERDUE', 's1', $eventFields);
 				}
-			}*/
+			}
 		}
 		else
 			Reserve::delete($cartId);

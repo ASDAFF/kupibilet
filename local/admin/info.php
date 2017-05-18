@@ -43,9 +43,7 @@ if ($_REQUEST['find_id'])
 	{
 		$items = $baskets->GetPropsList([], ['@BASKET_ID' => $cartIds]);
 		while ($item = $items->Fetch())
-		{
 			$res[$item['BASKET_ID']][$item['CODE']] = $item['VALUE'];
-		}
 	}
 }
 
@@ -125,6 +123,12 @@ $lAdmin->AddHeaders([
 		"id" => "ORDER_ID",
 		"content" => "ID заказа",
 		"sort" => "order_id",
+		"default" => true,
+	],
+	[
+		"id" => "SECTOR",
+		"content" => "Сектор",
+		"sort" => "sector",
 		"default" => true,
 	],
 	[
