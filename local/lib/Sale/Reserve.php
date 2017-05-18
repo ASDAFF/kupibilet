@@ -34,9 +34,22 @@ class Reserve
 	 */
 	public static function getByRun($runId)
 	{
-		return self::getByFilter([
-			'UF_RUN' => $runId,
+		$entityInfo = HighloadBlockTable::getById(static::ENTITY_ID)->Fetch();
+		$entity = HighloadBlockTable::compileEntity($entityInfo);
+		$dataClass = $entity->getDataClass();
+		$rsItems = $dataClass::getList([
+			'filter' => [
+				'UF_RUN' => $runId,
+			],
 		]);
+		$return = [];
+		while ($item = $rsItems->Fetch())
+		{
+			$sit = intval($item['UF_SIT']);
+			$return[$sit] = $item['UF_PAYED'];
+		}
+
+		return $return;
 	}
 
 	public static function getByFilter($filter = [], $full = false)

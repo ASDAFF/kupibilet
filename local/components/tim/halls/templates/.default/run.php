@@ -133,9 +133,9 @@ $reserved = \Local\Sale\Reserve::getByRun($run['ID']);
 						$pointStyle .= 'background-color:#d7d7d7;';
 						$pointClass .= ' off';
 					}
-					elseif ($reserved[$itemId] && !$sits[$itemId])
+					elseif (isset($reserved[$itemId]) && !$sits[$itemId])
 					{
-					    if ($reserved[$itemId]['UF_PAYED'])
+					    if ($reserved[$itemId])
                         {
 							$pointStyle .= 'background-color:#d7d7d7;';
 							$pointClass .= ' off';
