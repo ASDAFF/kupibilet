@@ -58,6 +58,7 @@ class Cart
 		else
 			$filter = array(
 				'FUSER_ID' => $basket->GetBasketUserID(),
+				'ORDER_ID' => 'NULL',
 			);
 		$rsCart = $basket->GetList(array(), $filter);
 		$ids = array();
@@ -369,11 +370,10 @@ class Cart
 				if (!$payed)
 				{
 					$rsCart1 = $basket->GetList(array(), array(
-						'ID' != $cartId,
 						'ORDER_ID' => $orderId,
 					));
 					while ($item = $rsCart1->Fetch())
-						Reserve::delete($item['ID']);
+                        Reserve::delete($item['ID']);
 					Cart::setOrderOverdue($orderId);
 				}
 			}
@@ -384,6 +384,31 @@ class Cart
 				Reserve::delete($cartId);
 			}
 			CartCache::add($cartItem['FUSER_ID']);
+
+			$suser = new \CSaleUser();
+			$userId = $suser->GetUserID($cartItem['FUSER_ID']);
+			if ($userId)
+			{
+				$u = new \CUser();
+				$rs = $u->GetByID($userId);
+				$user = $rs->Fetch();
+				if ($user['EMAIL'])
+				{
+					$eventId = $cartItem['PRODUCT_XML_ID'];
+					$event = Event::getById($eventId);
+
+					$link = '<a href="' . $event['DETAIL_PAGE_URL'] . '">' . $event['NAME'] . '</a>';
+
+					$eventFields = [
+						'ORDER_USER' => $user['NAME'] . ' ' . $user['LAST_NAME'],
+						'EMAIL' => $user['EMAIL'],
+						'SALE_EMAIL' => \COption::GetOptionString('sale', 'order_email', 'order@' . $_SERVER['SERVER_NAME']),
+						'PRINT' => $link,
+					];
+
+					\CEvent::Send('RESERVE_OVERDUE', 's1', $eventFields);
+				}
+			}
 		}
 		else
 			Reserve::delete($cartId);
