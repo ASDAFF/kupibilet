@@ -36,7 +36,7 @@ class Reserve
 	{
 		return self::getByFilter([
 			'UF_RUN' => $runId,
-		]);
+		], true);
 	}
 
 	public static function getByFilter($filter = [], $full = false)

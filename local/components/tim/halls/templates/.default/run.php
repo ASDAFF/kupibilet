@@ -34,10 +34,10 @@ $max += 10;
 
 $cartSummary = \Local\Sale\Cart::getSummary();
 $sits = \Local\Sale\Cart::getSitsByRun($run['ID']);
-$reserved = \Local\Sale\Reserve::getByRun($run['ID'])
+$reserved = \Local\Sale\Reserve::getByRun($run['ID']);
 
-
-?>	<div class="engBox">
+?>
+    <div class="engBox">
 		<div class="elZal-top">
 
 			<div class="engRow">
@@ -135,8 +135,16 @@ $reserved = \Local\Sale\Reserve::getByRun($run['ID'])
 					}
 					elseif ($reserved[$itemId] && !$sits[$itemId])
 					{
-						$pointStyle .= '';
-						$pointClass .= ' ser';
+					    if ($reserved[$itemId]['UF_PAYED'])
+                        {
+							$pointStyle .= 'background-color:#d7d7d7;';
+							$pointClass .= ' off';
+                        }
+                        else
+						{
+							$pointStyle .= '';
+							$pointClass .= ' ser';
+						}
 					}
 					else
 					{
