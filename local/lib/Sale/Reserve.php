@@ -46,7 +46,7 @@ class Reserve
 		while ($item = $rsItems->Fetch())
 		{
 			$sit = intval($item['UF_SIT']);
-			$return[$sit] = $item['UF_PAYED'];
+			$return[$sit] = $item['UF_PAYED'] ? 'Y' : 'N';
 		}
 
 		return $return;
