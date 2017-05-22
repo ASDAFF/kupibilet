@@ -54,7 +54,7 @@ $reserved = \Local\Sale\Reserve::getByRun($run['ID']);
 							<span  class="engBox-7 engMb-6"><?= $hall['NAME'] ?></span>
 						</div>
 						<div class=" engBox-3 engPl-3 engMb-12 engMb-cssText-center">
-                            <a href="/personal/cart/" class="it-cart-btn">Перейти в корзину</a>
+                            <a href="/personal/cart/" class="it-cart-btn">Оформить заказ</a>
 						</div>
 					</div>
 				</div>
@@ -181,6 +181,11 @@ $reserved = \Local\Sale\Reserve::getByRun($run['ID']);
 		<div class="engRow priceRow">
 			<div class="engBox-12 cssText-center">Стоимость</div>
 			<div class="engBox-12 cssText-center elZal-inf-money"></div>
+		</div>
+		<div class="engRow">
+			<div class="engBox-12 cssText-center">
+				<a class="engBtn elZal-inf-btn">Купить</a>
+			</div>
 		</div>
 	</div>
 	<?

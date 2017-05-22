@@ -239,15 +239,27 @@ $(document).ready(function() {
 });
 
 function engLog(title,text){
+    var engWidth = $(document).width();
     var log = $("#engAjaxLog"),
         logItem = $("<div class='it-item'><div class='it-title'>"+title+"</div>"+text+"</div>");
 
     log.css('position','fixed').css('z-index','1000').css('bottom','0').css('right','0');
 
-    logItem.appendTo(log);
-    setTimeout(function(){
-        logItem.fadeOut(300,function(){
-            $(this).remove();
-        });
-    },4000);
+   
+    
+   
+
+    if(engWidth < 600){
+		log.empty();
+        logItem.appendTo(log);
+    }else{
+        logItem.appendTo(log);
+        setTimeout(function(){
+            logItem.fadeOut(300,function(){
+                $(this).remove();
+            });
+        },4000);
+    }
+
+
 }

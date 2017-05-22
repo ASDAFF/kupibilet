@@ -669,8 +669,31 @@ footer {clear: both; margin-top: 20px;}
     .elZal-top .it-price {position: relative; top:0 ;left: 0; margin: 20px 0; width: auto; display: block;}
 }
 
-.elZal-top .it-cart-btn {display: inline-block; padding: 5px 10px; background: #901921;
-    color: #ffffff; font-weight: 800; text-transform: uppercase;}
+.elZal-top .it-cart-btn {
+display: inline-block;
+    padding: 5px 10px;
+    background: #901921;
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 17px;
+    text-transform: uppercase;
+    display: inline-block;
+    color: #fff;
+    font-size: 125%;
+    font-weight: 700;
+    text-decoration: none;
+    user-select: none;
+    padding: .25em .5em;
+    outline: none;
+    border: 1px solid rgb(250, 17, 17);
+    border-radius: 3px;
+    background: rgb(247, 9, 9) linear-gradient(rgb(249, 111, 58), rgb(255, 21, 37));
+    box-shadow: inset 0 -2px 1px rgba(0,0,0,0), inset 0 1px 2px rgba(0,0,0,0), inset 0 0 0 60px rgba(255,255,0,0);
+    transition: box-shadow .2s, border-color .2s;}
+.elZal-top .it-cart-btn:hover {
+  box-shadow: inset 0 -1px 1px rgba(0,0,0,0), inset 0 1px 2px rgba(0,0,0,0), inset 0 0 0 60px rgba(255,255,0,.5);
+}
+
 .elZal-top .it-cart {width: 170px; margin: auto; position: relative;}
 .elZal-top .it-cart-icon {position: absolute; left: 0;}
 .elZal-top .it-cart-title {padding-left: 50px;
@@ -684,11 +707,27 @@ footer {clear: both; margin-top: 20px;}
     .elZal-top .it-cart {margin: 20px auto;}
 }
 
-.elZalZoom {display: none;}
-.elZalZoom svg {width: 50px; height: 50px;}
-.elZalZoom span {display: block!important; cursor: pointer; background: #fff;}
-.elZalZoom span:hover {background: #fadede;}
-.elZalZoom span.none {background: #fff;}
+.elZalZoom {display: none; cursor: pointer;}
+.elZalZoom svg {width: 50px; height: 50px;display: none;}
+.elZalZoom span {display: block!important; cursor: pointer; background: #fff;
+	width: 50px; height: 50px;
+	margin-bottom: 10px;
+    font-size: 15px;
+    line-height: 36px;
+    border-radius: 36px;
+    -webkit-transition: box-shadow .1s ease-out 0s;
+    transition: box-shadow .1s ease-out 0s;
+    box-shadow: 0 2px 6px 0 rgba(0,0,0,.2);
+
+    -webkit-transition: opacity .1s ease-out 0s;
+    transition: opacity .1s ease-out 0s;
+
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-image: url("data:image/svg+xml,%3Csvg width%3D%2226%22 height%3D%2226%22 viewBox%3D%220 0 26 26%22 xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath d%3D%22M5 13c0-.552.445-1 1-1h14c.552 0 1 .444 1 1 0 .552-.445 1-1 1H6c-.552 0-1-.444-1-1z%22%2F%3E%3C%2Fsvg%3E");}
+.elZalZoom span#elZalBtnPlus {  background-image: url('data:image/svg+xml,<svg width%3D"26" height%3D"26" viewBox%3D"0 0 26 26" xmlns%3D"http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg"><path d%3D"M14 12V6c0-.556-.448-1-1-1-.556 0-1 .447-1 1v6H6c-.555 0-1 .448-1 1 0 .556.448 1 1 1h6v6c0 .555.448 1 1 1 .556 0 1-.448 1-1v-6h6c.555 0 1-.448 1-1 0-.556-.448-1-1-1h-6z"%2F><%2Fsvg>')}
+.elZalZoom span:hover { opacity: 0.9;}
+.elZalZoom span.none {opacity: 0.7;}
 .elZalZoom span.none svg{color: #ccc;}
 
 .elZal-top.fixed-menu {position: fixed; top: 0; background: #fff; z-index: 2; width: 1200px; margin: auto;
@@ -696,7 +735,7 @@ footer {clear: both; margin-top: 20px;}
 
 
 @media only screen and (max-width: 1200px) {
-    .elZalZoom.fixed {display: block;position: fixed; left: 10px; bottom: 11px; z-index: 50;}
+    .elZalZoom.fixed {display: block;position: fixed; right: 10px; bottom: 50%; z-index: 50;}
     .elZal-top.fixed-menu {position: relative; top: auto; width: 100%;}
     .elZal-top.fixed-menu .it-cart {position: fixed; top: 0; left: 0; background: #fff; z-index: 2; width: 100%; margin: auto;
         padding: 10px;}
@@ -779,6 +818,21 @@ footer {clear: both; margin-top: 20px;}
     border-bottom: 10px solid #000000;
 }
 
+.elZal-inf-btn {text-transform: uppercase;
+    display: none;
+    color: #fff;
+    font-size: 88%;
+    font-weight: 700;
+    text-decoration: none;
+    user-select: none;
+    padding: .25em .5em;
+    outline: none;
+    border: 1px solid rgb(250, 17, 17);
+    border-radius: 3px;
+    background: rgb(247, 9, 9) linear-gradient(rgb(249, 111, 58), rgb(255, 21, 37));
+    box-shadow: inset 0 -2px 1px rgba(0,0,0,0), inset 0 1px 2px rgba(0,0,0,0), inset 0 0 0 60px rgba(255,255,0,0);
+    transition: box-shadow .2s, border-color .2s;}
+
 .elZal-number:nth-child(1n+10) .elZal-inf {left: -140px;}
 .elZal-number:nth-child(1n+10) .elZal-inf:before {left: auto; right: 5px;}
 
@@ -798,6 +852,8 @@ footer {clear: both; margin-top: 20px;}
     .elZal-set:nth-child(1n+8) .elZal-number .elZal-inf:before {bottom: -10px; top: auto;
         border-top: 10px solid #000000;
         border-bottom: none;}
+
+	.elZal-inf-btn {display: inline-block;}
 
 }
 

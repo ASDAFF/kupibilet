@@ -15,6 +15,7 @@ var Run = {
 		this.infRow = this.ZalInf.find('.elZal-inf-set');
 		this.infNum = this.ZalInf.find('.elZal-inf-number');
 		this.infPrice = this.ZalInf.find('.elZal-inf-money');
+
 		this.priceRow = this.ZalInf.find('.priceRow');
 		this.eventId = this.Zal.data('event');
 		this.runId = this.Zal.data('run');
@@ -24,6 +25,8 @@ var Run = {
 		this.ZalBox.on('mouseleave', '.elZal-item', this.leave);
 		this.ZalBox.on('click', '.elZal-point.on', this.click);
 		this.elZalScenBox.find('.it-item').on('click', this.itClick);
+
+
 
 		var parter = this.elZalScenBox.find('.it-item[data-zal="Партер"]');
 		if (!parter.length)
@@ -74,7 +77,7 @@ var Run = {
 				if (action == 'add') {
 					if (data.ID) {
 						point.addClass('order');
-						engLog('Место забронировано','<a href="/personal/cart/">Перейти в корзину</a> продолжить покупки');
+						engLog('Место забронировано','<a href="/personal/cart/">Оформить заказ</a> продолжить покупки');
 					}
 				}
 				else if (action == 'remove') {
