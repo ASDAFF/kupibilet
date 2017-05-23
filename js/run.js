@@ -28,7 +28,7 @@ var Run = {
 		this.ZalBox.on('mouseleave', '.elZal-item', this.leave);
 		this.ZalBox.on('click', '.elZal-point.on', this.click);
 		this.elZalScenBox.find('.it-item').on('click', this.itClick);
-		this.infBtn.on('click', this.popupBtnClick);
+		this.infBtn.on('mousedown', this.popupBtnClick);
 
 
 		var parter = this.elZalScenBox.find('.it-item[data-zal="Партер"]');
@@ -73,7 +73,7 @@ var Run = {
 		Run.hoverItem = item;
 	},
 	leave: function() {
-		Run.ZalInf.hide();
+		//Run.ZalInf.hide();
 	},
 	click: function() {
 		var point = $(this);
