@@ -73,7 +73,7 @@ var Run = {
 		Run.hoverItem = item;
 	},
 	leave: function() {
-		//Run.ZalInf.hide();
+		Run.ZalInf.hide();
 	},
 	click: function() {
 		var point = $(this);
