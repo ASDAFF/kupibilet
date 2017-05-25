@@ -34,6 +34,7 @@ class City
 			$iblockSection = new \CIBlockSection();
 			$rsItems = $iblockSection->GetList(["NAME" => "ASC"], [
 				'IBLOCK_ID' => Hall::IBLOCK_ID,
+				'ACTIVE' => 'Y',
 			], false, [
 				'ID',
 				'ACTIVE',
