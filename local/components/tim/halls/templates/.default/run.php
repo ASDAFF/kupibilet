@@ -182,10 +182,15 @@ $reserved = \Local\Sale\Reserve::getByRun($run['ID']);
 			<div class="engBox-12 cssText-center">Стоимость</div>
 			<div class="engBox-12 cssText-center elZal-inf-money"></div>
 		</div>
-		<div class="engRow btnRow">
+        <div class="engRow btnRow"><?
+
+            /*
+            ?>
 			<div class="engBox-12 cssText-center">
 				<a class="engBtn elZal-inf-btn">Купить</a>
-			</div>
+            </div><?*/
+
+            ?>
 		</div>
 	</div>
 	<?

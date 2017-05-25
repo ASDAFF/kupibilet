@@ -36,6 +36,7 @@ class City
 				'IBLOCK_ID' => Hall::IBLOCK_ID,
 			], false, [
 				'ID',
+				'ACTIVE',
 				'NAME',
 				'CODE',
 			]);
@@ -44,6 +45,7 @@ class City
 				$id = intval($item['ID']);
 				$return[$id] = [
 					'ID' => $id,
+					'ACTIVE' => $item['ACTIVE'] == 'Y',
 					'NAME' => $item['NAME'],
 					'CODE' => $item['CODE'],
 				];
