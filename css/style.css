@@ -2021,22 +2021,22 @@ html .city-select .ui-button.ui-state-disabled:active{
 
 /* Subheader */
 .elCityList {}
-.elCityList-title {display: inline-block; padding: 18px 40px; cursor: pointer; position: relative; top:-4px;
+.elCityList-title {display: inline-block; padding: 10px 40px; cursor: pointer; position: relative; top:-4px;
     font-size: 13px; line-height: 15px; font-weight: 800;
     text-transform: uppercase;}
-.elCityList-title:hover { background: #77171e;}
+.elCityList-title:hover { background: #77171e;color: #fff; background: #fff; color:#000;}
 .elCityList-title:hover .elCityList-list {display: block!important;}
 .elCityList-title svg {margin-left: 10px;}
 .elCityList-list {display: none; position: absolute; z-index: 10;
-    top: 52px; left: 0; right: 0; width: 100%; margin: auto;
-    background: #77171e;}
+    top: 36px; left: 0; right: 0; width: 100%; margin: auto;
+    background: #77171e; background: #fff;}
 .elCityList-list span,
 .elCityList-list a {display: block; padding: 12px 16px;
-    color: #ffffff; text-decoration: underline;}
+    color: #ffffff; text-decoration: underline;  color: #000;}
 .elCityList-list span:hover,
 .elCityList-list a:hover {
-    background: #a7373f;
-    color: #e6e6e6;}
+    background: #a7373f; background: #fff;
+    color: #e6e6e6; }
 @media only screen and (max-width: 1200px) {
     .elCityList-title{top:0;}
 }

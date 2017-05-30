@@ -24,8 +24,8 @@ var Run = {
 		this.runId = this.Zal.data('run');
 		this.elZalScenBox = $('.elZalScenBox');
 
-		this.ZalBox.on('mouseenter', '.elZal-item', this.hover);
-		this.ZalBox.on('mouseleave', '.elZal-item', this.leave);
+		//this.ZalBox.on('mouseenter', '.elZal-item', this.hover);
+		//this.ZalBox.on('mouseleave', '.elZal-item', this.leave);
 		this.ZalBox.on('click', '.elZal-point.on', this.click);
 		this.elZalScenBox.find('.it-item').on('click', this.itClick);
 		this.infBtn.on('mousedown', this.popupBtnClick);
