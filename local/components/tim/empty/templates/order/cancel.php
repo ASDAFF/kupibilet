@@ -1,7 +1,7 @@
 <?
 /** @var array $order */
 
-\Local\Sale\Cart::setOrderOverdue($order['ID']);
+//\Local\Sale\Cart::setOrderOverdue($order['ID']);
 
 ?>
 <div class="engBox">
