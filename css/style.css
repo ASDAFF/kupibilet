@@ -344,8 +344,10 @@ button.engInputYa {height: 36px;}
     background: #fff;
     border-bottom: 1px solid rgba(150, 150, 150, 0.075);}
 .elHeader-logo {height: 65px; padding: 22px 0;}
-.elHeader-text {padding: 26px 70px;
+.elHeader-text {padding: 10px 70px;
     line-height: 22px; font-size: 18px; text-transform: uppercase}
+.elHeader-text .it-city-text {font-size: 11px; text-transform: initial; color: #000;}
+
 .elHeader-phone {padding: 10px 0;}
 .elHeader-phone b {display: block;
     font-weight: 800; font-size: 20px;}
@@ -2036,7 +2038,7 @@ html .city-select .ui-button.ui-state-disabled:active{
 .elCityList-list span:hover,
 .elCityList-list a:hover {
     background: #a7373f; background: #fff;
-    color: #e6e6e6; }
+    color: #901921; }
 @media only screen and (max-width: 1200px) {
     .elCityList-title{top:0;}
 }

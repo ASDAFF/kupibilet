@@ -1,6 +1,6 @@
-On-line продажа билетов на мероприятия
-
+On-line продажа билетов на мероприятия<br>
 <?if($_GET['test']=="test"):?>
+<span class='it-city-text'>Выбери свой город</span>
 <div class="elCityList">                   
 	 <div class="elCityList-title"><span data-code="vladikavkaz" data-id="10" id="elCityList-title"> Владикавказ </span>
 		<svg class="engSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26">
