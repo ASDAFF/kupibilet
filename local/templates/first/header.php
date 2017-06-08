@@ -1,14 +1,11 @@
 <?
 if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 
-?><!DOCTYPE html>
-<html lang="ru">
-
-<?
 /** @var CMain $APPLICATION */
 /** @var CUser $USER */
-?>
 
+?><!DOCTYPE html>
+<html lang="ru">
 <head>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -26,14 +23,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <?
     $assets = \Bitrix\Main\Page\Asset::getInstance();
 
-    //	$assets->addCss('/js/jquery-ui/jquery-ui.min.css');
     $assets->addCss('/css/style.css');
 
     $assets->addJs('/js/jquery-2.1.4.min.js');
     $assets->addJs('/js/jquery-ui/jquery-ui.min.js');
     $assets->addJs('/js/jquery-ui/jquery.datepicker.extension.range.min.js');
     $assets->addJs('/js/owl/owl.carousel.min.js');
-    //	$assets->addJs('/js/masonry.pkgd.min.js');
     $assets->addJs('/js/events.js');
     $assets->addJs('/js/scripts.js');
     $assets->addJs('/js/topCart.js');
@@ -57,17 +52,48 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
         </div>
         <div class="engBox-4  engPl-none cssText-center cssVertical-center">
-            <div class="elHeader-text">
-			<?$APPLICATION->IncludeFile(
-				SITE_DIR."/include/main/head.php",
-				array(),
-				array(
-					"MODE" => "text"
-				)
-			); ?>
-            	</div>
+            <div class="elHeader-text"><?
+
+				$APPLICATION->IncludeFile(SITE_DIR . "/include/main/head.php", [], ["MODE" => "text"]);
+
+				$cities = \Local\Main\City::getAll();
+				$selectedCityId = \Local\Main\City::getSelected();
+				if ($selectedCityId)
+				{
+					$selectedCity = $cities[$selectedCityId];
+					unset($cities[$selectedCityId]);
+				}
+				else
+				{
+					$selectedCity = array_shift($cities);
+					$selectedCityId = $selectedCity['ID'];
+				}
+
+				?>
+                <br>
+                <span class='it-city-text'>Выбери свой город</span>
+                <div class="elCityList">
+                    <div class="elCityList-title"><span data-code="<?= $selectedCity['CODE'] ?>"
+                                                        data-id="<?= $selectedCity['ID']?>"
+                                                        id="elCityList-title"> <?= $selectedCity['NAME'] ?> </span>
+                        <svg class="engSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26">
+                            <path d="M 6.4140625 7.5859375 L 3.5859375 10.414062 L 13 19.828125 L 22.414062 10.414062 L 19.585938 7.5859375 L 13 14.171875 L 6.4140625 7.5859375 z"></path>
+                        </svg>
+                        <div class="elCityList-list"><?
+
+							foreach ($cities as $city)
+							{
+								?>
+                                <span class="select-city" data-code="<?= $city['CODE'] ?>" data-id="<?= $city['ID'] ?>"><?= $city['NAME'] ?></span><?
+							}
+
+							?>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-		<div class="engBox-2 engPl-4 engMb"><?
+        <div class="engBox-2 engPl-4 engMb"><?
 
 			$cartSummary = \Local\Sale\Cart::getSummary();
 			$expired = 0;
@@ -77,10 +103,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 				if ($expired < 0)
 					$expired = 0;
 			}
-            ?>
+			?>
             <div class="elCart">
                 <div class="elCart-icon">
-                    <svg class="engSvg set-45" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+                <svg class="engSvg set-45" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
                         <path d="M 16 3.09375 L 15.28125 3.8125 L 7.09375 12 L 3 12 L 2 12 L 2 13 L 2 17 L 2 18 L 3 18 L 3.25 18 L 6.03125 27.28125 L 6.25 28 L 7 28 L 25 28 L 25.75 28 L 25.96875 27.28125 L 28.75 18 L 29 18 L 30 18 L 30 17 L 30 13 L 30 12 L 29 12 L 24.90625 12 L 16.71875 3.8125 L 16 3.09375 z M 16 5.9375 L 22.0625 12 L 9.9375 12 L 16 5.9375 z M 4 14 L 28 14 L 28 16 L 27.25 16 L 27.03125 16.71875 L 24.25 26 L 7.75 26 L 4.96875 16.71875 L 4.75 16 L 4 16 L 4 14 z M 11 17 L 11 24 L 13 24 L 13 17 L 11 17 z M 15 17 L 15 24 L 17 24 L 17 17 L 15 17 z M 19 17 L 19 24 L 21 24 L 21 17 L 19 17 z"></path>
                     </svg>
                     <i class="engCircle" id="current_cart_count"><?=$cartSummary['COUNT']?></i>
@@ -164,8 +190,40 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	            <?$APPLICATION->IncludeComponent('tim:empty', 'main_banners');?>
 	        </div>
 	    </div><?
-	}?>
+	}
 
-	<?$APPLICATION->IncludeComponent('tim:empty', 'subheader');?>
+	$data = \Local\Main\Event::getDataByFilter(array('CITIES' => array($selectedCityId => $selectedCityId)));
+	$events = \Local\Main\Event::getByFilter(
+		array('DATE' => 'asc'),
+		$data['IDS'],
+		false
+	);
+
+	$eventsCount = count($events['ITEMS']);
+	$eventsText = \Local\System\Utils::cardinalNumberRus($eventsCount, ' мероприятий', ' мероприятие', ' мероприятия');
+	$eventsText = $eventsCount . $eventsText;
+
+	$hallsCount = count(\Local\Main\Hall::getByCity($selectedCityId));
+	$hallsText = \Local\System\Utils::cardinalNumberRus($hallsCount, ' концертных залов', ' концертный зал', ' концертных зала');
+	$hallsText = $hallsCount . $hallsText;
+	?>
+    <div class="engRow">
+        <div class="elHeader-2 cssBg-red">
+            <div class="engBox ">
+                <div class="elHeader-search engBox-8 engPl">
+                    <form id="elSearch" action="/event/">
+                        <input id="elSearch-pole" class="cssBorderRadius-left cssLeft" type="text" name="q"
+                               placeholder="Поиск концертов, мероприятий ..." autocomplete="off"
+                               value="<?= $_REQUEST['q'] ?>"/>
+                        <button id="elSearch-btn" class="cssBorderRadius-right engBtn cssLeft">Найти</button>
+                    </form>
+                </div>
+                <div class="elHeader-btn engBox-4 engPl cssText-center">
+                    <a class="js-hcnt" href="/halls/"><?= $hallsText ?></a>|
+                    <a class="js-ecnt" href="/event/<?= $selectedCity['CODE'] ?>/"><?= $eventsText ?></a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </header>

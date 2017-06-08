@@ -154,7 +154,8 @@ $(function() {
 			else {
 				elCityList_menu.css('display', 'none');
 				$('.elList').html(data.HTML);
-				$('.elCityList a').text(data.COUNT).attr('href', '/event/' + cityCode + '/');
+				$('a.js-ecnt').text(data.COUNT).attr('href', '/event/' + cityCode + '/');
+				$('a.js-hcnt').text(data.HALLS);
 				if (DP.length) {
 					picterDates = data.DATES;
 					DP.datepicker("refresh");

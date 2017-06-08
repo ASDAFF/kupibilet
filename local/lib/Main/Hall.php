@@ -66,6 +66,7 @@ class Hall
 				);
 				if ($item['CODE'])
 					$return['BY_CODE'][$item['CODE']] = $id;
+				$return['BY_CITY'][$cityId][] = $id;
 			}
 
 			$extCache->endDataCache($return);
@@ -85,6 +86,12 @@ class Hall
 		$items = self::getAll($refreshCache);
 		$id = $items['BY_CODE'][$code];
 		return $items['ITEMS'][$id];
+	}
+
+	public static function getByCity($cityId, $refreshCache = false)
+	{
+		$items = self::getAll($refreshCache);
+		return $items['BY_CITY'][$cityId];
 	}
 
 	public static function get($code, $refreshCache = false)

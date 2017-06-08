@@ -15,6 +15,11 @@ if ($_REQUEST['action'] == 'set_city')
 	$eventsCount = count($events['ITEMS']);
 	$eventsText = \Local\System\Utils::cardinalNumberRus($eventsCount, ' мероприятий', ' мероприятие', ' мероприятия');
 	$eventsText = $eventsCount . $eventsText;
+
+	$hallsCount = count(\Local\Main\Hall::getByCity($cityId));
+	$hallsText = \Local\System\Utils::cardinalNumberRus($hallsCount, ' концертных залов', ' концертный зал', ' концертных зала');
+	$hallsText = $hallsCount . $hallsText;
+
 	$html = '';
     $html .= "<div class='grid-sizer'></div>";
 
@@ -60,7 +65,7 @@ if ($_REQUEST['action'] == 'set_city')
 	}
 
 	header('Content-Type: application/json');
-	echo json_encode(['COUNT' => $eventsText, 'HTML' => $html, 'DATES' => array_values($dates)]);
+	echo json_encode(['COUNT' => $eventsText, 'HALLS' => $hallsText, 'HTML' => $html, 'DATES' => array_values($dates)]);
 
 }
 
