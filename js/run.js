@@ -24,7 +24,7 @@ var Run = {
 		this.runId = this.Zal.data('run');
 		this.elZalScenBox = $('.elZalScenBox');
 
-		if ($('html').is('.bx-no-touch')) {
+		if (!this.isMobile()) {
 			this.ZalBox.on('mouseenter', '.elZal-item', this.hover);
 			this.ZalBox.on('mouseleave', '.elZal-item', this.leave);
 		}
@@ -38,6 +38,10 @@ var Run = {
 			parter = this.elZalScenBox.find('.it-item[data-zal="Партер средний"]');
 		if (parter.length)
 			parter.click();
+	},
+	isMobile: function()
+	{
+		return (/(ipad|iphone|android|mobile|touch)/i.test(navigator.userAgent));
 	},
 	hover: function() {
 		var item = $(this);
