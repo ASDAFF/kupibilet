@@ -248,10 +248,13 @@ if ($notEmpty)
 			}
 
 			?>
+            <div class="political">
+                <span><input type="checkbox" onchange="$('#subm-button').toggleClass('no-click');"> <a target="_blank" href="/agreement/private.php">Согласен(на) на обработку персональных данных</a></span>
+            </div>
 			<input type="text" name="order_name" placeholder="Имя" value="<?= $order_name ?>" />
 			<input type="text" name="order_lastname"  placeholder="Фамилия" value="<?= $order_lastname ?>" />
 			<input type="text" name="order_email"  placeholder="E-mail (*)" value="<?= $order_email ?>" />
-			<input type="submit" name="order_create" value="ОФОРМИТЬ ЗАКАЗ"><?
+			<input type="submit" id="subm-button"  class="no-click" name="order_create" value="ОФОРМИТЬ ЗАКАЗ"><?
 			if ($reserve)
 			{
 				?>

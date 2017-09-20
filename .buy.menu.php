@@ -34,6 +34,13 @@ $aMenuLinks = Array(
 		Array(), 
 		Array(), 
 		"" 
+	),
+	Array(
+		"Пользовательское соглашение", 
+		"/agreement/", 
+		Array(), 
+		Array(), 
+		"" 
 	)
 );
 ?>

@@ -46,12 +46,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <? $APPLICATION->ShowPanel(); ?>
 <header class="elHeader">
     <div class="engBox">
-        <div class="engBox-3 engPl-4 engPl-cssText-center engMb ">
+        <div class="engBox-3 engPl-3 engPl-cssText-center engMb ">
             <div class="elHeader-logo">
                 <a href="/" class="engIcon setIcon-logo"></a>
             </div>
         </div>
-        <div class="engBox-4  engPl-none cssText-center cssVertical-center">
+        <div class="engBox-4 engPl-5 engMb cssText-center cssVertical-center">
             <div class="elHeader-text"><?
 
 				$APPLICATION->IncludeFile(SITE_DIR . "/include/main/head.php", [], ["MODE" => "text"]);

@@ -33,3 +33,4 @@ Allow: /bitrix/js/
 Allow: /bitrix/templates/
 Allow: /bitrix/panel/
 Host: kupibilet.online
+Sitemap: http://kupibilet.online/sitemap.xml

@@ -130,6 +130,9 @@ $(function() {
 		filtersPanel = $('#filters-panel');
 
 	elCityList.find('span').on('click', function () {
+
+
+
 		var span = $(this),
 			elCityTitle = $("#elCityList-title"),
 			elCityTitleText = elCityTitle.text(),
@@ -153,6 +156,8 @@ $(function() {
 			}
 			else {
 				elCityList_menu.css('display', 'none');
+				elCityList_menu.removeAttr('style');
+				elCityList_menu.removeProp("display");
 				$('.elList').html(data.HTML);
 				$('a.js-ecnt').text(data.COUNT).attr('href', '/event/' + cityCode + '/');
 				$('a.js-hcnt').text(data.HALLS);
@@ -162,6 +167,16 @@ $(function() {
 				}
 			}
 		});
+	}),
+	elCityList_menu.find('span').on('click', function () {
+			elCityList_menu.css('display','none');
+			elCityList_menu.removeAttr('style');
+			elCityList_menu.removeProp("display");
+			elCityList_menu.css('display','auto');
+		}),
+	elCityList.on('mouseover',function (){
+		elCityList_menu.css('display','block');
+
 	});
 
 } );

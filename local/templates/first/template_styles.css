@@ -1,0 +1,6 @@
+.no-click{
+    pointer-events: none;
+}
+#subm-button{
+    cursor: pointer;
+}
