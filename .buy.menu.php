@@ -41,6 +41,13 @@ $aMenuLinks = Array(
 		Array(), 
 		Array(), 
 		"" 
+	),
+	Array(
+		"Политика конфиденциальности", 
+		"/agreement/private.php", 
+		Array(), 
+		Array(), 
+		"" 
 	)
 );
 ?>
